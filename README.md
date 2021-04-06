@@ -1,5 +1,9 @@
-# rchemo
-R package for regression and discrimination, with special focus on chemometrics
+## rchemo - Dimension reduction, Regression and Discrimination for Chemometrics  
+
+Under construction - Test version
+(Will replace rnirs)
 
 
-Under construction (will replace rnirs)
+
+
+
