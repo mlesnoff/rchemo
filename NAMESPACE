@@ -1,0 +1,43 @@
+exportPattern("^[[:alpha:]]+")
+
+import(stats)
+import(graphics)
+import(grDevices)
+
+import(data.table)
+import(FNN)
+
+importFrom("data.table", "data.table", "rbindlist", "setDF")
+
+importFrom("FNN", "knn")
+
+importFrom("signal", "sgolayfilt")
+
+importFrom("ptw", "asysm")
+
+S3method(predict, Dmnorm)
+S3method(predict, Lda)
+S3method(predict, Qda)
+S3method(predict, PlsDa)
+S3method(predict, PlsDaProb)
+S3method(predict, PlsOrtho)
+S3method(predict, LwPls)
+
+S3method(transform, PcaOrtho)
+S3method(transform, PlsOrtho)
+
+S3method(coef, PlsOrtho)
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,16 @@
+Package: rchemo
+Type: Package
+Title: Dimension reduction, Regression and Discrimination for Chemometrics
+Version: 0.0-0
+Author: Matthieu Lesnoff <matthieu.lesnoff@cirad.fr>
+Maintainer: Matthieu Lesnoff <matthieu.lesnoff@cirad.fr>
+Description: Dimension reduction, regression and discrimination, with special focus on chemometrics.
+VignetteBuilder: knitr
+Imports: stats, graphics, grDevices, data.table, FNN, ptw, signal
+Depends: R (>= 4.0)
+Suggests: knitr, rmarkdown
+URL: https://github.com/mlesnoff/rchemo
+License: GPL (>= 2)
+LazyData: yes
+NeedsCompilation: no
+Packaged: 2020-06-30 06:28:15 UTC; lesnoff
