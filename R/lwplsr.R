@@ -9,13 +9,13 @@ lwplsr <- function(
         list(X = X, Y = Y,
              nlvdis = nlvdis, diss = diss, 
              h = h, k = k, nlv = nlv),
-        class = "LwPls"
+        class = "LwPlsR"
         )
 
     }
     
     
-predict.LwPls <- function(fm, X, ..., nlv = NULL) {
+.predict_LwPls <- function(fm, X, ..., nlv = NULL, fun) {
     
     X <- .mat(X)
 
@@ -26,6 +26,9 @@ predict.LwPls <- function(fm, X, ..., nlv = NULL) {
         nlv <- seq(min(nlv), min(max(nlv), A))
     le_nlv <- length(nlv)
     
+    if(is.null(fm$Y))
+        fm$Y <- fm$y
+    
     ## Getknn
     if (fm$nlvdis == 0)
         res <- getknn(fm$X, X, k = fm$k, diss = fm$diss)
@@ -35,12 +38,20 @@ predict.LwPls <- function(fm, X, ..., nlv = NULL) {
         }
     ## End
     listw <- lapply(res$listd, wdist, h = fm$h)    
-
+    
     pred <- locwlv(fm$X, fm$Y, X,
-        listnn = res$listnn, listw = res$listw, fun = plskern, nlv = nlv)$pred
+        listnn = res$listnn, listw = res$listw, fun = fun, nlv = nlv)$pred
 
     list(pred = pred, listnn = res$listnn, listd = res$listd, listw = listw)
     
     }
+
+predict.LwPlsR <- function(fm, X, ..., nlv = NULL)
+    .predict_LwPls(fm, X, ..., nlv = nlv, fun = plskern)
+    
+
+
+
+
 
 

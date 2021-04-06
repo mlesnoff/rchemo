@@ -30,9 +30,9 @@ qda(X, y, prior = c("unif", "prop"))
 
 \arguments{
 
-\item{X}{For the main functions: Training X-data (\eqn{n, p}). For the auxiliary functions: New X-data (\eqn{m, p}) to consider.}
+\item{X}{For the main functions: Training X-data (\eqn{n, p}). --- For the auxiliary functions: New X-data (\eqn{m, p}) to consider.}
 
-\item{y}{Training class membership (\eqn{n, 1}).}
+\item{y}{Training class membership (\eqn{n}).}
 
 \item{prior}{The prior probabilities of the classes. Possible values are "unif" (default; probabilities are set equal for all the classes) or "prop" (probabilities are set equal to the observed proportions of the classes in \code{y}).}
 

@@ -9,12 +9,23 @@ locw <- function(Xtrain, Ytrain, X, listnn, listw = NULL, fun, ...) {
     pred <- matrix(nrow = m, ncol = q)
     for(i in seq_len(m)) {
         s <- listnn[[i]]
-        if(is.null(listw))
-            fm <- fun(Xtrain[s, , drop = FALSE], Ytrain[s, , drop = FALSE], ...)
-        else
-            fm <- fun(Xtrain[s, , drop = FALSE], Ytrain[s, , drop = FALSE], 
-                      weights = listw[[i]], ...)
-        pred[i, ] <- predict(fm, X[i, , drop = FALSE])$pred
+        zYtrain <- Ytrain[s, , drop = FALSE]
+        nval <- length(unique(zYtrain))
+        ## For discrimination, case where all the neighbors are of class
+        if(q == 1 & nval == 1) {
+            fm <- NULL
+            for(a in seq_len(le_nlv)) 
+                res[i, , a] <- zYtrain[1]
+            }
+        ## End
+        else {
+            if(is.null(listw))
+                fm <- fun(Xtrain[s, , drop = FALSE], zYtrain, ...)
+            else
+                fm <- fun(Xtrain[s, , drop = FALSE], zYtrain, 
+                          weights = listw[[i]], ...)
+            pred[i, ] <- predict(fm, X[i, , drop = FALSE])$pred
+            }
         }
         
     rownam <- row.names(X)
@@ -39,16 +50,26 @@ locwlv <- function(Xtrain, Ytrain, X, listnn, listw = NULL, fun, nlv, ...) {
     res <- array(dim = c(m, q, le_nlv))
     for(i in seq_len(m)) {
         s <- listnn[[i]]
-        if(is.null(listw))
-            fm <- fun(Xtrain[s, , drop = FALSE], Ytrain[s, , drop = FALSE], 
-                      nlv = max(nlv), ...)
-        else
-            fm <- fun(Xtrain[s, , drop = FALSE], Ytrain[s, , drop = FALSE], 
-                      weights = listw[[i]], nlv = max(nlv), ...)
-        for(a in seq_len(le_nlv)) 
-            res[i, , a] <- predict(fm, X[i, , drop = FALSE], nlv = nlv[a])$pred
+        zYtrain <- Ytrain[s, , drop = FALSE]
+        nval <- length(unique(zYtrain))
+        ## For discrimination, case where all the neighbors are of class
+        if(q == 1 & nval == 1) {
+            fm <- NULL
+            for(a in seq_len(le_nlv)) 
+                res[i, , a] <- zYtrain[1]
+            }
+        ## End
+        else {   
+            if(is.null(listw))
+                fm <- fun(Xtrain[s, , drop = FALSE], zYtrain, 
+                          nlv = max(nlv), ...)
+            else
+                fm <- fun(Xtrain[s, , drop = FALSE], zYtrain, 
+                          weights = listw[[i]], nlv = max(nlv), ...)
+            for(a in seq_len(le_nlv)) 
+                res[i, , a] <- predict(fm, X[i, , drop = FALSE], nlv = nlv[a])$pred
+            }
         }
-    
     rownam <- row.names(X)
     colnam <- paste("y", seq_len(q), sep = "")
     pred <- vector("list", length = le_nlv)

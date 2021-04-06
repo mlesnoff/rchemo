@@ -69,7 +69,7 @@ pcanipalsna(X, nlv,
 
 \arguments{
 
-\item{X}{For the main functions: Training X-data (\eqn{n, p}). For auxiliary functions: New X-data (\eqn{m, p}) to consider.}
+\item{X}{For the main functions: Training X-data (\eqn{n, p}). --- For auxiliary functions: New X-data (\eqn{m, p}) to consider.}
 
 \item{nlv}{The number of PCs to calculate.}
 

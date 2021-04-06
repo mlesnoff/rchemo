@@ -14,7 +14,6 @@ plslda <- function(X, y, nlv, weights = NULL, prior = c("unif", "prop")) {
     weights <- .mweights(weights)
     
     Y <- dummy(y)$Y
-    
     fm <- list()
     fm[[1]] <- plskern(X, Y, nlv = nlv, weights = weights)
     ## Should be:

@@ -15,17 +15,12 @@ plsda <- function(X, y, nlv, weights = NULL) {
     weights <- .mweights(weights)
     
     z <- dummy(y)
-    Y <- z$Y
-    lev <- z$lev
-    ni <- z$ni
-    
-    algo <- plskern
-    fm <- algo(X, Y, nlv = nlv, weights = weights)
+    fm <- plskern(X, z$Y, nlv = nlv, weights = weights)
     
     structure(
         list(T = fm$T, P = fm$P, R = fm$R, W = fm$W, C = fm$C, TT = fm$TT,
             xmeans = fm$xmeans, ymeans = fm$ymeans, weights = fm$weights, 
-            lev = lev, ni = ni),
+            lev = z$lev, ni = z$ni),
         class = c("PlsDa", "PlsOrtho")
         )       
 
