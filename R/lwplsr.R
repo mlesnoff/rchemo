@@ -27,18 +27,25 @@ lwplsr <- function(
     le_nlv <- length(nlv)
     
     if(is.null(fm$Y))
-        fm$Y <- fm$y
+        da <- TRUE
+    else
+        da <- FALSE
     
     ## Getknn
     if (fm$nlvdis == 0)
         res <- getknn(fm$X, X, k = fm$k, diss = fm$diss)
     else {
+        if(da)
+            fm$Y <- dummy(fm$y)$Y
         zfm <- plskern(fm$X, fm$Y, fm$nlvdis)
         res <- getknn(zfm$T, transform(zfm, X), k = fm$k, diss = fm$diss)
         }
     ## End
     listw <- lapply(res$listd, wdist, h = fm$h)    
+
     
+    if(da)
+        fm$Y <- fm$y
     pred <- locwlv(fm$X, fm$Y, X,
         listnn = res$listnn, listw = res$listw, fun = fun, nlv = nlv)$pred
 

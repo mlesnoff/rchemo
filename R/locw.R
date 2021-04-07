@@ -14,8 +14,7 @@ locw <- function(Xtrain, Ytrain, X, listnn, listw = NULL, fun, ...) {
         ## For discrimination, case where all the neighbors are of class
         if(q == 1 & nval == 1) {
             fm <- NULL
-            for(a in seq_len(le_nlv)) 
-                res[i, , a] <- zYtrain[1]
+            pred[i, ] <- zYtrain[1]
             }
         ## End
         else {
