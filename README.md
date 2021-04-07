@@ -4,9 +4,9 @@
 
 **rchemo** will replace package **rnirs** that will not be developed anymore (only maintenance).
 
-**rchemo** is built on a different logic than **rnirs**, making it more scalable. The predictions are done not inside the main functions but by generic functions **predict**. In the same way, the dimension reductions by projection are done by functions **transform**. Etc. The generic functions for model tuning are **gridscore** and **gridcv** (with fast versions for LVs models).
+**rchemo** is built on a different logic than **rnirs**, making it more scalable. The predictions are done not inside the main functions but by generic functions **predict**. In the same way, the dimension reductions are done by functions **transform**, etc. The generic functions for model tuning are **gridscore** and **gridcv** (with fast versions for LVs models).
 
-**rchemo** is not push-button oriented. The objective is rather to provide bricks (mainly based on dimension reduction) to build ad'hoc prediction pipelines for chemometrics or other domains. Only few examples of many possible wrappers are provided in the package.  
+**rchemo** is not push-button oriented. The objective is rather to provide bricks (mainly based on dimension reduction) to build ad'hoc pipelines for predictions in chemometrics or other domains. Only few examples of many possible wrappers are provided in the package.  
 
 ### <span style="color:green"> **Dependent packages** </span> 
 
