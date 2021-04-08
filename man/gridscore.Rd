@@ -1,20 +1,20 @@
 \name{gridscore}
 \alias{gridscore}
-\alias{gridscore_lv}
+\alias{gridscorelv}
 
 \encoding{latin1}
 
-\title{Tuning predictive models}
+\title{Tuning predictive models on a validation set}
 
 \description{
 
-Wrappers for tuning predictive models.
+Wrappers for tuning predictive models on a validation set.
 
-The functions return prediction scores (in general error rates) for a given model, a grid of parameter values and a validation dataset. 
+The functions return prediction scores (in general error rates) for a given model and a grid of parameter values, calculated on a validation set. 
  
-Function \code{gridscore} can be used for any model. Function \code{gridscore_lv} is specific to models based on latent variables (e.g. PLSR) for which it is much faster than \code{gridscore} and recommended.
+Function \code{gridscore} can be used for any model. Function \code{gridscorelv} is specific to models based on latent variables (e.g. PLSR) for which it is much faster than \code{gridscore} and recommended.
 
-The grid (argument \code{pars}) must be a dataframe whose the column names correspond to the model parameters involved in the score calculations. For \code{gridscore_lv}, the grid must contain a column \code{nlv} (number of latent variables; LVs).   
+The grid (argument \code{pars}) must be a dataframe whose the column names correspond to the model parameters involved in the score calculations. For \code{gridscorelv}, the grid must contain a column \code{nlv} (number of latent variables; LVs).   
 
 }
 
@@ -22,7 +22,7 @@ The grid (argument \code{pars}) must be a dataframe whose the column names corre
 
 gridscore(Xtrain, Ytrain, X, Y, score, fun, pars, verb = FALSE)
 
-gridscore_lv(Xtrain, Ytrain, X, Y, score, fun, pars, verb = FALSE)
+gridscorelv(Xtrain, Ytrain, X, Y, score, fun, pars, verb = FALSE)
 
 }
 
@@ -57,7 +57,7 @@ A dataframe with the prediction scores for the grid.
 ############## EXAMPLES WITH PLSR
 
 n <- 50 ; p <- 10
-Xtrain <- matrix(rnorm(n * p), ncol = p, byrow = TRUE)
+Xtrain <- matrix(rnorm(n * p), ncol = p)
 ytrain <- rnorm(n)
 Ytrain <- cbind(ytrain, 10 * rnorm(n))
 m <- 5
@@ -72,7 +72,7 @@ gridscore(
     score = msep, fun = plskern, 
     pars
     )
-gridscore_lv(
+gridscorelv(
     Xtrain, Ytrain, Xtest, Ytest, 
     score = msep, fun = plskern, 
     pars
@@ -85,7 +85,7 @@ msep(pred, Ytest)
 ############## EXAMPLES WITH PLSLDA
 
 n <- 50 ; p <- 30
-X <- matrix(rnorm(n * p), ncol = p, byrow = TRUE)
+X <- matrix(rnorm(n * p), ncol = p)
 y <- sample(c(1, 4, 10), size = n, replace = TRUE)
 Xtrain <- X ; ytrain <- y
 m <- 5
@@ -98,7 +98,7 @@ gridscore(
     score = err, fun = plslda, 
     pars
     )
-gridscore_lv(
+gridscorelv(
     Xtrain, ytrain, Xtest, ytest, 
     score = err, fun = plslda, 
     pars
@@ -118,7 +118,7 @@ gridscore(
     score = err, fun = plslda,
     pars
     )
-gridscore_lv(
+gridscorelv(
     Xtrain, ytrain, Xtest, ytest, 
     score = err, fun = plslda,
     pars

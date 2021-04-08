@@ -52,12 +52,17 @@ A plot.
 
 \examples{
 
-data(cassav)
+n <- 50 ; p <- 10
+Xtrain <- matrix(rnorm(n * p), ncol = p)
+Xtest <- Xtrain[1:5, ] 
 
-Xtrain <- cassav$Xtrain
-ytrain <- cassav$ytrain
-Xtest <- cassav$Xtest
-ytest <- cassav$ytest
+fm <- pcaeigen(Xtrain, nlv = 5)
+Ttrain <- fm$T
+Ttest <- transform(fm, Xtest)
+T <- rbind(Ttrain, Ttest)
+group <- c(rep("Training", nrow(Ttrain)), rep("Test", nrow(Ttest)))
+i <- 1
+plotxy(T[, i:(i+1)], group = group, pch = 16, zeroes = TRUE)
 
 }
 

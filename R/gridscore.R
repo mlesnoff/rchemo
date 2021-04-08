@@ -9,6 +9,9 @@ gridscore <- function(Xtrain, Ytrain, X, Y, score, fun, pars, verb = FALSE) {
     X <- .mat(X)
     Y <- .mat(Y, "y")
     
+    pars <- data.frame(
+        lapply(pars, FUN = function(x) {if(is.factor(x)) as.character(x) else x})
+        )
     npars <- dim(pars)[1]
     
     res <- matrix(nrow = npars, ncol = q)
@@ -33,7 +36,7 @@ gridscore <- function(Xtrain, Ytrain, X, Y, score, fun, pars, verb = FALSE) {
     
     }
 
-gridscore_lv <- function(Xtrain, Ytrain, X, Y, score, fun, pars, verb = FALSE) {
+gridscorelv <- function(Xtrain, Ytrain, X, Y, score, fun, pars, verb = FALSE) {
   
     ## pars = arguments (must contain nlv) involved in the calculation of the score
     
@@ -43,6 +46,9 @@ gridscore_lv <- function(Xtrain, Ytrain, X, Y, score, fun, pars, verb = FALSE) {
     X <- .mat(X)
     Y <- .mat(Y, "y")
     
+    pars <- data.frame(
+        lapply(pars, FUN = function(x) {if(is.factor(x)) as.character(x) else x})
+        )
     nlv <- pars$nlv
     nlv <- seq(min(nlv), max(nlv))
     le_nlv <- length(nlv) 

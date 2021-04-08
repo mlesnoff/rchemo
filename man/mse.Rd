@@ -32,6 +32,7 @@ sep(pred, Y)
 bias(pred, Y)
 r2(pred, Y)
 cor2(pred, Y)
+mse(pred, Y, digits = 3)
 
 err(pred, y)
 
@@ -44,6 +45,8 @@ err(pred, y)
 \item{Y}{Observed response (\eqn{m, q}).}
 
 \item{y}{Observed response (\eqn{m, 1}).}
+
+\item{digits}{Number of digits for the numerical outputs.}
 
 }
 

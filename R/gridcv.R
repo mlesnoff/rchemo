@@ -1,6 +1,10 @@
 .gridcv <- function(X, Y, segm, score, fun, pars, verb = TRUE, fgridscore) {
   
     Y <- .mat(Y, "y")
+    
+    pars <- data.frame(
+      lapply(pars, FUN = function(x) {if(is.factor(x)) as.character(x) else x})
+      )
     npar <- dim(pars)[1]
     nrep <- length(segm)
     res_rep <- vector("list", length = nrep)
@@ -56,6 +60,6 @@
 gridcv <- function(X, Y, segm, score, fun, pars, verb = TRUE)
     .gridcv(X, Y, segm, score, fun, pars, verb = TRUE, gridscore)
   
-gridcv_lv <- function(X, Y, segm, score, fun, pars, verb = TRUE)
-    .gridcv(X, Y, segm, score, fun, pars, verb = TRUE, gridscore_lv)
+gridcvlv <- function(X, Y, segm, score, fun, pars, verb = TRUE)
+    .gridcv(X, Y, segm, score, fun, pars, verb = TRUE, gridscorelv)
 

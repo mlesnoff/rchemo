@@ -1,6 +1,6 @@
 \name{gridcv}
 \alias{gridcv}
-\alias{gridcv_lv}
+\alias{gridcvlv}
 
 \encoding{latin1}
 
@@ -12,9 +12,9 @@ Wrappers for cross-validating predictive models.
 
 The functions return prediction scores (in general error rates) for a given model, a grid of parameter values and a cross-validation process. 
  
-Function \code{gridcv} can be used for any model. Function \code{gridcv_lv} is specific to models based on latent variables (e.g. PLSR) for which it is much faster than \code{gridscore} and recommended.
+Function \code{gridcv} can be used for any model. Function \code{gridcvlv} is specific to models based on latent variables (e.g. PLSR) for which it is much faster than \code{gridscore} and recommended.
 
-The grid (argument \code{pars}) must be a dataframe whose the column names correspond to the model parameters involved in the score calculations. For \code{gridcv_lv}, the grid must contain a column \code{nlv} (number of latent variables; LVs).   
+The grid (argument \code{pars}) must be a dataframe whose the column names correspond to the model parameters involved in the score calculations. For \code{gridcvlv}, the grid must contain a column \code{nlv} (number of latent variables; LVs).   
 
 }
 
@@ -22,7 +22,7 @@ The grid (argument \code{pars}) must be a dataframe whose the column names corre
 
 gridcv(X, Y, segm, score, fun, pars, verb = TRUE)
 
-gridcv_lv(X, Y, segm, score, fun, pars, verb = TRUE)
+gridcvlv(X, Y, segm, score, fun, pars, verb = TRUE)
 
 }
 
@@ -71,7 +71,7 @@ gridcv(
     segm, score = msep, fun = plskern, 
     pars = pars
     )
-gridcv_lv(
+gridcvlv(
     X, Y, 
     segm, score = msep, fun = plskern, 
     pars = pars
@@ -93,7 +93,7 @@ gridcv(
     segm, score = err, fun = plslda, 
     pars
     )
-gridcv_lv(
+gridcvlv(
     X, y, 
     segm, score = err, fun = plslda, 
     pars
@@ -110,7 +110,7 @@ gridcv(
     segm, score = err, fun = plslda, 
     pars
     )
-gridcv_lv(
+gridcvlv(
     X, y, 
     segm, score = err, fun = plslda, 
     pars

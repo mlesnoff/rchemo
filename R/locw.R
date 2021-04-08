@@ -48,6 +48,7 @@ locwlv <- function(Xtrain, Ytrain, X, listnn, listw = NULL, fun, nlv, ...) {
     
     res <- array(dim = c(m, q, le_nlv))
     for(i in seq_len(m)) {
+        cat(i, " ")
         s <- listnn[[i]]
         zYtrain <- Ytrain[s, , drop = FALSE]
         nval <- length(unique(zYtrain))
@@ -69,6 +70,7 @@ locwlv <- function(Xtrain, Ytrain, X, listnn, listw = NULL, fun, nlv, ...) {
                 res[i, , a] <- predict(fm, X[i, , drop = FALSE], nlv = nlv[a])$pred
             }
         }
+    cat("\n\n")
     rownam <- row.names(X)
     colnam <- paste("y", seq_len(q), sep = "")
     pred <- vector("list", length = le_nlv)
