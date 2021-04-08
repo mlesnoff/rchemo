@@ -43,11 +43,11 @@ lwplsr <- function(
     ## End
     listw <- lapply(res$listd, wdist, h = fm$h)    
 
-    
     if(da)
         fm$Y <- fm$y
+    
     pred <- locwlv(fm$X, fm$Y, X,
-        listnn = res$listnn, listw = res$listw, fun = fun, nlv = nlv)$pred
+        listnn = res$listnn, listw = listw, fun = fun, nlv = nlv)$pred
 
     list(pred = pred, listnn = res$listnn, listd = res$listd, listw = listw)
     
