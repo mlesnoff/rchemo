@@ -8,6 +8,7 @@ locw <- function(Xtrain, Ytrain, X, listnn, listw = NULL, fun, ...) {
     
     pred <- matrix(nrow = m, ncol = q)
     for(i in seq_len(m)) {
+        cat(i, " ")
         s <- listnn[[i]]
         zYtrain <- Ytrain[s, , drop = FALSE]
         nval <- length(unique(zYtrain))
@@ -48,7 +49,7 @@ locwlv <- function(Xtrain, Ytrain, X, listnn, listw = NULL, fun, nlv, ...) {
     
     res <- array(dim = c(m, q, le_nlv))
     for(i in seq_len(m)) {
-        #cat(i, " ")
+        cat(i, " ")
         s <- listnn[[i]]
         zYtrain <- Ytrain[s, , drop = FALSE]
         nval <- length(unique(zYtrain))
