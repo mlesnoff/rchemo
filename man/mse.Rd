@@ -32,7 +32,8 @@ sep(pred, Y)
 bias(pred, Y)
 r2(pred, Y)
 cor2(pred, Y)
-mse(pred, Y, digits = 3)
+
+mse(pred, y, digits = 3)
 
 err(pred, y)
 

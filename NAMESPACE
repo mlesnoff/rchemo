@@ -29,6 +29,15 @@ S3method(transform, PlsOrtho)
 
 S3method(coef, PlsOrtho)
 
+exportMethods("transform", "coef", "predict")
+
+exportClasses("PcaOrtho", "PlsOrtho", 
+              "Dmnorm", "Lda", "Qda", "Plsda", "PlsDaProb",
+              "LwplsR")
+
+
+
+
 
 
 

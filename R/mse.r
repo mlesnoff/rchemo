@@ -46,14 +46,15 @@ err <- function(pred, y) {
     sum(r) / dim(r)[1]
     }
 
-mse <- function(pred, Y, digits = 3) {
+mse <- function(pred, y, digits = 3) {
     res <- data.frame(
-        msep  = msep(pred, Y),
-        rmsep = sqrt(msep(pred, Y)),
-        sep   = sep(pred, Y),
-        b     = bias(pred, Y),
-        r2    = r2(pred, Y),
-        cor2  = cor2(pred, Y)
+        mean.test = mean(y),
+        msep  = msep(pred, y),
+        rmsep = sqrt(msep(pred, y)),
+        sep   = sep(pred, y),
+        b     = bias(pred, y),
+        r2    = r2(pred, y),
+        cor2  = cor2(pred, y)
         )
     round(res, digits = digits)
     }
