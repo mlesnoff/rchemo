@@ -11,7 +11,7 @@ importFrom("data.table", "data.table", "rbindlist", "setDF")
 importFrom("FNN", "knn")
 importFrom("signal", "sgolayfilt")
 
-S3method(coef, PlsOrtho)
+#S3method(coef, PlsOrtho)
 S3method(predict, Dmnorm)
 S3method(predict, Lda)
 S3method(predict, LwPlsR)
