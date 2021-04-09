@@ -41,11 +41,11 @@ plsnipals(X, Y, nlv, weights = NULL)
 
 plsrannar(X, Y, nlv, weights = NULL)
 
-\method{transform}{PlsOrtho}(fm, X, ..., nlv = NULL)  
-
-\method{coef}{PlsOrtho}(fm, ..., nlv = NULL)  
+\method{coef}{PlsOrtho}(object, ..., nlv = NULL) 
 
 \method{predict}{PlsOrtho}(fm, X, ..., nlv = NULL)  
+
+\method{transform}{PlsOrtho}(fm, X, ..., nlv = NULL)  
 
 }
 
@@ -60,6 +60,8 @@ plsrannar(X, Y, nlv, weights = NULL)
 \item{weights}{Weights (\eqn{n, 1}) to apply to the training observations. Internally, weights are "normalized" to sum to 1. Default to \code{NULL} (weights are set to \eqn{1 / n}).}
 
 \item{fm}{A fitted model, output of a call to the main functions.}
+
+\item{object}{.}
 
 \item{...}{Optional arguments.}
 

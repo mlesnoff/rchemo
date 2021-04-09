@@ -10,7 +10,7 @@ Imports: stats, graphics, grDevices, data.table, FNN, ptw, signal
 Depends: R (>= 4.0)
 Suggests: knitr, rmarkdown
 URL: https://github.com/mlesnoff/rchemo
-License: GPL (>= 2)
+License: GPL-3 + file LICENSE
 LazyData: yes
 NeedsCompilation: no
 Packaged: 2020-06-30 06:28:15 UTC; lesnoff

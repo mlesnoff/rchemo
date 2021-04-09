@@ -76,6 +76,10 @@ plskern <- function(X, Y, nlv, weights = NULL) {
     
     }
 
+#setMethod(
+#"transform", signature(object = "PlsOrtho"),
+#function('_data', X, nlv = NULL, ...) {
+#transform.PlsOrtho <- function(fm, X, nlv = NULL, ...) {
 transform.PlsOrtho <- function(fm, X, ..., nlv = NULL) {
    
     A <- dim(fm$P)[2]
@@ -89,25 +93,33 @@ transform.PlsOrtho <- function(fm, X, ..., nlv = NULL) {
     T
     
     }
+#)
 
-coef.PlsOrtho <- function(fm, ..., nlv = NULL) {
+#setGeneric("coef")
+#setMethod(
+#""coef", signature(object = "PlsOrtho"),
+#function(object, ..., nlv = NULL) {
+coef.PlsOrtho <- function(object, ..., nlv = NULL) {
+#coef.PlsOrtho <- function(fm, ..., nlv = NULL) {
   
     ## Works also for nlv = 0
   
-    A <- dim(fm$P)[2]
+    A <- dim(object$P)[2]
     if(is.null(nlv))
         nlv <- A
     else 
         nlv <- min(nlv, A)
   
-    beta <- t(fm$C)[seq_len(nlv), , drop = FALSE]
-    B <- fm$R[, seq_len(nlv), drop = FALSE] %*% beta
-    int <- fm$ymeans - t(fm$xmeans) %*% B
+    beta <- t(object$C)[seq_len(nlv), , drop = FALSE]
+    B <- object$R[, seq_len(nlv), drop = FALSE] %*% beta
+    int <- object$ymeans - t(object$xmeans) %*% B
     
     list(int = int, B = B) 
   
     }
+#)
 
+#predict.PlsOrtho <- function(object, X, nlv = NULL, ...) {
 predict.PlsOrtho <- function(fm, X, ..., nlv = NULL) {
     
     X <- .mat(X)

@@ -12,8 +12,6 @@
 
 transform(fm, X, ...)
 
-coef(fm, ...)
-
 predict(fm, X, ...) 
 
 }
