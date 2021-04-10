@@ -15,7 +15,7 @@ Prediction of the normal probability density of multivariate observations.
 
 dmnorm(X = NULL, mu = NULL, sigma = NULL)
 
-\method{predict}{Dmnorm}(fm, X, ...)
+\method{predict}{Dmnorm}(object, X, ...)
   
 }
 
@@ -27,7 +27,7 @@ dmnorm(X = NULL, mu = NULL, sigma = NULL)
 
 \item{sigma}{The covariance matrix (\eqn{p x p}) of the normal distribution. If \code{NULL} (default), \eqn{sigma} is estimated by the empirical covariance matrix (denominator \eqn{n}) of the training data.}
 
-\item{fm}{A result of a call to \code{dmnorm}.}
+\item{object}{A result of a call to \code{dmnorm}.}
 
 \item{...}{Optional arguments.}
 

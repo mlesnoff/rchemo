@@ -76,31 +76,23 @@ plskern <- function(X, Y, nlv, weights = NULL) {
     
     }
 
-#setMethod(
-#"transform", signature(object = "PlsOrtho"),
-#function('_data', X, nlv = NULL, ...) {
-#transform.PlsOrtho <- function(fm, X, nlv = NULL, ...) {
-transform.PlsOrtho <- function(fm, X, ..., nlv = NULL) {
+transform <- function(object, X, ...) UseMethod("transform")
+transform.PlsOrtho <- function(object, X, ..., nlv = NULL) {
    
-    A <- dim(fm$P)[2]
+    A <- dim(object$P)[2]
     if(is.null(nlv))
         nlv <- A
     else 
         nlv <- min(nlv, A)
     
-    T <- .center(.mat(X), fm$xmeans) %*% fm$R[, seq_len(nlv), drop = FALSE]
+    T <- .center(.mat(X), object$xmeans) %*% object$R[, seq_len(nlv), drop = FALSE]
     colnames(T) <- paste("lv", seq_len(dim(T)[2]), sep = "")
     T
     
     }
-#)
 
-#setGeneric("coef")
-#setMethod(
-#""coef", signature(object = "PlsOrtho"),
-#function(object, ..., nlv = NULL) {
+
 coef.PlsOrtho <- function(object, ..., nlv = NULL) {
-#coef.PlsOrtho <- function(fm, ..., nlv = NULL) {
   
     ## Works also for nlv = 0
   
@@ -117,17 +109,15 @@ coef.PlsOrtho <- function(object, ..., nlv = NULL) {
     list(int = int, B = B) 
   
     }
-#)
 
-#predict.PlsOrtho <- function(object, X, nlv = NULL, ...) {
-predict.PlsOrtho <- function(fm, X, ..., nlv = NULL) {
+predict.PlsOrtho <- function(object, X, ..., nlv = NULL) {
     
     X <- .mat(X)
-    q <- dim(fm$C)[1]
+    q <- dim(object$C)[1]
     rownam <- row.names(X)
     colnam <- paste("y", seq_len(q), sep = "")
     
-    A <- dim(fm$P)[2]
+    A <- dim(object$P)[2]
     if(is.null(nlv))
         nlv <- A 
     else 
@@ -136,7 +126,7 @@ predict.PlsOrtho <- function(fm, X, ..., nlv = NULL) {
     
     pred <- vector(mode = "list", length = le_nlv)
     for(i in seq_len(le_nlv)) {
-        z <- coef(fm, nlv = nlv[i])
+        z <- coef(object, nlv = nlv[i])
         zpred <- t(c(z$int) + t(X %*% z$B))
         ## Same but faster than:
         ## zpred <- cbind(rep(1, m), X) %*% rbind(z$int, z$B)

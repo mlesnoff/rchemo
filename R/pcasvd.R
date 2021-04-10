@@ -44,15 +44,15 @@ pcasvd <- function(X, nlv, weights = NULL) {
 
     }
 
-transform.PcaOrtho <- function(fm, X, ..., nlv = NULL) {
+transform.PcaOrtho <- function(object, X, ..., nlv = NULL) {
    
-    A <- dim(fm$P)[2]
+    A <- dim(object$P)[2]
     if(is.null(nlv))
         nlv <- A
     else 
         nlv <- min(nlv, A)
     
-    T <- .center(.mat(X), fm$xmeans) %*% fm$P[, seq_len(nlv), drop = FALSE]
+    T <- .center(.mat(X), object$xmeans) %*% object$P[, seq_len(nlv), drop = FALSE]
     colnam <- paste("pc", seq_len(dim(T)[2]), sep = "")
     dimnames(T) <- list(row.names(X), colnam)
     T

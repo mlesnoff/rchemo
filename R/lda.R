@@ -30,21 +30,21 @@ lda <- function(X, y, prior = c("unif", "prop")) {
 
     }
 
-predict.Lda <- function(fm, X, ...) {
+predict.Lda <- function(object, X, ...) {
     
     X <- .mat(X)
     m <- dim(X)[1]
 
-    lev <- fm$lev
+    lev <- object$lev
     nlev <- length(lev) 
     
     ds <- matrix(nrow = m, ncol = nlev)
     for(i in seq_len(nlev)) {
-        zfm <- dmnorm(X, mu = fm$ct[i, ], sigma = fm$W) 
-        ds[, i] <- predict(zfm, X)$pred
+        fm <- dmnorm(X, mu = object$ct[i, ], sigma = object$W) 
+        ds[, i] <- predict(fm, X)$pred
         }    
     
-    z <- t(fm$wprior * t(ds))
+    z <- t(object$wprior * t(ds))
     posterior <- z / rowSums(z)
     
     z <- apply(posterior, FUN = .findmax, MARGIN = 1)

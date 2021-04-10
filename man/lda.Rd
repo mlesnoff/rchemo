@@ -23,8 +23,8 @@ lda(X, y, prior = c("unif", "prop"))
 
 qda(X, y, prior = c("unif", "prop"))
   
-\method{predict}{Lda}(fm, X, ...)  
-\method{predict}{Qda}(fm, X, ...)  
+\method{predict}{Lda}(object, X, ...)  
+\method{predict}{Qda}(object, X, ...)  
 
 }
 
@@ -36,7 +36,7 @@ qda(X, y, prior = c("unif", "prop"))
 
 \item{prior}{The prior probabilities of the classes. Possible values are "unif" (default; probabilities are set equal for all the classes) or "prop" (probabilities are set equal to the observed proportions of the classes in \code{y}).}
 
-\item{fm}{A fitted model, output of a call to the main functions.}
+\item{object}{A fitted model, output of a call to the main functions.}
 
 \item{...}{Optional arguments.}
 

@@ -36,7 +36,7 @@ dmnorm <- function(X = NULL, mu = NULL, sigma = NULL) {
     
     }
 
-predict.Dmnorm <- function(fm, X, ...) {
+predict.Dmnorm <- function(object, X, ...) {
     
     X <- .mat(X)
     zdim <- dim(X)
@@ -44,9 +44,9 @@ predict.Dmnorm <- function(fm, X, ...) {
     p <- zdim[2]
 
     ## squared distance
-    d <- mahsq_mu(X, mu = fm$mu, U = fm$U)
+    d <- mahsq_mu(X, mu = object$mu, U = object$U)
     ## density
-    ds <- (2 * pi)^(-p / 2) * (1 / sqrt(fm$det)) * exp(-.5 * d)
+    ds <- (2 * pi)^(-p / 2) * (1 / sqrt(object$det)) * exp(-.5 * d)
     
     dimnames(ds) <- list(row.names(X), "ds")
     

@@ -21,7 +21,7 @@ lwplsda(
     nlv
     )
 
-\method{predict}{LwPlsDa}(fm, X, ..., nlv = NULL)  
+\method{predict}{LwPlsDa}(object, X, ..., nlv = NULL)  
 
 }
 
@@ -41,7 +41,7 @@ lwplsda(
 
 \item{nlv}{The number(s) of LVs to calculate in the local PLSDA models.}
 
-\item{fm}{A fitted model, output of a call to the main function.}
+\item{object}{A fitted model, output of a call to the main function.}
 
 \item{...}{Optional arguments.}
 

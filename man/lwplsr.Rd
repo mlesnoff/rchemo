@@ -31,7 +31,7 @@ lwplsr(
     nlv
     )
 
-\method{predict}{LwPlsR}(fm, X, ..., nlv = NULL)  
+\method{predict}{LwPlsR}(object, X, ..., nlv = NULL)  
 
 }
 
@@ -51,7 +51,7 @@ lwplsr(
 
 \item{nlv}{The number(s) of LVs to calculate in the local PLSR models.}
 
-\item{fm}{A fitted model, output of a call to the main function.}
+\item{object}{A fitted model, output of a call to the main function.}
 
 \item{...}{Optional arguments.}
 

@@ -27,13 +27,13 @@ plsda <- function(X, y, nlv, weights = NULL) {
     }
 
 
-predict.PlsDa <- function(fm, X, ..., nlv = NULL) {
+predict.PlsDa <- function(object, X, ..., nlv = NULL) {
     
     X <- .mat(X)
     rownam <- row.names(X)
     colnam <- "y1"
     
-    A <- dim(fm$P)[2]
+    A <- dim(object$P)[2]
     if(is.null(nlv))
         nlv <- A
     else 
@@ -42,10 +42,10 @@ predict.PlsDa <- function(fm, X, ..., nlv = NULL) {
     
     posterior <- pred <- vector(mode = "list", length = le_nlv)
     for(i in seq_len(le_nlv)) {
-        zcoef <- coef(fm, nlv = nlv[i])
+        zcoef <- coef(object, nlv = nlv[i])
         zposterior <- t(c(zcoef$int) + t(X %*% zcoef$B))
         z <- apply(zposterior, FUN = .findmax, MARGIN = 1)
-        zpred <- matrix(.replace_bylev(z, fm$lev), ncol = 1)
+        zpred <- matrix(.replace_bylev(z, object$lev), ncol = 1)
         dimnames(zpred) <- list(rownam, colnam)
         pred[[i]] <- zpred
         posterior[[i]] <- zposterior

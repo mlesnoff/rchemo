@@ -28,11 +28,11 @@ plslda <- function(X, y, nlv, weights = NULL, prior = c("unif", "prop")) {
 
     }
 
-predict.PlsDaProb <- function(fm, X, ..., nlv = NULL) {
+predict.PlsDaProb <- function(object, X, ..., nlv = NULL) {
   
     X <- .mat(X)
     
-    A <- length(fm[[2]])
+    A <- length(object[[2]])
     if(is.null(nlv))
         nlv <- A
     else 
@@ -42,8 +42,8 @@ predict.PlsDaProb <- function(fm, X, ..., nlv = NULL) {
     posterior <- pred <- vector(mode = "list", length = le_nlv)
     for(i in seq_len(le_nlv)) {
         znlv <- nlv[i]
-        z <- transform(fm[[1]], X, nlv = znlv)
-        zres <- predict(fm[[2]][[znlv]], z)
+        z <- transform(object[[1]], X, nlv = znlv)
+        zres <- predict(object[[2]][[znlv]], z)
         pred[[i]] <- zres$pred
         posterior[[i]] <- zres$posterior
         }

@@ -63,7 +63,7 @@ pcanipalsna(X, nlv,
     gs = TRUE,
     tol = .Machine$double.eps^0.5, maxit = 200)
   
-\method{transform}{PcaOrtho}(fm, X, ..., nlv = NULL)  
+\method{transform}{PcaOrtho}(object, X, ..., nlv = NULL)  
   
 }
 
@@ -83,7 +83,7 @@ pcanipalsna(X, nlv,
 
 \item{maxit}{Maximum number of NIPALS iterations for each PC.}
 
-\item{fm}{A fitted model, output of a call to the main functions.}
+\item{object}{A fitted model, output of a call to the main functions.}
 
 \item{...}{Optional arguments.}
 

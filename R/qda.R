@@ -29,23 +29,23 @@ qda <- function(X, y, prior = c("unif", "prop")) {
 
     }
 
-predict.Qda <- function(fm, X, ...) {
+predict.Qda <- function(object, X, ...) {
     
     X <- .mat(X)
     m <- dim(X)[1]
     
-    lev <- fm$lev
+    lev <- object$lev
     nlev <- length(lev)
-    ni <- fm$ni
+    ni <- object$ni
     
     ds <- matrix(nrow = m, ncol = nlev)
     for(i in seq_len(nlev)) {
-        zWi <- fm$Wi[[i]]  * ni[i] / (ni[i] - 1)
-        zfm <- dmnorm(X, mu = fm$ct[i, ], sigma = zWi) 
+        zWi <- object$Wi[[i]]  * ni[i] / (ni[i] - 1)
+        zfm <- dmnorm(X, mu = object$ct[i, ], sigma = zWi) 
         ds[, i] <- predict(zfm, X)$pred
         }    
     
-    z <- t(fm$wprior * t(ds))
+    z <- t(object$wprior * t(ds))
     posterior <- z / rowSums(z)
     
     z <- apply(posterior, FUN = .findmax, MARGIN = 1)

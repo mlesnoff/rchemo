@@ -15,46 +15,46 @@ lwplsr <- function(
     }
     
     
-.predict_LwPls <- function(fm, X, ..., nlv = NULL, fun) {
+.predict_LwPls <- function(object, X, ..., nlv = NULL, fun) {
     
     X <- .mat(X)
 
-    A <- fm$nlv
+    A <- object$nlv
     if(is.null(nlv))
         nlv <- A 
     else 
         nlv <- seq(min(nlv), min(max(nlv), A))
     le_nlv <- length(nlv)
     
-    if(is.null(fm$Y))
+    if(is.null(object$Y))
         da <- TRUE
     else
         da <- FALSE
     
     ## Getknn
-    if (fm$nlvdis == 0)
-        res <- getknn(fm$X, X, k = fm$k, diss = fm$diss)
+    if (object$nlvdis == 0)
+        res <- getknn(object$X, X, k = object$k, diss = object$diss)
     else {
         if(da)
-            fm$Y <- dummy(fm$y)$Y
-        zfm <- plskern(fm$X, fm$Y, fm$nlvdis)
-        res <- getknn(zfm$T, transform(zfm, X), k = fm$k, diss = fm$diss)
+            object$Y <- dummy(object$y)$Y
+        fm <- plskern(object$X, object$Y, object$nlvdis)
+        res <- getknn(fm$T, transform(fm, X), k = object$k, diss = object$diss)
         }
     ## End
-    listw <- lapply(res$listd, wdist, h = fm$h)    
+    listw <- lapply(res$listd, wdist, h = object$h)    
 
     if(da)
-        fm$Y <- fm$y
+        object$Y <- object$y
     
-    pred <- locwlv(fm$X, fm$Y, X,
+    pred <- locwlv(object$X, object$Y, X,
         listnn = res$listnn, listw = listw, fun = fun, nlv = nlv)$pred
 
     list(pred = pred, listnn = res$listnn, listd = res$listd, listw = listw)
     
     }
 
-predict.LwPlsR <- function(fm, X, ..., nlv = NULL)
-    .predict_LwPls(fm, X, ..., nlv = nlv, fun = plskern)
+predict.LwPlsR <- function(object, X, ..., nlv = NULL)
+    .predict_LwPls(object, X, ..., nlv = nlv, fun = plskern)
     
 
 

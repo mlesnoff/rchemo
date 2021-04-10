@@ -32,9 +32,9 @@ plslda(X, y, nlv, weights = NULL, prior = c("unif", "prop"))
 
 plsqda(X, y, nlv, weights = NULL, prior = c("unif", "prop"))
 
-\method{predict}{PlsDa}(fm, X, ..., nlv = NULL) 
+\method{predict}{PlsDa}(object, X, ..., nlv = NULL) 
 
-\method{predict}{PlsDaProb}(fm, X, ..., nlv = NULL) 
+\method{predict}{PlsDaProb}(object, X, ..., nlv = NULL) 
 
 }
 
@@ -50,7 +50,7 @@ plsqda(X, y, nlv, weights = NULL, prior = c("unif", "prop"))
 
 \item{prior}{The prior probabilities of the classes. Possible values are "unif" (default; probabilities are set equal for all the classes) or "prop" (probabilities are set equal to the observed proportions of the classes in \code{y}).}
 
-\item{fm}{A fitted model, output of a call to the main functions.}
+\item{object}{A fitted model, output of a call to the main functions.}
 
 \item{...}{Optional arguments.}
 
