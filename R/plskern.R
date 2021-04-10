@@ -71,28 +71,25 @@ plskern <- function(X, Y, nlv, weights = NULL) {
     structure(
         list(T = T, P = P, R = R, W = W, C = C, TT = TT,
              xmeans = xmeans, ymeans = ymeans, weights = weights, U = NULL),
-        class = "PlsOrtho"
+        class = c("PlsOrtho", "Pls")
         )
     
     }
 
-transform <- function(object, X, ...) UseMethod("transform")
-transform.PlsOrtho <- function(object, X, ..., nlv = NULL) {
-   
+transform.Pls <- function(object, X, ..., nlv = NULL) {
     A <- dim(object$P)[2]
     if(is.null(nlv))
         nlv <- A
     else 
         nlv <- min(nlv, A)
-    
-    T <- .center(.mat(X), object$xmeans) %*% object$R[, seq_len(nlv), drop = FALSE]
+    T <- .center(.mat(X), 
+                 object$xmeans) %*% object$R[, seq_len(nlv), drop = FALSE]
     colnames(T) <- paste("lv", seq_len(dim(T)[2]), sep = "")
     T
-    
     }
 
 
-coef.PlsOrtho <- function(object, ..., nlv = NULL) {
+coef.Pls <- function(object, ..., nlv = NULL) {
   
     ## Works also for nlv = 0
   
@@ -110,7 +107,7 @@ coef.PlsOrtho <- function(object, ..., nlv = NULL) {
   
     }
 
-predict.PlsOrtho <- function(object, X, ..., nlv = NULL) {
+predict.Pls <- function(object, X, ..., nlv = NULL) {
     
     X <- .mat(X)
     q <- dim(object$C)[1]
@@ -130,7 +127,6 @@ predict.PlsOrtho <- function(object, X, ..., nlv = NULL) {
         zpred <- t(c(z$int) + t(X %*% z$B))
         ## Same but faster than:
         ## zpred <- cbind(rep(1, m), X) %*% rbind(z$int, z$B)
-        #zpred <- data.frame(zpred)
         dimnames(zpred) <- list(rownam, colnam)
         pred[[i]] <- zpred
         }

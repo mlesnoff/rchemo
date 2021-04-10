@@ -36,7 +36,7 @@ detrend <- function(X, degree = 1) {
   
     }
 
-interpol <- function(X, w, meth = "cubic", ...) {
+interpl <- function(X, w, meth = "cubic", ...) {
     
     X <- .mat(X)
     p <- dim(X)[2]

@@ -20,10 +20,10 @@ S3method(predict, LwPlsR)
 S3method(predict, LwPlsDa)
 S3method(predict, PlsDa)
 S3method(predict, PlsDaProb)
-S3method(predict, PlsOrtho)
+S3method(predict, Pls)
 S3method(predict, Qda)
-S3method(transform, PcaOrtho)
-S3method(transform, PlsOrtho)
+S3method(transform, Pca)
+S3method(transform, Pls)
 
 #exportMethods("transform", "coef", "predict")
 #exportClasses("PcaOrtho", "PlsOrtho", 

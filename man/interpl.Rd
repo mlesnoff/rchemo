@@ -1,5 +1,5 @@
-\name{interpol}
-\alias{interpol}
+\name{interpl}
+\alias{interpl}
 \encoding{latin1}
 
 \title{Resampling of spectra by interpolation methods}
@@ -12,7 +12,7 @@ Resampling of signals by interpolation methods, including linear, spline, and cu
 
 \usage{
 
-interpol(X, w, meth = "cubic", ...)
+interpl(X, w, meth = "cubic", ...)
 
 }
 
@@ -41,7 +41,7 @@ X <- cassav$Xtest
 headm(X)
 
 w <- seq(500, 2400, length = 10)
-zX <- interpol(X, w, meth = "spline")
+zX <- interpl(X, w, meth = "spline")
 headm(zX)
 plotsp(zX)
 

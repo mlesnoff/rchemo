@@ -75,7 +75,7 @@ plsrannar <- function(X, Y, nlv, weights = NULL) {
     structure(
         list(T = Tclass, P = P, R = R, W = W, C = C, TT = TT,
             xmeans = xmeans, ymeans = ymeans, weights = weights, U = U),
-        class = "PlsOrtho"
+        class = c("PlsOrtho", "Pls")
         )    
     
     }

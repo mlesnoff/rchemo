@@ -21,7 +21,7 @@ plsda <- function(X, y, nlv, weights = NULL) {
         list(T = fm$T, P = fm$P, R = fm$R, W = fm$W, C = fm$C, TT = fm$TT,
             xmeans = fm$xmeans, ymeans = fm$ymeans, weights = fm$weights, 
             lev = z$lev, ni = z$ni),
-        class = c("PlsDa", "PlsOrtho")
+        class = c("PlsDa", "Pls")
         )       
 
     }
