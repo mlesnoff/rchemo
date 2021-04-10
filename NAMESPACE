@@ -10,8 +10,8 @@ import(FNN)
 importFrom("data.table", "data.table", "rbindlist", "setDF")
 importFrom("FNN", "knn")
 importFrom("signal", "sgolayfilt")
-importFrom("stats", "coef", "predict")
-#importFrom("base", "transform") ==> creat error
+#importFrom("st#ats", "coef", "predict")
+#importFrom("base", "transform")      ### ==> create error
 
 S3method(coef, PlsOrtho)
 S3method(predict, Dmnorm)
