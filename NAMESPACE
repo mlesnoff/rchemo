@@ -10,8 +10,10 @@ import(FNN)
 importFrom("data.table", "data.table", "rbindlist", "setDF")
 importFrom("FNN", "knn")
 importFrom("signal", "sgolayfilt")
+importFrom("stats", "coef", "predict")
+#importFrom("base", "transform") ==> creat error
 
-#S3method(coef, PlsOrtho)
+S3method(coef, PlsOrtho)
 S3method(predict, Dmnorm)
 S3method(predict, Lda)
 S3method(predict, LwPlsR)
@@ -27,7 +29,7 @@ S3method(transform, PlsOrtho)
 #exportClasses("PcaOrtho", "PlsOrtho", 
 #              "Dmnorm", "Lda", "Qda", "Plsda", "PlsDaProb",
 #              "LwplsR")
-
+#export(plskern)
 
 
 
