@@ -1,35 +1,21 @@
 scordis <- function(
-    Xtrain,
-    X = NULL,
-    fun = pcaeigen,
-    nlv = NULL, 
+    object, X = NULL, 
+    nlv = NULL,
     rob = FALSE, alpha = .01
     ) {
-
     
-    if(is.null(fm$Tr))
-        names(fm)[which(names(fm) == "T")] <- "Tr"
-    
+    A <- dim(object$T)[2]
     if(is.null(nlv))
-        nlv <- dim(fm$Tr)[2]
+        nlv <- A
     else 
-        nlv <- min(nlv, dim(fm$Tr)[2])
+        nlv <- min(nlv, A)  
     
-    if(fm$T.ortho) {
-        tt <- colSums(
-            fm$weights * fm$Tr[, seq_len(nlv), drop = FALSE] * fm$Tr[, seq_len(nlv), drop = FALSE]
-            )
-        S <- diag(tt, nrow = nlv, ncol = nlv)
-        }
-    else 
-        S <- NULL
-    
-    res <- dis(fm$Tr[, seq_len(nlv), drop = FALSE], fm$Tu[, seq_len(nlv), drop = FALSE], 
-                         rep(0, nlv), "mahalanobis", S)
-    
-    dr <- res$dr
-
-    d2 <- dr$d^2
+    n <- dim(object$T)[1]
+    S <- cov(object$T) * (n - 1) / n
+    U <- chol(S)
+    d2 <- c(mahsq_mu(object$T[, seq(nlv), drop = FALSE], 
+                   mu = rep(0, nlv), U = U))
+    d <- sqrt(d2)
     if(!rob) {
         mu <- mean(d2)   
         s2 <- var(d2)
@@ -40,18 +26,21 @@ scordis <- function(
         }
     nu <- 2 * mu^2 / s2
     cutoff <- sqrt(mu / nu * qchisq(1 - alpha, df = nu))
+    dstand <- d / cutoff 
+    res.train <- data.frame(d = d, dstand = dstand, gh = d2 / nlv)
+    rownames(res.train) <- row.names(object$T)
     
-    dr$dstand <- dr$d / cutoff
-    dr$gh <- dr$d^2 / nlv
-    
-    du <- NULL
-    if(!is.null(fm$Tu[, seq_len(nlv), drop = FALSE])) {
-        du <- res$du
-        du$dstand <- du$d / cutoff
-        du$gh <- du$d^2 / nlv
+    res <- NULL
+    if(!is.null(X)) {
+        T <- transform(fm, X, nlv = nlv)
+        d2 <- c(mahsq_mu(T, mu = rep(0, nlv), U = U))
+        d <- sqrt(d2)
+        dstand <- d / cutoff 
+        res <- data.frame(d = d, dstand = dstand, gh = d2 / nlv)
+        rownames(res) <- row.names(X)
         }
 
-    list(dr = dr, du = du, cutoff = cutoff)
+    list(res.train = res.train, res = res, cutoff = cutoff)
     
     }
 

@@ -29,15 +29,15 @@ pcasvd <- function(X, nlv, weights = NULL) {
     ## = variances of scores T in metric D
     ## = TT = colSums(weights * T * T)  
     ## = norms^2 of the scores T in metric D
-    ## = .xnorm(T, weights = weights)^2   
-  
+    ## = .xnorm(T, weights = weights)^2
+
     row.names(T) <- row.names(X)
     row.names(P) <- colnames(X)
   
     colnames(T) <- colnames(P) <- paste("pc", seq_len(nlv), sep = "")
   
     structure(
-        list(T = T, P = P, sv = sv, eig = eig, 
+        list(T = T, P = P, sv = sv, eig = eig,
             xmeans = xmeans, weights = weights, niter = NULL, conv = NULL),
         class = c("PcaOrtho", "Pca")
         )

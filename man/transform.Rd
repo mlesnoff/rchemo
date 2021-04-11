@@ -2,9 +2,9 @@
 \alias{transform}
 \encoding{latin1}
 
-\title{Generic functions}
+\title{Generic tranform function}
 
-\description{Generic auxiliary functions.}
+\description{Transformation of the X-data by a fitted model.}
 
 \usage{
 
@@ -16,7 +16,7 @@ transform(object, X, ...)
 
 \item{object}{A fitted model, output of a call to a fitting function.}
 
-\item{X}{New X-data (\eqn{m, p}) to consider.}
+\item{X}{New X-data to consider.}
 
 \item{...}{Optional arguments.}
 
@@ -26,18 +26,15 @@ transform(object, X, ...)
 
 \examples{
 
-n <- 8 ; p <- 6
+n <- 6 ; p <- 4
 X <- matrix(rnorm(n * p), ncol = p)
-y1 <- 100 * rnorm(n)
-y2 <- 100 * rnorm(n)
-Y <- cbind(y1, y2)
+y <- rnorm(n)
 
-object <- plskern(X, Y, nlv = 3)
-coef(object)
-coef(object, nlv = 2)
-transform(object, X[1:2, ], nlv = 2)
-predict(object, X[1:2, ])
-predict(object, X[1:2, ], nlv = 0:3)
+fm <- pcaeigen(X, nlv = 3)
+#fm <- plskern(X, y, nlv = 3)
+fm$T
+transform(fm, X[1:2, ], nlv = 2)
+
 
 }
 

@@ -36,7 +36,7 @@ plotxy <- function(
         if(!labels)
             points(X, col = col, ...)
         else
-            text(X[, 1], X[, 2], rownam, col = col)
+            text(X[, 1], X[, 2], rownam, col = col, ...)
         
         if(ellipse)
             lines(.ellips(cov(X), .colmeans(X), sqrt(qchisq(.95, df = 2)))$X, col = "grey")

@@ -5,7 +5,6 @@ odis <- function(
     ) {
     
     Xtrain <- .mat(Xtrain)
-    n <- dim(Xtrain)[1]
     
     A <- dim(object$T)[2]
     if(is.null(nlv))
@@ -30,8 +29,6 @@ odis <- function(
     res.train <- data.frame(d = d, dstand = dstand)
     rownames(res.train) <- row.names(Xtrain)
     
-    ### NEW OBSERVATIONS
-    
     res <- NULL
     if(!is.null(X)) {
         X <- .mat(X)
@@ -43,8 +40,6 @@ odis <- function(
         rownames(res) <- row.names(X)
         }
     
-    ### END
-
     list(res.train = res.train, res = res, cutoff = cutoff)
 
     }

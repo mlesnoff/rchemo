@@ -44,7 +44,6 @@ predict.Qda <- function(object, X, ...) {
         zfm <- dmnorm(X, mu = object$ct[i, ], sigma = zWi) 
         ds[, i] <- predict(zfm, X)$pred
         }    
-    
     z <- t(object$wprior * t(ds))
     posterior <- z / rowSums(z)
     

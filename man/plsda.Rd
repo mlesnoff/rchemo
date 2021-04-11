@@ -40,7 +40,7 @@ plsqda(X, y, nlv, weights = NULL, prior = c("unif", "prop"))
 
 \arguments{
 
-\item{X}{For the main functions: Training X-data (\eqn{n, p}). --- For the auxiliary functions: New X-data (\eqn{m, p}) to consider.}
+\item{X}{For the main functions and auxiliary function \code{summary}: Training X-data (\eqn{n, p}). --- For the other auxiliary functions: New X-data (\eqn{m, p}) to consider.}
 
 \item{y}{Training class membership (\eqn{n}).}
 
@@ -64,26 +64,29 @@ See the examples.
 
 \examples{
 
-n <- 50 ; p <- 30
-X <- matrix(rnorm(n * p), ncol = p, byrow = TRUE)
-y <- sample(c(1, 4, 10), size = n, replace = TRUE)
-#y <- sample(c("a", "10", "d"), size = n, replace = TRUE)
-z <- y
-#z <- as.factor(y)
-Xtrain <- X ; ytrain <- z
-Xtest <- X[1:5, ] ; ytest <- z[1:5]
+n <- 50 ; p <- 8
+Xtrain <- matrix(rnorm(n * p), ncol = p)
+ytrain <- sample(c(1, 4, 10), size = n, replace = TRUE)
+#ytrain <- sample(c("a", "10", "d"), size = n, replace = TRUE)
+Xtest <- Xtrain[1:5, ] ; ytest <- ytrain[1:5]
 
 nlv <- 5
 
 fm <- plsda(Xtrain, ytrain, nlv = nlv)
+names(fm)
 predict(fm, Xtest)
+summary(fm, Xtrain)
 coef(fm)
-transform(fm, X[1:2, ])
+transform(fm, Xtest)
 
 fm <- plslda(Xtrain, ytrain, nlv = nlv)
 predict(fm, Xtest)
-coef(fm[[1]])
-transform(fm[[1]], X[1:2, ])
+length(fm)
+fmpls <- fm[[1]]
+names(fmpls)
+summary(fmpls, Xtrain)
+coef(fmpls)
+transform(fmpls, Xtest[1:2, ])
 
 }
 

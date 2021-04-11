@@ -63,13 +63,15 @@ pcanipalsna(X, nlv,
     gs = TRUE,
     tol = .Machine$double.eps^0.5, maxit = 200)
   
-\method{transform}{PcaOrtho}(object, X, ..., nlv = NULL)  
+\method{transform}{Pca}(object, X, ..., nlv = NULL)  
+
+\method{summary}{Pca}(object, X, ...)  
   
 }
 
 \arguments{
 
-\item{X}{For the main functions: Training X-data (\eqn{n, p}). --- For auxiliary functions: New X-data (\eqn{m, p}) to consider.}
+\item{X}{For the main functions and auxiliary function \code{summary}: Training X-data (\eqn{n, p}). --- For the other auxiliary functions: New X-data (\eqn{m, p}) to consider.}
 
 \item{nlv}{The number of PCs to calculate.}
 

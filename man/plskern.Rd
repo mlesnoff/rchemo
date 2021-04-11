@@ -41,17 +41,19 @@ plsnipals(X, Y, nlv, weights = NULL)
 
 plsrannar(X, Y, nlv, weights = NULL)
 
-\method{coef}{PlsOrtho}(object, ..., nlv = NULL) 
+\method{transform}{Pls}(object, X, ..., nlv = NULL)  
 
-\method{predict}{PlsOrtho}(object, X, ..., nlv = NULL)  
+\method{summary}{Pls}(object, X, ...)  
 
-\method{transform}{PlsOrtho}(object, X, ..., nlv = NULL)  
+\method{coef}{Pls}(object, ..., nlv = NULL) 
+
+\method{predict}{Pls}(object, X, ..., nlv = NULL)  
 
 }
 
 \arguments{
 
-\item{X}{For the main functions: Training X-data (\eqn{n, p}). --- For the auxiliary functions: New X-data (\eqn{m, p}) to consider.}
+\item{X}{For the main functions and auxiliary function \code{summary}: Training X-data (\eqn{n, p}). --- For the other auxiliary functions: New X-data (\eqn{m, p}) to consider.}
 
 \item{Y}{Training Y-data (\eqn{n, q}).}
 

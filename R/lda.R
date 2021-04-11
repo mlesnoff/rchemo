@@ -43,7 +43,6 @@ predict.Lda <- function(object, X, ...) {
         fm <- dmnorm(X, mu = object$ct[i, ], sigma = object$W) 
         ds[, i] <- predict(fm, X)$pred
         }    
-    
     z <- t(object$wprior * t(ds))
     posterior <- z / rowSums(z)
     
