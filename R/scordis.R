@@ -32,7 +32,7 @@ scordis <- function(
     
     res <- NULL
     if(!is.null(X)) {
-        T <- transform(fm, X, nlv = nlv)
+        T <- transform(object, X, nlv = nlv)
         d2 <- c(mahsq_mu(T, mu = rep(0, nlv), U = U))
         d <- sqrt(d2)
         dstand <- d / cutoff 

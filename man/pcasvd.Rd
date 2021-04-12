@@ -4,7 +4,8 @@
 \alias{pcaeigenk}
 \alias{pcanipals}
 \alias{pcanipalsna}
-\alias{transform.PcaOrtho}
+\alias{summary.Pca}
+\alias{transform.Pca}
 \encoding{latin1}
 
 \title{PCA algorithms}

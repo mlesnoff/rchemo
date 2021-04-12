@@ -1,5 +1,7 @@
 \name{xfit}
 \alias{xfit}
+\alias{xfit.Pca}
+\alias{xfit.Pls}
 \alias{xresid}
 \encoding{latin1}
 

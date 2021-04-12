@@ -1,5 +1,8 @@
 summary.Pca <- function(object, X, ...) {
     
+    p <- dim(X)[2]
+    nlv <- dim(object$T)[2]
+    
     X <- .center(X, object$xmeans)
     sstot <- sum(object$weights * X * X, na.rm = TRUE)    
     ## In general: sstot =  sum(eig)   
@@ -7,9 +10,8 @@ summary.Pca <- function(object, X, ...) {
     tt <- colSums(TT)
     pvar <- tt / sstot
     cumpvar <- cumsum(pvar)
-    znlv <- seq(dim(object$T)[2])
-    explvar <- data.frame(pc = znlv, var = tt, pvar = pvar, cumpvar = cumpvar)
-    row.names(explvar) <- znlv
+    explvar <- data.frame(pc = seq(nlv), var = tt, pvar = pvar, cumpvar = cumpvar)
+    row.names(explvar) <- seq(nlv)
     
     contr.ind <- data.frame(.scale(TT, center = rep(0, nlv), scale = tt))
     
@@ -38,9 +40,8 @@ summary.Pls <- function(object, X, ...) {
     pvar <- tt.adj / sstot
     cumpvar <- cumsum(pvar)
     xvar <- tt.adj / n
-    znlv <- seq(nlv)
-    z <- data.frame(nlv = znlv, var = xvar, pvar = pvar, cumpvar = cumpvar)
-    row.names(z) <- znlv
+    z <- data.frame(nlv = seq(nlv), var = xvar, pvar = pvar, cumpvar = cumpvar)
+    row.names(z) <- seq(nlv)
     list(explvarx = z)
     
     }

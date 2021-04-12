@@ -49,7 +49,7 @@ xresid <- function(object, X, ..., nlv = NULL) {
     if(nlv == 0)
         E <- .center(X, object$xmeans)
     else 
-        E <- X - xfit(fm, X, nlv = nlv)
+        E <- X - xfit(object, X, nlv = nlv)
     E
     }
 

@@ -2,9 +2,10 @@
 \alias{plskern}
 \alias{plsnipals}
 \alias{plsrannar}
-\alias{transform.PlsOrtho}
-\alias{coef.PlsOrtho}
-\alias{predict.PlsOrtho}
+\alias{summary.Pls}
+\alias{transform.Pls}
+\alias{coef.Pls}
+\alias{predict.Pls}
 \encoding{latin1}
 
 \title{PLS algorithms}
