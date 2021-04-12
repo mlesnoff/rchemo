@@ -11,7 +11,7 @@ scordis <- function(
         nlv <- min(nlv, A)  
     
     n <- dim(object$T)[1]
-    S <- cov(object$T) * (n - 1) / n
+    S <- cov(object$T[, seq(nlv), drop = FALSE]) * (n - 1) / n
     U <- chol(S)
     d2 <- c(mahsq_mu(object$T[, seq(nlv), drop = FALSE], 
                    mu = rep(0, nlv), U = U))

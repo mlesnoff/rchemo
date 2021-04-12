@@ -35,7 +35,6 @@ fm <- pcaeigen(X, nlv = 3)
 fm$T
 transform(fm, X[1:2, ], nlv = 2)
 
-
 }
 
 \keyword{datagen}

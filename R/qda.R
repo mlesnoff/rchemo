@@ -24,12 +24,12 @@ qda <- function(X, y, prior = c("unif", "prop")) {
     
     structure(
         list(ct = ct, Wi = Wi, lev = lev, ni = ni, wprior = wprior),
-        class = c("Qda")
+        class = c("QDa")
         )       
 
     }
 
-predict.Qda <- function(object, X, ...) {
+predict.QDa <- function(object, X, ...) {
     
     X <- .mat(X)
     m <- dim(X)[1]
