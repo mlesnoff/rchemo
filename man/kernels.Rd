@@ -26,7 +26,7 @@ ktanh(X, Y = NULL, scale = 1, offset = 0)
 
 \item{X}{Dataset (\eqn{n, p}).}
 
-\item{Y}{Dataset (\eqn{m, p}). The resulting Gram \eqn{K(X, Y)} matrix has dimensionnality (\eqn{n, m}). If \code{NULL} (default), \code{Y} is set equal to \code{X}.}
+\item{Y}{Dataset (\eqn{m, p}). The resulting Gram matrix \eqn{K(X, Y)} has dimensionnality (\eqn{n, m}). If \code{NULL} (default), \code{Y} is set equal to \code{X}.}
 
 \item{sigma}{The RBF kernel is defined by \eqn{exp(-.5 * (x - y)^2 / sigma^2)}.}
 
