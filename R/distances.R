@@ -1,19 +1,19 @@
-euclsq <- function(X, Q = NULL) {
+euclsq <- function(X, Y = NULL) {
     ## Squared Euclidean distances
-    ## between the rows of X, or between the rows of X and Q
-    ## X = (n, p)  ;  Q = (m, p)
+    ## between the rows of X, or between the rows of X and Y
+    ## X = (n, p)  ;  Y = (m, p)
     ## euclsq(X)    ==> matrix (n, n) 
     ## euclsq(X, Y) ==> matrix (n, m) 
     X <- .mat(X)
-    if(is.null(Q)) {
+    if(is.null(Y)) {
         sq <- rowSums(X * X)
         pmax(outer(sq, sq, "+") - 2 * tcrossprod(X), 0)
         }
     else {
-        Q <- .mat(Q)
+        Y <- .mat(Y)
         sqx <- rowSums(X * X)
-        sqy <- rowSums(Q * Q)
-        pmax(outer(sqx, sqy, "+") - 2 * tcrossprod(X, Q), 0)
+        sqy <- rowSums(Y * Y)
+        pmax(outer(sqx, sqy, "+") - 2 * tcrossprod(X, Y), 0)
         }
     }
 
@@ -26,7 +26,7 @@ euclsq_mu <- function(X, mu) {
     matrix(rowSums(X * X), ncol = 1, dimnames = dimnames)
     }
 
-mahsq <- function(X, Q = NULL, U = NULL) {
+mahsq <- function(X, Y = NULL, U = NULL) {
     X <- .mat(X)
     n <- dim(X)[1]
     if(is.null(U)) {
@@ -37,11 +37,11 @@ mahsq <- function(X, Q = NULL, U = NULL) {
         U <- as.matrix(U)
     Uinv <- solve(U)
     X <- X %*% Uinv
-    if(is.null(Q))
+    if(is.null(Y))
         D <- euclsq(X)
     else {
-        Q <- .mat(Q) %*% Uinv
-        D <- euclsq(X, Q)
+        Y <- .mat(Y) %*% Uinv
+        D <- euclsq(X, Y)
         }
     D
     }

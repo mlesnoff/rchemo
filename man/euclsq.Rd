@@ -1,7 +1,7 @@
 \name{euclsq}
 \alias{euclsq}
-\alias{mahsq}
 \alias{euclsq_mu}
+\alias{mahsq}
 \alias{mahsq_mu}
 \encoding{latin1}
 
@@ -9,13 +9,13 @@
 
 \description{
 
-Matrix (\eqn{n, m}) of distances between row observations of two datasets \eqn{X} (\eqn{n, p}) and Q (\eqn{m, p})
+----- Matrix (\eqn{n, m}) of distances between row observations of two datasets \eqn{X} (\eqn{n, p}) and Y (\eqn{m, p})
 
 - \code{euclsq}: Squared Euclidean distance
 
 - \code{mahsq}: Squared Mahalanobis distance
 
-Matrix (\eqn{n, 1}) of distances between row observations of a dataset \eqn{X} (\eqn{n, p}) and a vector \eqn{p} (\eqn{n})
+----- Matrix (\eqn{n, 1}) of distances between row observations of a dataset \eqn{X} (\eqn{n, p}) and a vector \eqn{p} (\eqn{n})
 
 - \code{euclsq_mu}: Squared Euclidean distance
 
@@ -25,11 +25,11 @@ Matrix (\eqn{n, 1}) of distances between row observations of a dataset \eqn{X} (
 
 \usage{
 
-euclsq(X, Q = NULL)
-
-mahsq(X, Q = NULL, U = NULL)
+euclsq(X, Y = NULL)
 
 euclsq_mu(X, mu)
+
+mahsq(X, Y = NULL, U = NULL)
 
 mahsq_mu(X, mu, U = NULL)
 
@@ -40,7 +40,7 @@ mahsq_mu(X, mu, U = NULL)
 \item{X}{X-data (\eqn{n, p}). }
 
 
-\item{Q}{Data (\eqn{m, p}) compared to \code{X}. If \code{NULL} (default), \code{Q} is set equal to \code{X}.}
+\item{Y}{Data (\eqn{m, p}) compared to \code{X}. If \code{NULL} (default), \code{Y} is set equal to \code{X}.}
 
 \item{mu}{Vector (\eqn{p}) compared to \code{X}.}
 
@@ -54,20 +54,18 @@ mahsq_mu(X, mu, U = NULL)
 
 n <- 5 ; p <- 3
 X <- matrix(rnorm(n * p), ncol = p)
-qr(X)$rank
 
 euclsq(X)
 as.matrix(stats::dist(X)^2)
 euclsq(X, X)
 
-Q <- X[c(1, 3), ]
-euclsq(X, Q)
-euclsq_mu(X, Q[2, ])
+Y <- X[c(1, 3), ]
+euclsq(X, Y)
+euclsq_mu(X, Y[2, ])
 
 i <- 3
 euclsq(X, X[i, , drop = FALSE])
 euclsq_mu(X, X[i, ])
-
 
 S <- cov(X) * (n - 1) / n
 i <- 3
@@ -75,8 +73,8 @@ mahsq(X)[i, , drop = FALSE]
 stats::mahalanobis(X, X[i, ], S)
 
 mahsq(X)
-Q <- X[c(1, 3), ]
-mahsq(X, Q)
+Y <- X[c(1, 3), ]
+mahsq(X, Y)
 
 }
 
