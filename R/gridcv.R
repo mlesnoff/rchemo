@@ -21,7 +21,6 @@
             if(verb)
                 cat("segm=", j, " ", sep = "")
             s <- sort(listsegm[[j]])
-          
             zres[[j]] <- fgridscore(
                 X[-s, , drop = FALSE], 
                 Y[-s, , drop = FALSE],
@@ -30,9 +29,7 @@
                 score = score, fun = fun,
                 pars = pars
                 )
-            
             }
-
         zres <- setDF(rbindlist(zres))
         zres <- cbind(
             rep = rep(i, nsegm * npar),
