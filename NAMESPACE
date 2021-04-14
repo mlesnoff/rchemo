@@ -14,6 +14,7 @@ importFrom("signal", "sgolayfilt")
 #importFrom("base", "transform")      ### ==> create error
 
 S3method(coef, Pls)
+S3method(predict, Dkpls)
 S3method(predict, Dmnorm)
 S3method(predict, LDa)
 S3method(predict, LwPlsR)
