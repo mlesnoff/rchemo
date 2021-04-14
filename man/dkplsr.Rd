@@ -7,7 +7,7 @@
 
 \description{
 
-Direct kernel PLSR (DKPLSR) (Bennett & Embrechts 2003). The method starts by building preliminary kernel Gram matrices (such as doing a pre-processing on the X-data), and then runs a usual PLSR algorithm on them. This is faster (but not equivalent) to the "true" NIPALS KPLSR algorithm such as described in Rosipal & Trejo (2001). 
+Direct kernel PLSR (DKPLSR) (Bennett & Embrechts 2003). The method builds kernel Gram matrices (such as doing a pre-processing on the X-data) and then runs a usual PLSR algorithm on them. This is faster (but not equivalent) to the "true" NIPALS KPLSR algorithm such as described in Rosipal & Trejo (2001). 
 
 }
 
@@ -21,7 +21,7 @@ dkplsr(X, Y, nlv, kern = "krbf", weights = NULL, ...)
 
 \arguments{
 
-\item{X}{For the main function: Training X-data (\eqn{n, p}). --- For the other auxiliary functions: New X-data (\eqn{m, p}) to consider.}
+\item{X}{For the main function: Training X-data (\eqn{n, p}). --- For the auxiliary functions: New X-data (\eqn{m, p}) to consider.}
 
 \item{Y}{Training Y-data (\eqn{n, q}).}
 

@@ -48,13 +48,14 @@ err <- function(pred, y) {
 
 mse <- function(pred, y, digits = 3) {
     res <- data.frame(
-        mean.test = mean(y),
         msep  = msep(pred, y),
         rmsep = sqrt(msep(pred, y)),
         sep   = sep(pred, y),
         b     = bias(pred, y),
         r2    = r2(pred, y),
-        cor2  = cor2(pred, y)
+        cor2  = cor2(pred, y),
+        mean.test = mean(y),
+        sd.test = sd(y)
         )
     round(res, digits = digits)
     }

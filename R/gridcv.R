@@ -60,3 +60,10 @@ gridcv <- function(X, Y, segm, score, fun, pars, verb = TRUE)
 gridcvlv <- function(X, Y, segm, score, fun, pars, verb = TRUE)
     .gridcv(X, Y, segm, score, fun, pars, verb = TRUE, gridscorelv)
 
+gridcvlb <- function(X, Y, segm, score, fun, pars, verb = TRUE)
+    .gridcv(X, Y, segm, score, fun, pars, verb = TRUE, gridscorelb)
+
+
+
+
+

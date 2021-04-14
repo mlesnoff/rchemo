@@ -100,6 +100,72 @@ gridscorelv <- function(Xtrain, Ytrain, X, Y, score, fun, pars, verb = FALSE) {
     
     }
 
+gridscorelb <- function(Xtrain, Ytrain, X, Y, score, fun, pars, verb = FALSE) {
+  
+    ## pars = arguments involved in the calculation of the score
+    ## !! Must contains lb
+    
+    Xtrain <- .mat(Xtrain)
+    Ytrain <- .mat(Ytrain, "y")     
+    X <- .mat(X)
+    Y <- .mat(Y, "y")
+    q <- dim(Ytrain)[2]
+    
+    pars <- data.frame(
+        lapply(pars, FUN = function(x) {if(is.factor(x)) as.character(x) else x})
+        )
+    lb <- sort(unique(pars$lb))
+    le_lb <- length(lb) 
+
+    ## Only lb
+    if(dim(pars)[2] == 1) {
+        fm <- fun(Xtrain, Ytrain, lb = max(lb))
+        pred <- predict(fm, X, lb = lb)$pred
+        if(le_lb == 1)
+            pred <- list(pred)
+        res <- matrix(nrow = le_lb, ncol = q)
+        for(i in seq_len(le_lb))
+            res[i, ] <- score(pred[[i]], Y)
+        colnames(res) <- colnames(Ytrain)
+        res <- data.frame(lb = lb, res, stringsAsFactors = FALSE)
+        } 
+    ## End
+    else {
+        pars <- pars[ , names(pars) != "lb", drop = FALSE]
+        pars <- unique(pars)
+        npar <- dim(pars)[1]
+        if(verb) 
+            cat("Nb. combinations = ", npar, "\n\n")
+        res <- vector(mode = "list", length = npar)
+        for(i in seq_len(npar)) {
+            zpars <- pars[i, , drop = FALSE]
+            if(verb) 
+                print(zpars)
+            fm <- do.call(
+                fun,
+                c(list(Xtrain, Ytrain), lb = max(lb), zpars)
+                )
+            zpred <- predict(fm, X, lb = lb)$pred
+            if(le_lb == 1)
+                zpred <- list(zpred)
+            zres <- matrix(nrow = le_lb, ncol = q)
+            for(j in seq_len(le_lb))
+                zres[j, ] <- score(zpred[[j]], Y)
+            colnames(zres) <- colnames(Ytrain)
+            zres <- data.frame(lb = lb, zres, stringsAsFactors = FALSE)
+            res[[i]] <- suppressWarnings(data.frame(zpars, zres)) 
+            }
+        
+        res <- setDF(rbindlist(res))    
+        }
+    if (verb) 
+        cat("/ End. \n\n")
+  
+    res
+    
+    }
+
+
 .gridscore_old <- function(Xtrain, Ytrain, X, Y, score, fun, verb = FALSE, ...) {
   
     ## Here the arguments were given independently in ... instead of in pars
