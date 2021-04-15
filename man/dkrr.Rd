@@ -1,6 +1,6 @@
 \name{dkrr}
 \alias{dkrr}
-\alias{predict.Dkpls}
+\alias{predict.Dkrr}
 \encoding{latin1}
 
 \title{Direct KRR Models}

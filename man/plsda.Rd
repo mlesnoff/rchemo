@@ -34,7 +34,7 @@ plsqda(X, y, nlv, weights = NULL, prior = c("unif", "prop"))
 
 \method{predict}{Plsda}(object, X, ..., nlv = NULL) 
 
-\method{predict}{PlsDaprob}(object, X, ..., nlv = NULL) 
+\method{predict}{Plsdaprob}(object, X, ..., nlv = NULL) 
 
 }
 
