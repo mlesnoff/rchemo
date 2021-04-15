@@ -1,6 +1,7 @@
 \name{gridscore}
 \alias{gridscore}
 \alias{gridscorelv}
+\alias{gridscorelb}
 
 \encoding{latin1}
 
@@ -10,11 +11,15 @@
 
 Wrappers for tuning predictive models on a validation set.
 
-The functions return prediction scores (in general error rates) for a given model and a grid of parameter values, calculated on a validation set. 
+The functions return prediction scores (in general error rates) for a given model, a grid of parameter values, and a validation set. 
  
-Function \code{gridscore} can be used for any model. Function \code{gridscorelv} is specific to models based on latent variables (e.g. PLSR) for which it is much faster than \code{gridscore} and recommended.
+- \code{gridscore}: Can be used for any model.
 
-The grid (argument \code{pars}) must be a dataframe whose the column names correspond to the model parameters involved in the score calculations. For \code{gridscorelv}, the grid must contain a column \code{nlv} (number of latent variables; LVs).   
+- \code{gridscorelv}: Specific to models based on latent variable regularization (e.g. PLSR) for which it is much faster than \code{gridscore}.
+
+- \code{gridscorelb}: Specific to models based on ridge regularization (e.g. RR) for which it is much faster than \code{gridscore}.
+
+The grid (argument \code{pars}) must be a dataframe whose the column names correspond to the model parameters involved in the score calculations. For \code{gridscorelv}, the grid must contain a column \code{nlv} (number of latent variables; LVs), and for \code{gridscorelb}, a column \code{lb} (regularization parameter \code{lambda}).
 
 }
 
@@ -23,6 +28,8 @@ The grid (argument \code{pars}) must be a dataframe whose the column names corre
 gridscore(Xtrain, Ytrain, X, Y, score, fun, pars, verb = FALSE)
 
 gridscorelv(Xtrain, Ytrain, X, Y, score, fun, pars, verb = FALSE)
+
+gridscorelb(Xtrain, Ytrain, X, Y, score, fun, pars, verb = FALSE)
 
 }
 

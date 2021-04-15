@@ -45,6 +45,8 @@ rr <- function(X, Y, lb = 0, weights = NULL) {
 
 coef.RR <- function(object, ..., lb = NULL) {
   
+    n <- length(object$weights)
+    
     if(is.null(lb))
         lb <- object$lb
     

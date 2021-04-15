@@ -18,7 +18,7 @@ X-Data are internally centered (column-wise) before the analyses, but they are n
 
 rr(X, Y, lb = 0, weights = NULL)
 
-\method{coef}{RR}(object, X, ..., lb = NULL)  
+\method{coef}{RR}(object, ..., lb = NULL)  
 
 \method{predict}{RR}(object, X, ..., lb = NULL)  
 
@@ -35,6 +35,8 @@ rr(X, Y, lb = 0, weights = NULL)
 \item{weights}{Weights (\eqn{n, 1}) to apply to the training observations. Internally, weights are "normalized" to sum to 1. Default to \code{NULL} (weights are set to \eqn{1 / n}).}
 
 \item{object}{A fitted model, output of a call to the main function.}
+
+\item{...}{Optionnal arguments.}
 
 }
 
