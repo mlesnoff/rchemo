@@ -1,6 +1,6 @@
 \name{lwplsr}
 \alias{lwplsr}
-\alias{predict.LwPlsR}
+\alias{predict.Lwplsr}
 
 \encoding{latin1}
 
@@ -31,7 +31,7 @@ lwplsr(
     nlv
     )
 
-\method{predict}{LwPlsR}(object, X, ..., nlv = NULL)  
+\method{predict}{Lwplsr}(object, X, ..., nlv = NULL)  
 
 }
 

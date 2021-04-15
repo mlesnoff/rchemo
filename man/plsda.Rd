@@ -2,8 +2,8 @@
 \alias{plsda}
 \alias{plslda}
 \alias{plsqda}
-\alias{predict.PlsDa}
-\alias{predict.PlsDaProb}
+\alias{predict.Plsda}
+\alias{predict.Plsdaprob}
 \encoding{latin1}
 
 \title{PLSDA models}
@@ -32,9 +32,9 @@ plslda(X, y, nlv, weights = NULL, prior = c("unif", "prop"))
 
 plsqda(X, y, nlv, weights = NULL, prior = c("unif", "prop"))
 
-\method{predict}{PlsDa}(object, X, ..., nlv = NULL) 
+\method{predict}{Plsda}(object, X, ..., nlv = NULL) 
 
-\method{predict}{PlsDaProb}(object, X, ..., nlv = NULL) 
+\method{predict}{PlsDaprob}(object, X, ..., nlv = NULL) 
 
 }
 

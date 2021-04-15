@@ -1,7 +1,7 @@
 \name{rr}
 \alias{rr}
-\alias{coef.RR}
-\alias{predict.RR}
+\alias{coef.Rr}
+\alias{predict.Rr}
 \encoding{latin1}
 
 \title{Linear Ridge Regression}
@@ -18,9 +18,9 @@ X-Data are internally centered (column-wise) before the analyses, but they are n
 
 rr(X, Y, lb = 0, weights = NULL)
 
-\method{coef}{RR}(object, ..., lb = NULL)  
+\method{coef}{Rr}(object, ..., lb = NULL)  
 
-\method{predict}{RR}(object, X, ..., lb = NULL)  
+\method{predict}{Rr}(object, X, ..., lb = NULL)  
 
 }
 
@@ -30,7 +30,7 @@ rr(X, Y, lb = 0, weights = NULL)
 
 \item{Y}{Training Y-data (\eqn{n, q}).}
 
-\item{lb}{A value of the regularization parameter \eqn{lambda}.}
+\item{lb}{A value of regularization parameter \eqn{lambda}.}
 
 \item{weights}{Weights (\eqn{n, 1}) to apply to the training observations. Internally, weights are "normalized" to sum to 1. Default to \code{NULL} (weights are set to \eqn{1 / n}).}
 
