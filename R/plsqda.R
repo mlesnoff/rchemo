@@ -25,6 +25,6 @@ plsqda <- function(X, y, nlv, weights = NULL, prior = c("unif", "prop")) {
     for(i in seq_len(nlv))
       fm[[2]][[i]] <- qda(z[, seq_len(i), drop = FALSE], y, prior = prior)
     
-    structure(fm, class = "PlsDaProb")       
+    structure(fm, class = "Plsdaprob")       
 
     }

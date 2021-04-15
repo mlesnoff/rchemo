@@ -9,13 +9,13 @@ lwplsda <- function(
         list(X = X, y = y,
              nlvdis = nlvdis, diss = diss, 
              h = h, k = k, nlv = nlv),
-        class = "LwPlsDa"
+        class = "Lwplsda"
         )
 
     }
     
     
-predict.LwPlsDa <- function(object, X, ..., nlv = NULL)
-    .predict_LwPls(object, X, ..., nlv = nlv, fun = plsda)
+predict.Lwplsda <- function(object, X, ..., nlv = NULL)
+    .predict_Lwpls(object, X, ..., nlv = nlv, fun = plsda)
    
 

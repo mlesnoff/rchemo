@@ -25,12 +25,12 @@ lda <- function(X, y, prior = c("unif", "prop")) {
     structure(
         list(ct = ct, W = W, wprior = wprior, 
              lev = lev, ni = ni),
-        class = c("LDa")
+        class = c("Lda")
         )       
 
     }
 
-predict.LDa <- function(object, X, ...) {
+predict.Lda <- function(object, X, ...) {
     
     X <- .mat(X)
     m <- dim(X)[1]

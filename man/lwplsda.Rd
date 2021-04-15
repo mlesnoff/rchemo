@@ -1,6 +1,6 @@
 \name{lwplsda}
 \alias{lwplsda}
-\alias{predict.LwPlsDa}
+\alias{predict.LwplsDa}
 
 \encoding{latin1}
 
@@ -21,7 +21,7 @@ lwplsda(
     nlv
     )
 
-\method{predict}{LwPlsDa}(object, X, ..., nlv = NULL)  
+\method{predict}{LwPlsda}(object, X, ..., nlv = NULL)  
 
 }
 

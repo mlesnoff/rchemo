@@ -39,7 +39,7 @@ pcasvd <- function(X, nlv, weights = NULL) {
     structure(
         list(T = T, P = P, sv = sv, eig = eig,
             xmeans = xmeans, weights = weights, niter = NULL, conv = NULL),
-        class = c("PcaOrtho", "Pca")
+        class = c("Pcaortho", "Pca")
         )
 
     }

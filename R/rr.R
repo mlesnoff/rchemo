@@ -38,12 +38,12 @@ rr <- function(X, Y, lb = 0, weights = NULL) {
         list(
             V = V, eig = eig, tTDY = tTDY, lb = lb, 
             xmeans = xmeans, ymeans = ymeans, weights = weights),
-        class = c("RR")
+        class = c("Rr")
         )
 
     }
 
-coef.RR <- function(object, ..., lb = NULL) {
+coef.Rr <- function(object, ..., lb = NULL) {
   
     n <- length(object$weights)
     
@@ -62,7 +62,7 @@ coef.RR <- function(object, ..., lb = NULL) {
     }
 
 
-predict.RR <- function(object, X, ..., lb = NULL) {
+predict.Rr <- function(object, X, ..., lb = NULL) {
     
     X <- .mat(X)
     q <- length(object$ymeans)

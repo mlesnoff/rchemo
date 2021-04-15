@@ -1,8 +1,8 @@
 \name{lda}
 \alias{lda}
 \alias{qda}
-\alias{predict.LDa}
-\alias{predict.QDa}
+\alias{predict.Lda}
+\alias{predict.Qda}
 \encoding{latin1}
 
 \title{Probabilistic LDA and QDA}
@@ -23,8 +23,8 @@ lda(X, y, prior = c("unif", "prop"))
 
 qda(X, y, prior = c("unif", "prop"))
   
-\method{predict}{LDa}(object, X, ...)  
-\method{predict}{QDa}(object, X, ...)  
+\method{predict}{Lda}(object, X, ...)  
+\method{predict}{Qda}(object, X, ...)  
 
 }
 

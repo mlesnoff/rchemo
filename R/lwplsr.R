@@ -9,13 +9,13 @@ lwplsr <- function(
         list(X = X, Y = Y,
              nlvdis = nlvdis, diss = diss, 
              h = h, k = k, nlv = nlv),
-        class = "LwPlsR"
+        class = "Lwplsr"
         )
 
     }
     
     
-.predict_LwPls <- function(object, X, ..., nlv = NULL, fun) {
+.predict_Lwpls <- function(object, X, ..., nlv = NULL, fun) {
     
     X <- .mat(X)
 
@@ -53,8 +53,8 @@ lwplsr <- function(
     
     }
 
-predict.LwPlsR <- function(object, X, ..., nlv = NULL)
-    .predict_LwPls(object, X, ..., nlv = nlv, fun = plskern)
+predict.Lwplsr <- function(object, X, ..., nlv = NULL)
+    .predict_Lwpls(object, X, ..., nlv = nlv, fun = plskern)
     
 
 

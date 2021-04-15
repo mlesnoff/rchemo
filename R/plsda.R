@@ -21,13 +21,13 @@ plsda <- function(X, y, nlv, weights = NULL) {
         list(T = fm$T, P = fm$P, R = fm$R, W = fm$W, C = fm$C, TT = fm$TT,
             xmeans = fm$xmeans, ymeans = fm$ymeans, weights = fm$weights, 
             lev = z$lev, ni = z$ni),
-        class = c("PlsDa", "Pls")
+        class = c("Plsda", "Pls")
         )       
 
     }
 
 
-predict.PlsDa <- function(object, X, ..., nlv = NULL) {
+predict.Plsda <- function(object, X, ..., nlv = NULL) {
     
     X <- .mat(X)
     rownam <- row.names(X)

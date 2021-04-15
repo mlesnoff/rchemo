@@ -71,7 +71,7 @@ plskern <- function(X, Y, nlv, weights = NULL) {
     structure(
         list(T = T, P = P, R = R, W = W, C = C, TT = TT,
              xmeans = xmeans, ymeans = ymeans, weights = weights, U = NULL),
-        class = c("PlsOrtho", "Pls")
+        class = c("Plsortho", "Pls")
         )
     
     }

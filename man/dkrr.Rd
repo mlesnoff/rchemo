@@ -1,21 +1,21 @@
-\name{dkplsr}
-\alias{dkplsr}
+\name{dkrr}
+\alias{dkrr}
 \alias{predict.Dkpls}
 \encoding{latin1}
 
-\title{Direct KPLSR Models}
+\title{Direct KRR Models}
 
 \description{
 
-Direct kernel PLSR (DKPLSR) (Bennett & Embrechts 2003). The method builds kernel Gram matrices (such as doing a pre-processing on the X-data) and then runs a usual PLSR algorithm on them. This is faster (but not equivalent) to the "true" NIPALS KPLSR algorithm such as described in Rosipal & Trejo (2001). 
+Direct kernel ridge regression (DKRR), following the same approcah as for DKPLSR (Bennett & Embrechts 2003). The method builds kernel Gram matrices (such as doing a pre-processing on the X-data) and then runs a usual RR algorithm on them. This is faster (but not equivalent) to the "true" KRR (= LS-SVM) algorithm. 
 
 }
 
 \usage{
 
-dkplsr(X, Y, nlv, kern = "krbf", weights = NULL, ...)
+dkrr(X, Y, lb = 0, kern = "krbf", weights = NULL, ...)
 
-\method{predict}{Dkpls}(object, X, ..., nlv = NULL)  
+\method{predict}{Dkrr}(object, X, ..., lb = NULL)  
 
 }
 
@@ -25,7 +25,7 @@ dkplsr(X, Y, nlv, kern = "krbf", weights = NULL, ...)
 
 \item{Y}{Training Y-data (\eqn{n, q}).}
 
-\item{nlv}{The number(s) of LVs to calculate.}
+\item{lb}{A value of regularization parameter \eqn{lambda}.}
 
 \item{kern}{Name of the function defining the considered kernel for building the Gram matrix. See \code{\link{krbf}} for syntax, and other available kernel functions.}
 
@@ -58,26 +58,26 @@ m <- 3
 Xtest <- Xtrain[1:m, , drop = FALSE] 
 Ytest <- Ytrain[1:m, , drop = FALSE] ; ytest <- Ytest[1:m, 1]
 
-nlv <- 2
-fm <- dkplsr(Xtrain, Ytrain, nlv = nlv, kern = "krbf", sigma = .8)
-predict(fm, Xtest, nlv = nlv)
+lb <- 2
+fm <- dkrr(Xtrain, Ytrain, lb = lb, kern = "krbf", sigma = .8)
+predict(fm, Xtest, lb = lb)
 
-predict(fm, Xtest, nlv = 0:nlv)$pred
+predict(fm, Xtest, lb = c(.1, .8))$pred
 
-nlv <- 2
-fm <- dkplsr(Xtrain, Ytrain, nlv = nlv, kern = "kpol", degree = 2, offset = 10)
-predict(fm, Xtest, nlv = nlv)
+lb <- 2
+fm <- dkrr(Xtrain, Ytrain, lb = lb, kern = "kpol", degree = 2, offset = 10)
+predict(fm, Xtest, lb = lb)
 
 sigma <- 10^(-1:1)
-nlv <- 2
+lb <- 2
 pars <- expand.grid(
     sigma = sigma,
-    nlv = 0:nlv
+    lb = c(.1, .8)
     )
-res <- gridscorelv(
+res <- gridscorelb(
     Xtrain, ytrain, Xtest, ytest, 
     score = msep, 
-    fun = dkplsr, 
+    fun = dkrr, 
     pars = pars,
     verb = TRUE
     )
@@ -94,8 +94,7 @@ plot(x, y, type = "p")
 lines(x, zy, lty = 2)
 X <- matrix(x, ncol = 1)
 
-lb <- .01
-fm <- dkrr(X, y, lb = lb)
+fm <- dkrr(X, y, lb = .1, sigma = 2)
 pred <- predict(fm, X)$pred
 plot(X, y, type = "p")
 lines(X, zy, lty = 2)
