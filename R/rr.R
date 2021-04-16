@@ -36,7 +36,7 @@ rr <- function(X, Y, lb = 0, weights = NULL) {
     
     structure(
         list(
-            V = V, eig = eig, tTDY = tTDY, lb = lb, 
+            V = V, tTDY = tTDY, eig = eig, lb = lb, 
             xmeans = xmeans, ymeans = ymeans, weights = weights),
         class = c("Rr")
         )

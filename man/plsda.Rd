@@ -14,13 +14,9 @@ Discrimination (DA) based on PLS latent variables (LVs).
 
 The training class membership variable \eqn{y} (univariatel) is firstly transformed (with function \code{\link{dummy}}) to a dummy table containing \eqn{nclas} columns, where \eqn{nclas} is the number of classes present in \eqn{y}. Each column is a dummy variable (0/1). Then, a PLS2 is implemented on the \eqn{X-}data and the dummy table, returning LVs that are used as dependent variables in a DA model.
 
-- \code{plsda} fits the usual "PLDA": the final prediction (a given class) corresponds to the dummy variable for which the prediction (unbounded probability estimate) is the highest.
+- \code{plsda}: Usual "PLDA": the final prediction (a given class) corresponds to the dummy variable for which the prediction (unbounded probability estimate) is the highest.
 
-- \code{plslda} and \code{plsqda} fit a PLS-LDA and a PLS-QDA, respectively: \code{\link{lda}} and \code{\link{qda}} are run over the PLS2 LVs.
-
-The traing matrix \eqn{X} is centered before the analyses, but \eqn{X} is not column-wise scaled (there is no argument \code{scale} available). If a scaling is needed, the user has to scale \eqn{X} before using the functions. 
-
-The row observations can eventually be weighted in the PLS2, using argument \code{weights}.
+- \code{plslda} and \code{plsqda}: PLS-LDA and PLS-QDA, respectively. \code{\link{lda}} and \code{\link{qda}} are run over the PLS2 LVs.
 
 }
 
@@ -46,7 +42,7 @@ plsqda(X, y, nlv, weights = NULL, prior = c("unif", "prop"))
 
 \item{nlv}{The number(s) of LVs to calculate.}
 
-\item{weights}{Weights (\eqn{n}) to apply to the training observations. Internally, weights are "normalized" to sum to 1. Default to \code{NULL} (weights are set to \eqn{1 / n}).}
+\item{weights}{Weights (\eqn{n}) to apply to the training observations for the PLS2. Internally, weights are "normalized" to sum to 1. Default to \code{NULL} (weights are set to \eqn{1 / n}).}
 
 \item{prior}{The prior probabilities of the classes. Possible values are "unif" (default; probabilities are set equal for all the classes) or "prop" (probabilities are set equal to the observed proportions of the classes in \code{y}).}
 

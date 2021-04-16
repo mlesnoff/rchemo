@@ -10,8 +10,6 @@
 
 Fitting linear ridge regression models (Hoerl & Kennard 1970, Hastie & Tibshirani 2004, Hastie et al 2009, Cule & De Iorio 2012) by eigen decomposition. The "kernel cross-product trick" (such as in \code{\link{pcaeigenk}}; Wu et al. 1997) is used when \eqn{n < p}. 
 
-X-Data are internally centered (column-wise) before the analyses, but they are not scaled (there is no argument \code{scale} in the function). If needed, the user has to do the scaling before using the function.  
-
 }
 
 \usage{

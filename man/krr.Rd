@@ -1,20 +1,24 @@
-\name{dkplsr}
-\alias{dkplsr}
-\alias{predict.Dkpls}
+\name{krr}
+\alias{krr}
+\alias{coef.Krr}
+\alias{predict.Krr}
 \encoding{latin1}
 
-\title{Direct KPLSR Models}
+\title{KRR (LS-SVMR)}
 
 \description{
 
-Direct kernel PLSR (DKPLSR) (Bennett & Embrechts 2003). The method builds kernel Gram matrices (such as doing a pre-processing on the X-data) and then runs a usual PLSR algorithm on them. This is faster (but not equivalent) to the "true" NIPALS KPLSR algorithm such as described in Rosipal & Trejo (2001). 
+Kernel ridge regression models, also referred to as LS-SVMR (Suykens et al. 2000, Bennett & Embrechts 2003, Krell 2018). 
+
 }
 
 \usage{
 
-dkplsr(X, Y, nlv, kern = "krbf", weights = NULL, ...)
+krr(X, Y, lb = 0, kern = "krbf", weights = NULL, ...)
 
-\method{predict}{Dkpls}(object, X, ..., nlv = NULL)  
+\method{coef}{Krr}(object, ..., lb = NULL)  
+
+\method{predict}{Krr}(object, X, ..., lb = NULL)  
 
 }
 
@@ -24,7 +28,7 @@ dkplsr(X, Y, nlv, kern = "krbf", weights = NULL, ...)
 
 \item{Y}{Training Y-data (\eqn{n, q}).}
 
-\item{nlv}{The number(s) of LVs to calculate.}
+\item{lb}{A value of regularization parameter \eqn{lambda}.}
 
 \item{kern}{Name of the function defining the considered kernel for building the Gram matrix. See \code{\link{krbf}} for syntax, and other available kernel functions.}
 
@@ -38,12 +42,19 @@ dkplsr(X, Y, nlv, kern = "krbf", weights = NULL, ...)
 
 \value{See the examples.}
 
-
 \references{
 
 Bennett, K.P., Embrechts, M.J., 2003. An optimization perspective on kernel partial least squares regression, in: Advances in Learning Theory: Methods, Models and Applications, NATO Science Series III: Computer & Systems Sciences. IOS Press Amsterdam, pp. 227-250.
 
-Rosipal, R., Trejo, L.J., 2001. Kernel Partial Least Squares Regression in Reproducing Kernel Hilbert Space. Journal of Machine Learning Research 2, 97-123.
+Cawley, G.C., Talbot, N.L.C., 2002. Reduced Rank Kernel Ridge Regression. Neural Processing Letters 16, 293-302. https://doi.org/10.1023/A:1021798002258
+
+Krell, M.M., 2018. Generalizing, Decoding, and Optimizing Support Vector Machine Classification. arXiv:1801.04929.
+
+Saunders, C., Gammerman, A., Vovk, V., 1998. Ridge Regression Learning Algorithm in Dual Variables, in: In Proceedings of the 15th International Conference on Machine Learning. Morgan Kaufmann, pp. 515–521.
+
+Suykens, J.A.K., Lukas, L., Vandewalle, J., 2000. Sparse approximation using least squares support vector machines. 2000 IEEE International Symposium on Circuits and Systems. Emerging Technologies for the 21st Century. Proceedings (IEEE Cat No.00CH36353). https://doi.org/10.1109/ISCAS.2000.856439
+
+Welling, M., n.d. Kernel ridge regression. Department of Computer Science, University of Toronto, Toronto, Canada. https://www.ics.uci.edu/~welling/classnotes/papers_class/Kernel-Ridge.pdf
 
 }
 
@@ -57,26 +68,26 @@ m <- 3
 Xtest <- Xtrain[1:m, , drop = FALSE] 
 Ytest <- Ytrain[1:m, , drop = FALSE] ; ytest <- Ytest[1:m, 1]
 
-nlv <- 2
-fm <- dkplsr(Xtrain, Ytrain, nlv = nlv, kern = "krbf", sigma = .8)
-predict(fm, Xtest, nlv = nlv)
+lb <- 2
+fm <- krr(Xtrain, Ytrain, lb = lb, kern = "krbf", sigma = .8)
+predict(fm, Xtest, lb = lb)
 
-predict(fm, Xtest, nlv = 0:nlv)$pred
+predict(fm, Xtest, lb = c(.1, .8))$pred
 
-nlv <- 2
-fm <- dkplsr(Xtrain, Ytrain, nlv = nlv, kern = "kpol", degree = 2, offset = 10)
-predict(fm, Xtest, nlv = nlv)
+lb <- 2
+fm <- krr(Xtrain, Ytrain, lb = lb, kern = "kpol", degree = 2, offset = 10)
+predict(fm, Xtest, lb = lb)
 
 sigma <- 10^(-1:1)
-nlv <- 2
+lb <- 2
 pars <- expand.grid(
     sigma = sigma,
-    nlv = 0:nlv
+    lb = c(.1, .8)
     )
-res <- gridscorelv(
+res <- gridscorelb(
     Xtrain, ytrain, Xtest, ytest, 
     score = msep, 
-    fun = dkplsr, 
+    fun = krr, 
     pars = pars,
     verb = TRUE
     )
@@ -94,8 +105,7 @@ plot(x, y, type = "p")
 lines(x, zy, lty = 2)
 X <- matrix(x, ncol = 1)
 
-lb <- .01
-fm <- dkrr(X, y, lb = lb)
+fm <- krr(X, y, lb = .1, sigma = 3)
 pred <- predict(fm, X)$pred
 plot(X, y, type = "p")
 lines(X, zy, lty = 2)

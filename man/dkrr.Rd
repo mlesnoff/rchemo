@@ -81,6 +81,7 @@ res <- gridscorelb(
     pars = pars,
     verb = TRUE
     )
+res
 
 ####### Example of fitting the function sinc(x)
 ####### described in Rosipal & Trejo 2001 p. 105-106 

@@ -12,12 +12,16 @@ gridscore <- function(Xtrain, Ytrain, X, Y, score, fun, pars, verb = FALSE) {
         lapply(pars, FUN = function(x) {if(is.factor(x)) as.character(x) else x})
         )
     npar <- dim(pars)[1]
+    if(verb) 
+        cat("Nb. combinations = ", npar, "\n")
     
     res <- matrix(nrow = npar, ncol = q)
     for(i in seq_len(npar)) {
         zpars <- pars[i, , drop = FALSE]
-        if (verb)
+        if (verb){
+            cat("\n")
             print(zpars)
+            }
         fm <- do.call(
             fun, 
             c(list(Xtrain, Ytrain), zpars)
@@ -26,7 +30,7 @@ gridscore <- function(Xtrain, Ytrain, X, Y, score, fun, pars, verb = FALSE) {
         res[i, ] <- score(pred, Y)
         }
     if (verb) 
-        cat("/ End. \n\n")
+        cat("-- End. \n\n")
     colnames(res) <- colnames(Ytrain)
     res <- data.frame(pars, res, stringsAsFactors = FALSE)
   
@@ -70,12 +74,14 @@ gridscorelv <- function(Xtrain, Ytrain, X, Y, score, fun, pars, verb = FALSE) {
         pars <- unique(pars)
         npar <- dim(pars)[1]
         if(verb) 
-            cat("Nb. combinations = ", npar, "\n\n")
+            cat("Nb. combinations = ", npar, "\n")
         res <- vector(mode = "list", length = npar)
         for(i in seq_len(npar)) {
             zpars <- pars[i, , drop = FALSE]
-            if(verb) 
-                print(zpars)
+            if (verb){
+                cat("\n")
+              print(zpars)
+              }
             fm <- do.call(
                 fun,
                 c(list(Xtrain, Ytrain), nlv = max(nlv), zpars)
@@ -94,7 +100,7 @@ gridscorelv <- function(Xtrain, Ytrain, X, Y, score, fun, pars, verb = FALSE) {
         res <- setDF(rbindlist(res))    
         }
     if (verb) 
-        cat("/ End. \n\n")
+        cat("-- End. \n\n")
   
     res
     
@@ -135,7 +141,7 @@ gridscorelb <- function(Xtrain, Ytrain, X, Y, score, fun, pars, verb = FALSE) {
         pars <- unique(pars)
         npar <- dim(pars)[1]
         if(verb) 
-            cat("Nb. combinations = ", npar, "\n\n")
+            cat("Nb. combinations = ", npar, "\n")
         res <- vector(mode = "list", length = npar)
         for(i in seq_len(npar)) {
             zpars <- pars[i, , drop = FALSE]

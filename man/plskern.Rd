@@ -5,24 +5,20 @@
 \alias{summary.Pls}
 \alias{transform.Pls}
 \alias{coef.Pls}
-\alias{predict.Pls}
+\alias{predict.Plsr}
 \encoding{latin1}
 
 \title{PLS algorithms}
 
 \description{
 
-Algorithms fitting a PLS1 or PLS2 model between dependent variables \eqn{X} and responses \eqn{Y}.
+Algorithms fitting a (centered) PLS1 or PLS2 model between dependent variables \eqn{X} and responses \eqn{Y}.
 
-\code{plskern} implements the "improved kernel algorithm #1" proposed by Dayal and MacGregor (1997). This algorithm is stable and fast (Andersson 2009), and returns the same results as the NIPALS. 
+- \code{plskern}: "Improved kernel algorithm #1" proposed by Dayal and MacGregor (1997). This algorithm is stable and fast (Andersson 2009), and returns the same results as the NIPALS. 
 
-\code{plsnipals} implements the NIPALS algorithm (e.g. Tenenhaus 1998, Wold 2002). In the function, the usual PLS2 NIPALS iterative is replaced by a direct calculation of the weights vector \eqn{w} by SVD decomposition of matrix \eqn{X'Y} (Hoskuldsson 1988 p.213).  
+- \code{plsnipals}: NIPALS algorithm (e.g. Tenenhaus 1998, Wold 2002). In the function, the usual PLS2 NIPALS iterative is replaced by a direct calculation of the weights vector \eqn{w} by SVD decomposition of matrix \eqn{X'Y} (Hoskuldsson 1988 p.213).  
 
-\code{plsrannar} implements a kernel algorithm proposed by Rannar et al. (1994) for "wide" matrices, i.e.  with low number of rows and very large number of columns (p >> n; e.g. p = 20000). In such a situation, this algorithm is faster than the others (but it becomes much slower in other situations). If the algorithm converges, it returns the same results as the NIPALS (Note: discrepancies can be observed if too many PLS components are requested compared to the low number of observations).
-
-For all the functions, a priori weights can be set to the training observations (rows of matrix \eqn{X}), with argument \code{weights}. This modifies the importance given to each of the \eqn{n} observations in the calculations of the scores (latent variables ; LVs), loadings and predictions. By default, argument \code{weights} is set to \code{NULL} corresponding to the usual weights \eqn{1/n}.
-
-The traing \eqn{X} is centered before the analyses, but \eqn{X} is not column-wise scaled (there is no argument \code{scale} available). If a scaling is needed, the user has to scale \eqn{X} before using the functions. 
+- \code{plsrannar}: Kernel algorithm proposed by Rannar et al. (1994) for "wide" matrices, i.e.  with low number of rows and very large number of columns (p >> n; e.g. p = 20000). In such a situation, this algorithm is faster than the others (but it becomes much slower in other situations). If the algorithm converges, it returns the same results as the NIPALS (Note: discrepancies can be observed if too many PLS components are requested compared to the low number of observations).
 
 \bold{Auxiliary functions}
 
@@ -48,7 +44,7 @@ plsrannar(X, Y, nlv, weights = NULL)
 
 \method{coef}{Pls}(object, ..., nlv = NULL) 
 
-\method{predict}{Pls}(object, X, ..., nlv = NULL)  
+\method{predict}{Plsr}(object, X, ..., nlv = NULL)  
 
 }
 

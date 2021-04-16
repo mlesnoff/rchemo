@@ -18,8 +18,6 @@ A faster and often more efficient strategy is to preliminary select, in the trai
 
 In function \code{lwplsr}, the dissimilarities used for computing the weights can be calculated from the original X-data or after a dimension reduction (argument \code{nlvdis}). In the last case, global PLS scores are computed from \eqn{(X, Y)} and the dissimilarities are calculated on these scores. For high dimension X-data, the dimension reduction is in general required for using the Mahalanobis distance.   
 
-The traing \eqn{X} is centered before the analyses, but \eqn{X} is not column-wise scaled (there is no argument \code{scale} available). If a scaling is needed, the user has to scale \eqn{X} before using the functions.  
-
 }
 
 \usage{

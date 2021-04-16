@@ -14,21 +14,18 @@
 
 Algorithms fitting a centered PCA of a matrix \eqn{X}. 
 
-Except for \code{pcanipalsna}, a priori weights can be set to the training observations (rows of matrix \eqn{X}), with argument \code{weights}. This modifies the importance given to each of the \eqn{n} observations in the calculations of the scores (principal components ; PCs) and loadings. By default, argument \code{weights} is set to \code{NULL} corresponding to the usual weights \eqn{1/n}.
-
 Noting \eqn{D} a \eqn{n, n} diagonal matrix of weights for the observations (rows of \eqn{X}), the functions consist in:
 
-- \code{pcasvd} ==> SVD decomposition of \eqn{D^(1/2) * X}, using function \code{\link{svd}}. 
+- \code{pcasvd}: SVD decomposition of \eqn{D^(1/2) * X}, using function \code{\link{svd}}. 
 
-- \code{pcaeigen} ==> eigen decomposition of \eqn{X' * D * X}, using function \code{\link{eigen}}. 
+- \code{pcaeigen}:Eigen decomposition of \eqn{X' * D * X}, using function \code{\link{eigen}}. 
 
-- \code{pcaeigenk} ==> eigen decomposition of \eqn{D^(1/2) *, * X' D^(1/2)}, using function \code{\link{eigen}}. This is the "kernel cross-product trick" version of the PCA algorithm (Wu et al. 1997). For wide matrices (\eqn{n << p}) and \eqn{n} not too large, this algorithm can be much faster than the others. 
+- \code{pcaeigenk}: Eigen decomposition of \eqn{D^(1/2) *, * X' D^(1/2)}, using function \code{\link{eigen}}. This is the "kernel cross-product trick" version of the PCA algorithm (Wu et al. 1997). For wide matrices (\eqn{n << p}) and \eqn{n} not too large, this algorithm can be much faster than the others. 
 
-- \code{pcanipals} ==> eigen decomposition of \eqn{X' * D * X} using NIPALS. 
+- \code{pcanipals}: Eigen decomposition of \eqn{X' * D * X} using NIPALS. 
 
-- \code{pcanipalsna} ==> eigen decomposition of \eqn{X' * D * X} using NIPALS allowing missing data in \eqn{X}. 
+- \code{pcanipalsna}: Eigen decomposition of \eqn{X' * D * X} using NIPALS allowing missing data in \eqn{X}. 
 
-In all the functions, the training matrix \eqn{X} is centered before the PCA, but \eqn{X} is not column-wise scaled (no argument \code{scale} available). If a scaling is needed, the user has to scale \eqn{X} before using the functions. 
 
 Function \code{pcanipalsna} accepts missing data (\code{NA}s) in \eqn{X}, unlike the other functions. The part of \code{pcanipalsna} accounting specifically for missing missing data is based on the efficient code of K. Wright in the R package \code{nipals} (https://cran.r-project.org/web/packages/nipals/index.html).
 

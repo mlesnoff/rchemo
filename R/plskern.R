@@ -71,7 +71,7 @@ plskern <- function(X, Y, nlv, weights = NULL) {
     structure(
         list(T = T, P = P, R = R, W = W, C = C, TT = TT,
              xmeans = xmeans, ymeans = ymeans, weights = weights, U = NULL),
-        class = c("Plsortho", "Pls")
+        class = c("Plsr", "Pls")
         )
     
     }
@@ -107,7 +107,7 @@ coef.Pls <- function(object, ..., nlv = NULL) {
   
     }
 
-predict.Pls <- function(object, X, ..., nlv = NULL) {
+predict.Plsr <- function(object, X, ..., nlv = NULL) {
     
     X <- .mat(X)
     q <- dim(object$C)[1]

@@ -94,7 +94,7 @@ pcanipals <- function(
     structure(
         list(T = T, P = P, sv = sv, eig = eig, 
             xmeans = xmeans, weights = wgt, niter = niter, conv = conv),
-        class = c("Pcaortho", "Pca")
+        class = c("Pca")
         )
 
     }

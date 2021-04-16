@@ -112,7 +112,7 @@ pcanipalsna <- function(
     structure(
         list(T = T, P = P, sv = sv, eig = eig, 
             xmeans = xmeans, weights = rep(1 / n, n), niter = niter, conv = conv),
-        class = c("Pcaortho", "Pca")
+        class = c("Pca")
         )  
     
     }
