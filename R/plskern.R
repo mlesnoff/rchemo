@@ -14,7 +14,6 @@ plskern <- function(X, Y, nlv, weights = NULL) {
     
     xmeans <- .colmeans(X, weights = weights) 
     X <- .center(X, xmeans)
-
     ymeans <- .colmeans(Y, weights = weights) 
     Y <- .center(Y, ymeans)
     
@@ -26,7 +25,6 @@ plskern <- function(X, Y, nlv, weights = NULL) {
     
     Xd <- weights * X
     # = D %*% X = d * X = X * d
-
     tXY <- crossprod(Xd, Y)
     # = t(D %*% X) %*% Y = t(X) %*% D %*% Y
     
@@ -42,20 +40,14 @@ plskern <- function(X, Y, nlv, weights = NULL) {
                 } 
 
         w <- w / sqrt(sum(w * w))
-        
         r <- w
         if(a > 1)
             for(j in seq_len(a - 1)) 
                     r <- r - sum(P[, j] * w) * R[, j]
-        
         t <- X %*% r 
-        
         tt <- sum(weights * t * t)         
-        
         c <- crossprod(tXY, r) / tt
-        
         p <- crossprod(Xd, t) / tt 
-        
         tXY <- tXY - tcrossprod(p, c) * tt    
         
         T[, a] <- t
@@ -77,11 +69,11 @@ plskern <- function(X, Y, nlv, weights = NULL) {
     }
 
 transform.Pls <- function(object, X, ..., nlv = NULL) {
-    A <- dim(object$P)[2]
+    a <- dim(object$T)[2]
     if(is.null(nlv))
-        nlv <- A
+        nlv <- a
     else 
-        nlv <- min(nlv, A)
+        nlv <- min(nlv, a)
     T <- .center(.mat(X), 
                  object$xmeans) %*% object$R[, seq_len(nlv), drop = FALSE]
     colnames(T) <- paste("lv", seq_len(dim(T)[2]), sep = "")
@@ -90,35 +82,29 @@ transform.Pls <- function(object, X, ..., nlv = NULL) {
 
 
 coef.Pls <- function(object, ..., nlv = NULL) {
-  
     ## Works also for nlv = 0
-  
-    A <- dim(object$P)[2]
+    a <- dim(object$T)[2]
     if(is.null(nlv))
-        nlv <- A
+        nlv <- a
     else 
-        nlv <- min(nlv, A)
-  
+        nlv <- min(nlv, a)
     beta <- t(object$C)[seq_len(nlv), , drop = FALSE]
     B <- object$R[, seq_len(nlv), drop = FALSE] %*% beta
     int <- object$ymeans - t(object$xmeans) %*% B
-    
     list(int = int, B = B) 
-  
     }
 
 predict.Plsr <- function(object, X, ..., nlv = NULL) {
-    
     X <- .mat(X)
     q <- dim(object$C)[1]
     rownam <- row.names(X)
     colnam <- paste("y", seq_len(q), sep = "")
     
-    A <- dim(object$P)[2]
+    a <- dim(object$T)[2]
     if(is.null(nlv))
-        nlv <- A 
+        nlv <- a 
     else 
-        nlv <- seq(min(nlv), min(max(nlv), A))
+        nlv <- seq(min(nlv), min(max(nlv), a))
     le_nlv <- length(nlv)
     
     pred <- vector(mode = "list", length = le_nlv)

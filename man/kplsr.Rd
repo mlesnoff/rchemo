@@ -1,20 +1,22 @@
-\name{dkplsr}
-\alias{dkplsr}
-\alias{predict.Dkplsr}
+\name{kplsr}
+\alias{kplsr}
+\alias{predict.Kplsr}
 \encoding{latin1}
 
-\title{Direct KPLSR Models}
+\title{KPLSR Models}
 
 \description{
 
-Direct kernel PLSR (DKPLSR) (Bennett & Embrechts 2003). The method builds kernel Gram matrices (such as doing a pre-processing on the X-data) and then runs a usual PLSR algorithm on them. This is faster (but not equivalent) to the "true" NIPALS KPLSR algorithm such as described in Rosipal & Trejo (2001). 
+NIPALS Kernel PLSR algorithm such as described in Rosipal & Trejo (2001). 
+
+The algorithm is slow for \eqn{n >= 500}.
 }
 
 \usage{
 
-dkplsr(X, Y, nlv, kern = "krbf", weights = NULL, ...)
+kplsr(X, Y, nlv, kern = "krbf", weights = NULL, ...)
 
-\method{predict}{Dkplsr}(object, X, ..., nlv = NULL)  
+\method{predict}{Kplsr}(object, X, ..., nlv = NULL)  
 
 }
 
@@ -41,8 +43,6 @@ dkplsr(X, Y, nlv, kern = "krbf", weights = NULL, ...)
 
 \references{
 
-Bennett, K.P., Embrechts, M.J., 2003. An optimization perspective on kernel partial least squares regression, in: Advances in Learning Theory: Methods, Models and Applications, NATO Science Series III: Computer & Systems Sciences. IOS Press Amsterdam, pp. 227-250.
-
 Rosipal, R., Trejo, L.J., 2001. Kernel Partial Least Squares Regression in Reproducing Kernel Hilbert Space. Journal of Machine Learning Research 2, 97-123.
 
 }
@@ -58,13 +58,13 @@ Xtest <- Xtrain[1:m, , drop = FALSE]
 Ytest <- Ytrain[1:m, , drop = FALSE] ; ytest <- Ytest[1:m, 1]
 
 nlv <- 2
-fm <- dkplsr(Xtrain, Ytrain, nlv = nlv, kern = "krbf", sigma = .8)
+fm <- kplsr(Xtrain, Ytrain, nlv = nlv, kern = "krbf", sigma = .8)
 predict(fm, Xtest)
 
 predict(fm, Xtest, nlv = 0:nlv)$pred
 
 nlv <- 2
-fm <- dkplsr(Xtrain, Ytrain, nlv = nlv, kern = "kpol", degree = 2, offset = 10)
+fm <- kplsr(Xtrain, Ytrain, nlv = nlv, kern = "kpol", degree = 2, offset = 10)
 predict(fm, Xtest, nlv = nlv)
 
 sigma <- 10^(-1:1)
@@ -76,7 +76,7 @@ pars <- expand.grid(
 res <- gridscorelv(
     Xtrain, ytrain, Xtest, ytest, 
     score = msep, 
-    fun = dkplsr, 
+    fun = kplsr, 
     pars = pars,
     verb = TRUE
     )
@@ -94,13 +94,12 @@ plot(x, y, type = "p")
 lines(x, zy, lty = 2)
 X <- matrix(x, ncol = 1)
 
-nlv <- 3
-fm <- dkplsr(X, y, nlv = nlv)
+nlv <- 2
+fm <- kplsr(X, y, nlv = nlv)
 pred <- predict(fm, X)$pred
 plot(X, y, type = "p")
 lines(X, zy, lty = 2)
 lines(X, pred, col = "red")
-
 
 }
 

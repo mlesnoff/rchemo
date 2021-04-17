@@ -52,11 +52,11 @@ coef.Krr <- function(object, ..., lb = NULL) {
         lb <- object$lb
     
     z <- 1 / (object$eig + lb / n)
-    Beta <- z * object$tTDY
+    beta <- z * object$tTDY
     int <- object$ymeans
     tr <- sum(object$eig * z)
 
-    list(int = int, Beta = Beta, df = 1 + tr) 
+    list(int = int, beta = beta, df = 1 + tr) 
   
     }
 
@@ -81,7 +81,7 @@ predict.Krr <- function(object, X, ..., lb = NULL) {
     pred <- vector(mode = "list", length = le_lb)
     for(i in seq_len(le_lb)) {
         z <- coef(object, lb = lb[i])
-        zpred <- t(c(z$int) + t(T %*% z$Beta))
+        zpred <- t(c(z$int) + t(T %*% z$beta))
         pred[[i]] <- zpred
         }
     names(pred) <- paste("lb", lb, sep = "")

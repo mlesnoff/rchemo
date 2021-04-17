@@ -7,12 +7,12 @@ dkplsr <- function(X, Y, nlv, kern = "krbf", weights = NULL, ...) {
 
     structure(
         list(X = X, fm = fm, K = K, kern = kern, dots = dots),
-        class = c("Dkpls")
+        class = c("Dkplsr")
         )
     
     }
 
-predict.Dkpls <- function(object, X, ..., nlv = NULL) {
+predict.Dkplsr <- function(object, X, ..., nlv = NULL) {
     
     K <- do.call(object$kern, c(list(X = X, Y = object$X), object$dots))
     pred <- predict(object$fm, K, nlv = nlv)$pred
