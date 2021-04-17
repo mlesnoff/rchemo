@@ -1,5 +1,6 @@
 \name{kplsr}
 \alias{kplsr}
+\alias{coef.Kplsr}
 \alias{predict.Kplsr}
 \encoding{latin1}
 
@@ -14,7 +15,10 @@ The algorithm is slow for \eqn{n >= 500}.
 
 \usage{
 
-kplsr(X, Y, nlv, kern = "krbf", weights = NULL, ...)
+kplsr(X, Y, nlv, kern = "krbf", weights = NULL,
+     tol = .Machine$double.eps^0.5, maxit = 100, ...)
+
+\method{coef}{Kplsr}(object, ..., nlv = NULL)  
 
 \method{predict}{Kplsr}(object, X, ..., nlv = NULL)  
 
@@ -33,6 +37,10 @@ kplsr(X, Y, nlv, kern = "krbf", weights = NULL, ...)
 \item{weights}{Weights (\eqn{n, 1}) to apply to the training observations. Internally, weights are "normalized" to sum to 1. Default to \code{NULL} (weights are set to \eqn{1 / n}).}
 
 \item{object}{A fitted model, output of a call to the main function.}
+
+\item{tol}{Tolerance level for stopping the NIPALS iterations.}
+
+\item{maxit}{Maximum number of NIPALS iterations.}
 
 \item{...}{Optionnal arguments to pass in the kernel function defined in \code{kern} (e.g. \code{sigma} for \code{\link{krbf}}).}
 
