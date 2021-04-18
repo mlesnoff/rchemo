@@ -81,7 +81,7 @@ transform.Pls <- function(object, X, ..., nlv = NULL) {
     T
     }
 
-summary.Pls <- function(object, X, ...) {
+summary.Pls <- function(object, ...) {
     
     zdim <- dim(object$T)
     n <- zdim[1]

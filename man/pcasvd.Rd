@@ -135,7 +135,7 @@ Wu, W., Massart, D.L., de Jong, S., 1997. The kernel PCA algorithms for wide dat
 n <- 6 ; p <- 4
 Xtrain <- matrix(rnorm(n * p), nrow = n)
 s <- c(3, 4, 7, 10, 11, 15, 21:24)   
-zX <- replace(X, s, NA)
+zX <- replace(Xtrain, s, NA)
 Xtrain
 zX
 m <- 2

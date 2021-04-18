@@ -84,8 +84,8 @@ summary.Pca <- function(object, X = NULL, ...) {
         coord.var <- data.frame(crossprod(X, object$weights * zT))
         z <- coord.var^2
         contr.var <- data.frame(.scale(z, rep(0, nlv), colSums(z)))
+        row.names(cor.circle) <- row.names(contr.var) <- row.names(coord.var) <- row.names(object$P)
         }
-    row.names(cor.circle) <- row.names(contr.var) <- row.names(coord.var) <- row.names(object$P)
     
     list(explvar = explvar, contr.ind = contr.ind, 
         contr.var = contr.var, coord.var = coord.var, cor.circle = cor.circle)    
