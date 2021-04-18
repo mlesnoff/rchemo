@@ -30,6 +30,9 @@ pcasvd <- function(X, nlv, weights = NULL) {
     ## = TT = colSums(weights * T * T)  
     ## = norms^2 of the scores T in metric D
     ## = .xnorm(T, weights = weights)^2
+    ## In general: sstot = weights * X * X =  sum(eig), 
+    ## but not in NIPALS 
+    sstot <- sum(eig)    
 
     row.names(T) <- row.names(X)
     row.names(P) <- colnames(X)
@@ -47,17 +50,46 @@ pcasvd <- function(X, nlv, weights = NULL) {
 transform <- function(object, X, ...) UseMethod("transform")
 
 transform.Pca <- function(object, X, ..., nlv = NULL) {
-    A <- dim(object$P)[2]
+    a <- dim(object$P)[2]
     if(is.null(nlv))
-        nlv <- A
+        nlv <- a
     else 
-        nlv <- min(nlv, A)
+        nlv <- min(a, nlv)
     T <- .center(.mat(X), 
                  object$xmeans) %*% object$P[, seq_len(nlv), drop = FALSE]
     colnames(T) <- paste("pc", seq_len(dim(T)[2]), sep = "")
     T
     }
 
+summary.Pca <- function(object, X = NULL, ...) {
+    
+    nlv <- dim(object$T)[2]
+    
+    TT <- object$weights * object$T * object$T
+    tt <- colSums(TT)
+    pvar <- tt / object$sstot
+    cumpvar <- cumsum(pvar)
+    explvar <- data.frame(pc = seq(nlv), var = tt, pvar = pvar, cumpvar = cumpvar)
+    row.names(explvar) <- seq(nlv)
+    
+    contr.ind <- data.frame(.scale(TT, center = rep(0, nlv), scale = tt))
+    
+    cor.circle <- contr.var <- coord.var <- NULL
+    if(!is.null(X)) {
+        p <- dim(X)[2]
+        xvars <- .colvars(X, weights = object$weights)
+        zX <- .scale(X, center = rep(0, p), scale = sqrt(xvars))
+        zT <- .scale(object$T, center = rep(0, nlv), scale = sqrt(tt))
+        cor.circle <- data.frame(t(object$weights * zX) %*% zT)
+        coord.var <- data.frame(crossprod(X, object$weights * zT))
+        z <- coord.var^2
+        contr.var <- data.frame(.scale(z, rep(0, nlv), colSums(z)))
+        }
+    row.names(cor.circle) <- row.names(contr.var) <- row.names(coord.var) <- row.names(object$P)
+    
+    list(explvar = explvar, contr.ind = contr.ind, 
+        contr.var = contr.var, coord.var = coord.var, cor.circle = cor.circle)    
 
+    }
 
 

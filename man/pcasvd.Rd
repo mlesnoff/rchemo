@@ -4,8 +4,8 @@
 \alias{pcaeigenk}
 \alias{pcanipals}
 \alias{pcanipalsna}
-\alias{summary.Pca}
 \alias{transform.Pca}
+\alias{summary.Pca}
 \encoding{latin1}
 
 \title{PCA algorithms}
@@ -41,7 +41,9 @@ For the case with missing data, the iterative CGS does not insure that the ortho
 
 \bold{Auxiliary function}
 
-\code{transform} Calculates the PCs for any new matrix \eqn{X} from the fitted PCA.
+\code{transform} Calculates the PCs for any new matrix \eqn{X} from the model.
+
+\code{summary} returns summary information for the model.
 
 }
 
@@ -63,13 +65,13 @@ pcanipalsna(X, nlv,
   
 \method{transform}{Pca}(object, X, ..., nlv = NULL)  
 
-\method{summary}{Pca}(object, X, ...)  
+\method{summary}{Pca}(object, X = NULL, ...)  
   
 }
 
 \arguments{
 
-\item{X}{For the main functions and auxiliary function \code{summary}: Training X-data (\eqn{n, p}). --- For the other auxiliary functions: New X-data (\eqn{m, p}) to consider.}
+\item{X}{For the main functions and auxiliary function \code{summary}: Training X-data (\eqn{n, p}). In \code{summary}, \code{X} is only required for variable coordinates and contributions, and the correlation circle (Default to \code{NULL}). --- For the other auxiliary functions: New X-data (\eqn{m, p}) to consider.}
 
 \item{nlv}{The number of PCs to calculate.}
 
@@ -129,23 +131,51 @@ Wu, W., Massart, D.L., de Jong, S., 1997. The kernel PCA algorithms for wide dat
 
 \examples{
 
-n <- 6
-p <- 4
-X <- matrix(rnorm(n * p), nrow = n)
+n <- 6 ; p <- 4
+Xtrain <- matrix(rnorm(n * p), nrow = n)
 s <- c(3, 4, 7, 10, 11, 15, 21:24)   
 zX <- replace(X, s, NA)
-X
+Xtrain
 zX
+m <- 2
+Xtest <- matrix(rnorm(m * p), nrow = m)
 
-pcasvd(X, nlv = 3)
-
-pcaeigen(X, nlv = 3)
-
-pcanipals(X, nlv = 3)
-
-pcanipalsna(X, nlv = 3)
-
+pcasvd(Xtrain, nlv = 3)
+pcaeigen(Xtrain, nlv = 3)
+pcaeigenk(Xtrain, nlv = 3)
+pcanipals(Xtrain, nlv = 3)
+pcanipalsna(Xtrain, nlv = 3)
 pcanipalsna(zX, nlv = 3)
+
+fm <- pcaeigen(Xtrain, nlv = 3)
+fm$T
+transform(fm, Xtest)
+transform(fm, Xtest, nlv = 2)
+
+pcaeigen(Xtrain, nlv = 3)$T
+pcaeigen(Xtrain, nlv = 3, weights = 1:n)$T
+
+## Scores
+
+Ttrain <- fm$T
+Ttest <- transform(fm, Xtest)
+T <- rbind(Ttrain, Ttest)
+group <- c(rep("Training", nrow(Ttrain)), rep("Test", nrow(Ttest)))
+i <- 1
+plotxy(T[, i:(i+1)], group = group, pch = 16, zeroes = TRUE, cex = 1.3)
+
+## Loadings
+
+plotxy(fm$P, zeroes = TRUE, label = TRUE, cex = 2, col = "red3")
+
+## Summary
+
+summary(fm)
+summary(fm, Xtrain)
+
+res <- summary(fm, Xtrain)
+plotxy(res$cor.circle, zeroes = TRUE, label = TRUE, cex = 2, col = "red3",
+    circle = TRUE, ylim = c(-1, 1))
 
 }
 

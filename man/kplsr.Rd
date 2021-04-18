@@ -1,6 +1,7 @@
 \name{kplsr}
 \alias{kplsr}
-\alias{coef.Kplsr}
+\alias{transform.Kpls}
+\alias{coef.Kpls}
 \alias{predict.Kplsr}
 \encoding{latin1}
 
@@ -18,7 +19,9 @@ The algorithm is slow for \eqn{n >= 500}.
 kplsr(X, Y, nlv, kern = "krbf", weights = NULL,
      tol = .Machine$double.eps^0.5, maxit = 100, ...)
 
-\method{coef}{Kplsr}(object, ..., nlv = NULL)  
+\method{transform}{Kpls}(object, X, ..., nlv = NULL)  
+
+\method{coef}{Kpls}(object, ..., nlv = NULL)  
 
 \method{predict}{Kplsr}(object, X, ..., nlv = NULL)  
 
@@ -70,6 +73,8 @@ fm <- kplsr(Xtrain, Ytrain, nlv = nlv, kern = "krbf", sigma = .8)
 predict(fm, Xtest)
 
 predict(fm, Xtest, nlv = 0:nlv)$pred
+
+transform(fm, Xtest)
 
 nlv <- 2
 fm <- kplsr(Xtrain, Ytrain, nlv = nlv, kern = "kpol", degree = 2, offset = 10)

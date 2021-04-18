@@ -14,9 +14,9 @@ plsnipals <- function(X, Y, nlv, weights = NULL) {
     
     xmeans <- .colmeans(X, weights = weights) 
     X <- .center(X, xmeans)
-
     ymeans <- .colmeans(Y, weights = weights) 
     Y <- .center(Y, ymeans)
+    sstot <- sum(weights * X * X)
     
     nam <- paste("lv", seq_len(nlv), sep = "")
     T <- matrix(nrow = n, ncol = nlv, dimnames = list(row.names(X), nam))                     
@@ -38,30 +38,23 @@ plsnipals <- function(X, Y, nlv, weights = NULL) {
             }
         
         t <- X %*% w
-        
         tt <- sum(weights * t * t)                                
-        
         c <- crossprod(weights * Y, t)    / tt
-        
         p <- crossprod(weights * X, t) / tt
-        
         X <- X - tcrossprod(t, p)
-        
         Y <- Y - tcrossprod(t, c)
         
         T[, a] <- t
         W[, a] <- w
         P[, a] <- p
         C[, a] <- c
-        
         TT[a] <- tt
-
         }
     
     R <- W %*% solve(crossprod(P, W))
 
     structure(
-        list(T = T, P = P, R = R, W = W, C = C, TT = TT,
+        list(T = T, P = P, R = R, W = W, C = C, TT = TT, sstot = sstot,
              xmeans = xmeans, ymeans = ymeans, weights = weights, U = NULL),
         class = c("Plsr", "Pls")
         )

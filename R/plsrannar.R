@@ -12,14 +12,11 @@ plsrannar <- function(X, Y, nlv, weights = NULL) {
         weights <- rep(1, n)
     weights <- .mweights(weights)
 
-    
-    #xmeans <- .colmeans(X) 
     xmeans <- .colmeans(X, weights = weights) 
     X <- .center(X, xmeans)
-
-    ymeans <- .colmeans(Y) 
     ymeans <- .colmeans(Y, weights = weights) 
     Y <- .center(Y, ymeans)
+    sstot <- sum(weights * X * X)
     
     nam <- paste("lv", seq_len(nlv), sep = "")
     U <- T <- Tclass <- matrix(nrow = n, ncol = nlv, 
@@ -28,10 +25,8 @@ plsrannar <- function(X, Y, nlv, weights = NULL) {
     
     Xd <- sqrt(weights) * X
     Yd <- sqrt(weights) * Y
-    
     XtX <- tcrossprod(Xd)
     YtY <- tcrossprod(Yd)
-    
     XY <- XtX %*% YtY    
     
     I <- diag(n)
@@ -39,13 +34,10 @@ plsrannar <- function(X, Y, nlv, weights = NULL) {
     for(a in seq_len(nlv)) {
         
         t <- .eigpow(XY)$v
-
         u <- YtY %*% t
-    
         utemp <-    u / sum(u * t)
         wtw <- c(crossprod(utemp, XtX) %*% utemp)
         tclass <- t * sqrt(wtw) / sqrt(weights)
-        
         tt <- sum(weights * tclass * tclass)    
         
         G <- I - tcrossprod(t)
@@ -56,24 +48,20 @@ plsrannar <- function(X, Y, nlv, weights = NULL) {
         T[, a] <- t
         Tclass[, a] <- tclass
         U[, a] <- u
-
         TT[a] <- tt
         
         }
 
     W <- crossprod(Xd, U)
     W <- .scale(W, scale = .colnorms(W))
-    
     Z <- solve(crossprod(T))
     Z <- .scale(Z, scale = sqrt(TT))
-    
     P <- crossprod(Xd, T) %*% Z
     C <- crossprod(Yd, T) %*% Z
-
     R <- W %*% solve(crossprod(P, W))
     
     structure(
-        list(T = Tclass, P = P, R = R, W = W, C = C, TT = TT,
+        list(T = Tclass, P = P, R = R, W = W, C = C, TT = TT, sstot = sstot,
             xmeans = xmeans, ymeans = ymeans, weights = weights, U = U),
         class = c("Plsr", "Pls")
         )    

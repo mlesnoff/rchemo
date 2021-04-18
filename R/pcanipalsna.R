@@ -103,6 +103,7 @@ pcanipalsna <- function(
         }
  
     eig <- sv^2         
+    sstot <- sum(X * X, na.rm = TRUE)    
     conv <- ifelse(niter < maxit, TRUE, FALSE)
    
     row.names(T) <- row.names(X)
@@ -110,7 +111,7 @@ pcanipalsna <- function(
     colnames(P) <- colnames(T) <- paste("comp", seq_len(nlv), sep = "") 
     
     structure(
-        list(T = T, P = P, sv = sv, eig = eig, 
+        list(T = T, P = P, sv = sv, eig = eig, sstot = sstot,
             xmeans = xmeans, weights = rep(1 / n, n), niter = niter, conv = conv),
         class = c("Pca")
         )  

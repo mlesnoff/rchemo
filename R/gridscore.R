@@ -13,7 +13,7 @@ gridscore <- function(Xtrain, Ytrain, X, Y, score, fun, pars, verb = FALSE) {
         )
     npar <- dim(pars)[1]
     if(verb) 
-        cat("Nb. combinations = ", npar, "\n")
+        cat("-- Nb. combinations = ", npar)
     
     res <- matrix(nrow = npar, ncol = q)
     for(i in seq_len(npar)) {
@@ -74,7 +74,7 @@ gridscorelv <- function(Xtrain, Ytrain, X, Y, score, fun, pars, verb = FALSE) {
         pars <- unique(pars)
         npar <- dim(pars)[1]
         if(verb) 
-            cat("Nb. combinations = ", npar, "\n")
+            cat("-- Nb. combinations = ", npar)
         res <- vector(mode = "list", length = npar)
         for(i in seq_len(npar)) {
             zpars <- pars[i, , drop = FALSE]
@@ -141,7 +141,7 @@ gridscorelb <- function(Xtrain, Ytrain, X, Y, score, fun, pars, verb = FALSE) {
         pars <- unique(pars)
         npar <- dim(pars)[1]
         if(verb) 
-            cat("Nb. combinations = ", npar, "\n")
+            cat("-- Nb. combinations = ", npar)
         res <- vector(mode = "list", length = npar)
         for(i in seq_len(npar)) {
             zpars <- pars[i, , drop = FALSE]

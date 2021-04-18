@@ -1,5 +1,6 @@
 \name{dkplsr}
 \alias{dkplsr}
+\alias{transform.Dkpls}
 \alias{predict.Dkplsr}
 \encoding{latin1}
 
@@ -13,6 +14,8 @@ Direct kernel PLSR (DKPLSR) (Bennett & Embrechts 2003). The method builds kernel
 \usage{
 
 dkplsr(X, Y, nlv, kern = "krbf", weights = NULL, ...)
+
+\method{transform}{Dkpls}(object, X, ..., nlv = NULL)  
 
 \method{predict}{Dkplsr}(object, X, ..., nlv = NULL)  
 
@@ -62,6 +65,8 @@ fm <- dkplsr(Xtrain, Ytrain, nlv = nlv, kern = "krbf", sigma = .8)
 predict(fm, Xtest)
 
 predict(fm, Xtest, nlv = 0:nlv)$pred
+
+transform(fm, Xtest)
 
 nlv <- 2
 fm <- dkplsr(Xtrain, Ytrain, nlv = nlv, kern = "kpol", degree = 2, offset = 10)

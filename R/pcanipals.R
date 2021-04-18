@@ -85,6 +85,7 @@ pcanipals <- function(
         }
       
     eig <- sv^2         
+    sstot <- sum(weights * X * X)    
     conv <- ifelse(niter < maxit, TRUE, FALSE)
    
     row.names(T) <- row.names(X)
@@ -92,7 +93,7 @@ pcanipals <- function(
     colnames(P) <- colnames(T) <- paste("pc", seq_len(nlv), sep = "") 
  
     structure(
-        list(T = T, P = P, sv = sv, eig = eig, 
+        list(T = T, P = P, sv = sv, eig = eig, sstot = sstot,
             xmeans = xmeans, weights = wgt, niter = niter, conv = conv),
         class = c("Pca")
         )

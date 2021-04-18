@@ -16,6 +16,7 @@ plskern <- function(X, Y, nlv, weights = NULL) {
     X <- .center(X, xmeans)
     ymeans <- .colmeans(Y, weights = weights) 
     Y <- .center(Y, ymeans)
+    sstot <- sum(weights * X * X)
     
     nam <- paste("lv", seq_len(nlv), sep = "")
     T <- matrix(nrow = n, ncol = nlv, dimnames = list(row.names(X), nam))                     
@@ -61,7 +62,7 @@ plskern <- function(X, Y, nlv, weights = NULL) {
         }
 
     structure(
-        list(T = T, P = P, R = R, W = W, C = C, TT = TT,
+        list(T = T, P = P, R = R, W = W, C = C, TT = TT, sstot = sstot,
              xmeans = xmeans, ymeans = ymeans, weights = weights, U = NULL),
         class = c("Plsr", "Pls")
         )
@@ -73,11 +74,27 @@ transform.Pls <- function(object, X, ..., nlv = NULL) {
     if(is.null(nlv))
         nlv <- a
     else 
-        nlv <- min(nlv, a)
+        nlv <- min(a, nlv)
     T <- .center(.mat(X), 
                  object$xmeans) %*% object$R[, seq_len(nlv), drop = FALSE]
     colnames(T) <- paste("lv", seq_len(dim(T)[2]), sep = "")
     T
+    }
+
+summary.Pls <- function(object, X, ...) {
+    
+    zdim <- dim(object$T)
+    n <- zdim[1]
+    nlv <- zdim[2]
+    tt <- object$TT
+    tt.adj <- colSums(object$P * object$P) * tt
+    pvar <- tt.adj / object$sstot
+    cumpvar <- cumsum(pvar)
+    xvar <- tt.adj / n
+    z <- data.frame(nlv = seq(nlv), var = xvar, pvar = pvar, cumpvar = cumpvar)
+    row.names(z) <- seq(nlv)
+    list(explvarx = z)
+    
     }
 
 
@@ -87,7 +104,7 @@ coef.Pls <- function(object, ..., nlv = NULL) {
     if(is.null(nlv))
         nlv <- a
     else 
-        nlv <- min(nlv, a)
+        nlv <- min(a, nlv)
     beta <- t(object$C)[seq_len(nlv), , drop = FALSE]
     B <- object$R[, seq_len(nlv), drop = FALSE] %*% beta
     int <- object$ymeans - t(object$xmeans) %*% B

@@ -69,17 +69,32 @@ kplsr <- function(X, Y, nlv, kern = "krbf", weights = NULL,
         list(X = X, tK = tK, T = T, C = C, U = U, R = zR,
              ymeans = ymeans, weights = weights,
              kern = kern, dots = dots),
-        class = c("Kplsr")
+        class = c("Kplsr", "Kpls")
         )
 
     }
 
-coef.Kplsr <- function(object, ..., nlv = NULL) {
+transform.Kpls <- function(object, X, ..., nlv = NULL) {
+    X <- .mat(X)
     a <- dim(object$T)[2]
     if(is.null(nlv))
         nlv <- a
     else 
         nlv <- min(nlv, a)
+    weights <- object$weights
+    K <- do.call(object$kern, c(list(X = X, Y = object$X), object$dots))
+    Kc <- t(t(K - colSums(weights * t(K))) - colSums(weights * object$tK)) + 
+        sum(weights * t(weights * object$tK))
+    T <- Kc %*% object$R[, seq_len(nlv), drop = FALSE]
+    T
+    }
+
+coef.Kpls <- function(object, ..., nlv = NULL) {
+    a <- dim(object$T)[2]
+    if(is.null(nlv))
+        nlv <- a
+    else 
+        nlv <- min(a, nlv)
     beta <- t(object$C)[seq_len(nlv), , drop = FALSE]
     int <- object$ymeans
     list(int = int, beta = beta) 
@@ -93,10 +108,10 @@ predict.Kplsr <- function(object, X, ..., nlv = NULL) {
     colnam <- paste("y", seq_len(q), sep = "")
     weights <- object$weights
     
-    K <- do.call(object$kern, c(list(X = X, Y = object$X), object$dots))
-    Kc <- t(t(K - colSums(weights * t(K))) - colSums(weights * object$tK)) + 
-        sum(weights * t(weights * object$tK))
-    T <- Kc %*% object$R    
+    #K <- do.call(object$kern, c(list(X = X, Y = object$X), object$dots))
+    #Kc <- t(t(K - colSums(weights * t(K))) - colSums(weights * object$tK)) + 
+    #    sum(weights * t(weights * object$tK))
+    #T <- Kc %*% object$R    
 
     a <- dim(object$T)[2]
     if(is.null(nlv))
@@ -104,6 +119,8 @@ predict.Kplsr <- function(object, X, ..., nlv = NULL) {
     else 
         nlv <- seq(min(nlv), min(max(nlv), a))
     le_nlv <- length(nlv)
+    
+    T <- transform(object, X)
     
     pred <- vector(mode = "list", length = le_nlv)
     for(i in seq_len(le_nlv)) {

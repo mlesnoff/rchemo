@@ -2,8 +2,8 @@
 \alias{plskern}
 \alias{plsnipals}
 \alias{plsrannar}
-\alias{summary.Pls}
 \alias{transform.Pls}
+\alias{summary.Pls}
 \alias{coef.Pls}
 \alias{predict.Plsr}
 \encoding{latin1}
@@ -22,11 +22,13 @@ Algorithms fitting a (centered) PLS1 or PLS2 model between dependent variables \
 
 \bold{Auxiliary functions}
 
-\code{coef} Calculates b-coefficients from the fitted PLS.
+\code{transform} Calculates the LVs for any new matrix \eqn{X} from the model.
 
-\code{transform} Calculates the LVs for any new matrix \eqn{X} from the fitted PLS.
+\code{summary} returns summary information for the model.
 
-\code{predict} Calculates the predictions for any new matrix \eqn{X} from the fitted PLS.
+\code{coef} Calculates b-coefficients from the model.
+
+\code{predict} Calculates the predictions for any new matrix \eqn{X} from the model.
 
 }
 
@@ -40,7 +42,7 @@ plsrannar(X, Y, nlv, weights = NULL)
 
 \method{transform}{Pls}(object, X, ..., nlv = NULL)  
 
-\method{summary}{Pls}(object, X, ...)  
+\method{summary}{Pls}(object, ...)  
 
 \method{coef}{Pls}(object, ..., nlv = NULL) 
 
@@ -122,7 +124,15 @@ plskern(X, Y, nlv = 3, weights = 1:n)$T
 
 fm <- plskern(X, Y, nlv = 3)
 coef(fm)
+coef(fm, nlv = 0)
+coef(fm, nlv = 1)
+
+fm$T
 transform(fm, X[1:2, ])
+transform(fm, X[1:2, ], nlv = 1)
+
+summary(fm)
+
 predict(fm, X)
 predict(fm, X, nlv = 3)
 predict(fm, X, nlv = 0:3)
