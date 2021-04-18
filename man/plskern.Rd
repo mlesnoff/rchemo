@@ -113,8 +113,8 @@ Wold, S., Sjostrom, M., Eriksson, l., 2001. PLS-regression: a basic tool for che
 
 n <- 8 ; p <- 6
 X <- matrix(rnorm(n * p), ncol = p)
-y1 <- 100 * rnorm(n)
-y2 <- 100 * rnorm(n)
+y1 <- rnorm(n)
+y2 <- rnorm(n)
 Y <- cbind(y1, y2)
 
 plskern(X, y1, nlv = 3)
@@ -134,8 +134,18 @@ transform(fm, X[1:2, ], nlv = 1)
 summary(fm)
 
 predict(fm, X)
-predict(fm, X, nlv = 3)
 predict(fm, X, nlv = 0:3)
+
+pred <- predict(fm, X)$pred
+msep(pred, Y)
+
+nlv <- 5
+pars <- data.frame(nlv = 0:nlv)
+gridscorelv(
+    X, Y, X[1:2, ], Y[1:2, ], 
+    score = msep, fun = plskern, 
+    pars
+    )
 
 }
 

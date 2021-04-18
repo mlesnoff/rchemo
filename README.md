@@ -54,7 +54,7 @@ e.g. with tag "v1.9-0"   (Be carefull, this is not the more recent version)
 write in the R console
 ```{r}
 remotes::install_github("mlesnoff/rchemo@v1.9-0", dependencies = TRUE, 
-  build_vignettes = FALSE)
+  build_vignettes = TRUE)
 ```
 
 #### <span style="color:green"> 3. Usage </span>

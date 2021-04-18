@@ -78,6 +78,17 @@ coef(fm, nlv = 2)
 predict(fm, Xtest)
 predict(fm, Xtest, nlv = 0:2)$pred
 
+pred <- predict(fm, Xtest)$pred
+err(pred, ytest)
+
+nlv <- 5
+pars <- data.frame(nlv = 0:nlv)
+gridscorelv(
+    Xtrain, ytrain, Xtest, ytest, 
+    score = err, fun = plsda, 
+    pars
+    )
+
 #### PLS-LDA
 
 nlv <- 5
