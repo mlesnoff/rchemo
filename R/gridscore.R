@@ -58,7 +58,9 @@ gridscorelv <- function(Xtrain, Ytrain, X, Y, score, fun, pars, verb = FALSE) {
 
     ## Only nlv
     if(dim(pars)[2] == 1) {
-        fm <- fun(Xtrain, Ytrain, nlv = max(nlv))
+       if(verb) 
+           cat("-- Nb. combinations = 0 \n")
+       fm <- fun(Xtrain, Ytrain, nlv = max(nlv))
         pred <- predict(fm, X, nlv = nlv)$pred
         if(le_nlv == 1)
             pred <- list(pred)
@@ -125,6 +127,8 @@ gridscorelb <- function(Xtrain, Ytrain, X, Y, score, fun, pars, verb = FALSE) {
 
     ## Only lb
     if(dim(pars)[2] == 1) {
+        if(verb) 
+            cat("-- Nb. combinations = 0 \n")
         fm <- fun(Xtrain, Ytrain, lb = max(lb))
         pred <- predict(fm, X, lb = lb)$pred
         if(le_lb == 1)
@@ -165,7 +169,7 @@ gridscorelb <- function(Xtrain, Ytrain, X, Y, score, fun, pars, verb = FALSE) {
         res <- setDF(rbindlist(res))    
         }
     if (verb) 
-        cat("/ End. \n\n")
+        cat("-- End. \n\n")
   
     res
     

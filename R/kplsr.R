@@ -101,27 +101,18 @@ coef.Kpls <- function(object, ..., nlv = NULL) {
     }
 
 predict.Kplsr <- function(object, X, ..., nlv = NULL) {
-    
     X <- .mat(X)
     q <- length(object$ymeans)
     rownam <- row.names(X)
     colnam <- paste("y", seq_len(q), sep = "")
     weights <- object$weights
-    
-    #K <- do.call(object$kern, c(list(X = X, Y = object$X), object$dots))
-    #Kc <- t(t(K - colSums(weights * t(K))) - colSums(weights * object$tK)) + 
-    #    sum(weights * t(weights * object$tK))
-    #T <- Kc %*% object$R    
-
     a <- dim(object$T)[2]
     if(is.null(nlv))
         nlv <- a 
     else 
         nlv <- seq(min(nlv), min(max(nlv), a))
     le_nlv <- length(nlv)
-    
     T <- transform(object, X)
-    
     pred <- vector(mode = "list", length = le_nlv)
     for(i in seq_len(le_nlv)) {
         z <- coef(object, nlv = nlv[i])
@@ -131,9 +122,7 @@ predict.Kplsr <- function(object, X, ..., nlv = NULL) {
     names(pred) <- paste("nlv", nlv, sep = "")
     if(le_nlv == 1)
         pred <- pred[[1]] 
-    
     list(pred = pred)
-
     }
 
 

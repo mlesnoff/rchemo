@@ -67,22 +67,31 @@ ytrain <- sample(c(1, 4, 10), size = n, replace = TRUE)
 Xtest <- Xtrain[1:5, ] ; ytest <- ytrain[1:5]
 
 nlv <- 5
-
 fm <- plsda(Xtrain, ytrain, nlv = nlv)
 names(fm)
-predict(fm, Xtest)
-summary(fm, Xtrain)
-coef(fm)
 transform(fm, Xtest)
+transform(fm, Xtest, nlv = 1)
+summary(fm)
+coef(fm)
+coef(fm, nlv = 0)
+coef(fm, nlv = 2)
+predict(fm, Xtest)
+predict(fm, Xtest, nlv = 0:2)$pred
 
+#### PLS-LDA
+
+nlv <- 5
 fm <- plslda(Xtrain, ytrain, nlv = nlv)
 predict(fm, Xtest)
-length(fm)
-fmpls <- fm[[1]]
-names(fmpls)
-summary(fmpls, Xtrain)
-coef(fmpls)
-transform(fmpls, Xtest[1:2, ])
+predict(fm, Xtest, nlv = 1:2)$pred
+
+## The PLS2 model
+zfm <- fm[[1]]
+class(zfm)
+names(zfm)
+summary(zfm)
+transform(zfm, Xtest[1:2, ])
+coef(zfm)
 
 }
 

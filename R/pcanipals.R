@@ -46,33 +46,24 @@ pcanipals <- function(
             else
                 p <- crossprod(wgt * X, t) / sum(wgt * t * t)
             p <- p / sqrt(sum(p * p))
-            
             if(gs & a > 1)
                 p <- p - PtP %*% p
-            
             zt <- t
             ## Regression of X' on p
             t <- X %*% p
-
             if(gs & a > 1) 
                 t <- t - TtT %*% t
-                  
             ztol <- sum((t - zt)^2)
-            
             iter <- iter + 1
-            
             if(ztol < tol | iter > maxit)
                 cont <- FALSE
-            
             }        
         
         X <- X - tcrossprod(t, p)
-
+        
         P[, a] <- p
         T[, a] <- t
-        
         tt[a] <- sum(wgt * t * t)
-    
         sv[a] <- sqrt(sum(wgt * t * t))
   
         if(gs) {

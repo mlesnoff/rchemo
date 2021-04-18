@@ -22,10 +22,8 @@ pcaeigen <- function(X, nlv, weights = NULL) {
     sstot <- sum(eig)    
 
     T <- X %*% P
-  
     row.names(T) <- row.names(X)
     row.names(P) <- colnames(X)
-  
     colnames(T) <- colnames(P) <-  paste("pc", seq_len(nlv), sep = "")
   
     structure(

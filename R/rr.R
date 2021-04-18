@@ -44,35 +44,26 @@ rr <- function(X, Y, lb = 0, weights = NULL) {
     }
 
 coef.Rr <- function(object, ..., lb = NULL) {
-  
     n <- length(object$weights)
-    
     if(is.null(lb))
         lb <- object$lb
-    
     z <- 1 / (object$eig + lb / n)
     beta <- z * object$tTDY
     B <- object$V %*% beta
     int <- object$ymeans - crossprod(object$xmeans, B)
     tr <- sum(object$eig * z)
     row.names(B) <- paste("x", seq_len(dim(B)[1]), sep = "")
-
     list(int = int, B = B, df = 1 + tr) 
-  
     }
 
-
 predict.Rr <- function(object, X, ..., lb = NULL) {
-    
     X <- .mat(X)
     q <- length(object$ymeans)
     rownam <- row.names(X)
     colnam <- paste("y", seq_len(q), sep = "")
-    
     if(is.null(lb))
         lb <- object$lb
     le_lb <- length(lb)
-    
     pred <- vector(mode = "list", length = le_lb)
     for(i in seq_len(le_lb)) {
         z <- coef(object, lb = lb[i])
@@ -83,9 +74,7 @@ predict.Rr <- function(object, X, ..., lb = NULL) {
     names(pred) <- paste("lb", lb, sep = "")
     if(le_lb == 1)
         pred <- pred[[1]] 
-    
     list(pred = pred)
-
     }
     
     

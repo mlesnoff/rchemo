@@ -22,7 +22,6 @@ pcaeigenk <- function(X, nlv, weights = NULL) {
     sstot <- sum(eig)    
     P <- crossprod(zX, .scale(res$vectors[, seq_len(nlv), drop = FALSE], 
                               scale = sv[seq_len(nlv)]))
-  
     T <- X %*% P
     
     row.names(T) <- row.names(X)

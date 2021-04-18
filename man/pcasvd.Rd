@@ -77,7 +77,11 @@ pcanipalsna(X, nlv,
 
 \item{weights}{Weights (\eqn{n, 1}) to apply to the training observations. Internally, weights are "normalized" to sum to 1. Default to \code{NULL} (weights are set to \eqn{1 / n}).}
 
-\bold{Specific arguments for the NIPALS algorithm}
+\item{object}{A fitted model, output of a call to the main functions.}
+
+\item{...}{Optional arguments.}
+
+\bold{Specific for the NIPALS algorithm}
 
 \item{gs}{Logical indicating if a Gram-Schmidt orthogonalization is implemented or not (default to \code{TRUE}).}
 
@@ -85,9 +89,6 @@ pcanipalsna(X, nlv,
 
 \item{maxit}{Maximum number of NIPALS iterations for each PC.}
 
-\item{object}{A fitted model, output of a call to the main functions.}
-
-\item{...}{Optional arguments.}
 
 }
 

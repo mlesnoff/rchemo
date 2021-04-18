@@ -84,7 +84,6 @@ res <- gridscorelb(
     )
 res
 
-
 }
 
 \keyword{datagen}

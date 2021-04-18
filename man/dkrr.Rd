@@ -1,5 +1,6 @@
 \name{dkrr}
 \alias{dkrr}
+\alias{coef.Dkrr}
 \alias{predict.Dkrr}
 \encoding{latin1}
 
@@ -14,6 +15,8 @@ Direct kernel ridge regression (DKRR), following the same approcah as for DKPLSR
 \usage{
 
 dkrr(X, Y, lb = 0, kern = "krbf", weights = NULL, ...)
+
+\method{coef}{Dkrr}(object, ..., lb = NULL)  
 
 \method{predict}{Dkrr}(object, X, ..., lb = NULL)  
 
@@ -60,19 +63,23 @@ Ytest <- Ytrain[1:m, , drop = FALSE] ; ytest <- Ytest[1:m, 1]
 
 lb <- 2
 fm <- dkrr(Xtrain, Ytrain, lb = lb, kern = "krbf", sigma = .8)
-predict(fm, Xtest, lb = lb)
+coef(fm)
+coef(fm, lb = .6)
+predict(fm, Xtest)
+predict(fm, Xtest, lb = c(0.1, .8))
 
-predict(fm, Xtest, lb = c(.1, .8))$pred
+pred <- predict(fm, Xtest)$pred
+msep(pred, Ytest)
 
 lb <- 2
 fm <- dkrr(Xtrain, Ytrain, lb = lb, kern = "kpol", degree = 2, offset = 10)
-predict(fm, Xtest, lb = lb)
+predict(fm, Xtest)
 
 sigma <- 10^(-1:1)
 lb <- 2
 pars <- expand.grid(
     sigma = sigma,
-    lb = c(.1, .8)
+    lb = c(.1, .6)
     )
 res <- gridscorelb(
     Xtrain, ytrain, Xtest, ytest, 

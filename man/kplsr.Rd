@@ -70,11 +70,16 @@ Ytest <- Ytrain[1:m, , drop = FALSE] ; ytest <- Ytest[1:m, 1]
 
 nlv <- 2
 fm <- kplsr(Xtrain, Ytrain, nlv = nlv, kern = "krbf", sigma = .8)
-predict(fm, Xtest)
+transform(fm, Xtest)
+transform(fm, Xtest, nlv = 1)
+coef(fm)
+coef(fm, nlv = 1)
 
+predict(fm, Xtest)
 predict(fm, Xtest, nlv = 0:nlv)$pred
 
-transform(fm, Xtest)
+pred <- predict(fm, Xtest)$pred
+msep(pred, Ytest)
 
 nlv <- 2
 fm <- kplsr(Xtrain, Ytrain, nlv = nlv, kern = "kpol", degree = 2, offset = 10)

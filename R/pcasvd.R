@@ -40,7 +40,7 @@ pcasvd <- function(X, nlv, weights = NULL) {
     colnames(T) <- colnames(P) <- paste("pc", seq_len(nlv), sep = "")
   
     structure(
-        list(T = T, P = P, sv = sv, eig = eig,
+        list(T = T, P = P, sv = sv, eig = eig, sstot = sstot,
             xmeans = xmeans, weights = weights, niter = NULL, conv = NULL),
         class = c("Pca")
         )

@@ -17,6 +17,13 @@ transform.Dkpls <- function(object, X, ..., nlv = NULL) {
     transform(object$fm, K, nlv = nlv)
     }
 
+
+coef.Dkpls <- function(object, ..., nlv = NULL) {
+    z <- coef(object$fm, nlv = nlv)
+    row.names(z$B) <- paste("i", seq_len(dim(z$B)[1]), sep = "")
+    z
+    }
+
 predict.Dkplsr <- function(object, X, ..., nlv = NULL) {
     K <- do.call(object$kern, c(list(X = X, Y = object$X), object$dots))
     pred <- predict(object$fm, K, nlv = nlv)$pred

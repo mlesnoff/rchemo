@@ -46,38 +46,29 @@ krr <- function(X, Y, lb = 0, kern = "krbf", weights = NULL, ...) {
     }
 
 coef.Krr <- function(object, ..., lb = NULL) {
-  
     n <- length(object$weights)
     if(is.null(lb))
         lb <- object$lb
-    
     z <- 1 / (object$eig + lb / n)
     beta <- z * object$tTDY
     int <- object$ymeans
     tr <- sum(object$eig * z)
-
     list(int = int, beta = beta, df = 1 + tr) 
-  
     }
 
-
 predict.Krr <- function(object, X, ..., lb = NULL) {
-    
     X <- .mat(X)
     q <- length(object$ymeans)
     rownam <- row.names(X)
     colnam <- paste("y", seq_len(q), sep = "")
     weights <- object$weights
-    
     K <- do.call(object$kern, c(list(X = X, Y = object$X), object$dots))
     Kc <- t(t(K - colSums(weights * t(K))) - colSums(weights * object$tK)) + 
         sum(weights * t(weights * object$tK))
-    T <- Kc %*% object$P    
-
+    T <- Kc %*% object$P  
     if(is.null(lb))
         lb <- object$lb
     le_lb <- length(lb)
-    
     pred <- vector(mode = "list", length = le_lb)
     for(i in seq_len(le_lb)) {
         z <- coef(object, lb = lb[i])
@@ -87,9 +78,7 @@ predict.Krr <- function(object, X, ..., lb = NULL) {
     names(pred) <- paste("lb", lb, sep = "")
     if(le_lb == 1)
         pred <- pred[[1]] 
-    
     list(pred = pred)
-
     }
     
     

@@ -18,7 +18,7 @@ plsda <- function(X, y, nlv, weights = NULL) {
     fm <- plskern(X, z$Y, nlv = nlv, weights = weights)
     
     structure(
-        list(T = fm$T, P = fm$P, R = fm$R, W = fm$W, C = fm$C, TT = fm$TT,
+        list(T = fm$T, P = fm$P, R = fm$R, W = fm$W, C = fm$C, TT = fm$TT, sstot = fm$sstot,
             xmeans = fm$xmeans, ymeans = fm$ymeans, weights = fm$weights, 
             lev = z$lev, ni = z$ni),
         class = c("Plsda", "Pls")
