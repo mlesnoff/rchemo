@@ -1,6 +1,6 @@
 ## rchemo - Dimension reduction, Regression and Discrimination for Chemometrics  
 
-**Under construction - Non stable test version**
+**Under construction - Already working but non-stable test version**
 
 **rchemo** will replace package **rnirs** that will not be developed anymore (only maintenance).
 
