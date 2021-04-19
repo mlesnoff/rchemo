@@ -97,7 +97,6 @@ summary.Pls <- function(object, ...) {
     
     }
 
-
 coef.Pls <- function(object, ..., nlv = NULL) {
     ## Works also for nlv = 0
     a <- dim(object$T)[2]
@@ -113,7 +112,7 @@ coef.Pls <- function(object, ..., nlv = NULL) {
 
 predict.Plsr <- function(object, X, ..., nlv = NULL) {
     X <- .mat(X)
-    q <- dim(object$C)[1]
+    q <- length(object$ymeans)
     rownam <- row.names(X)
     colnam <- paste("y", seq_len(q), sep = "")
     
