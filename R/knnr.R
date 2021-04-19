@@ -1,8 +1,6 @@
-knnr <- function(
-    X, Y,
+knnr <- function(X, Y,
     nlvdis, diss = c("eucl", "mahal"),
-    h, k
-    ) {
+    h, k) {
     structure(
         list(X = X, Y = Y,
              nlvdis = nlvdis, diss = diss, 

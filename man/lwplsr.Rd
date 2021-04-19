@@ -10,11 +10,9 @@
 
 Function \code{lwplsr} fits KNN-LWPLSR models such as described in Lesnoff et al. (2020). This is a wrapper using functions \code{\link{getknn}}, \code{\link{locw}} and PLSR functions. See the code for details. Many variants of such pipelines can be build using function \code{\link{locw}}.
 
-LWPLSR is a particular case of "weighted PLSR" (WPLSR) (e.g. Schaal et al. 2002). In WPLSR, a priori weights, different from the usual \eqn{1/n} (standard PLSR), are given to the \eqn{n} training observations. These weights are used for calculating (i) the PLS scores and loadings and (ii) the regression model of the response(s) over the scores (by weighted least squares). LWPLSR is a particular case of WPLSR. "L" comes from "localized": the weights are defined from dissimilarities (e.g. distances) between the new observation to predict and the training observations. By definition of LWPLSR, the weights, and therefore the fitted WPLSR model, change for each new observation to predict.
+- LWPLSR: This is a particular case of "weighted PLSR" (WPLSR) (e.g. Schaal et al. 2002). In WPLSR, a priori weights, different from the usual \eqn{1/n} (standard PLSR), are given to the \eqn{n} training observations. These weights are used for calculating (i) the PLS scores and loadings and (ii) the regression model of the response(s) over the scores (by weighted least squares). LWPLSR is a particular case of WPLSR. "L" comes from "localized": the weights are defined from dissimilarities (e.g. distances) between the new observation to predict and the training observations. By definition of LWPLSR, the weights, and therefore the fitted WPLSR model, change for each new observation to predict.
 
-Basic versions of LWPLSR (e.g. Sicard & Sabatier 2006, Kim et al 2011) use, for each observation to predict, all the \eqn{n} training observation. This can be very time consuming, in particular for large \eqn{n}. 
-
-A faster and often more efficient strategy is to preliminary select, in the training set, a number of \eqn{k} nearest neighbors to the observation to predict (this is referred to as \eqn{"weighting 1"} in function \code{\link{locw}}) and then to apply LWPLSR only to this pre-selected neighborhood (this is referred to as\eqn{weighting "2"} in \code{\link{locw}}). This strategy corresponds to KNN-LWPLSR. 
+- KNN-LWPLSR: Basic versions of LWPLSR (e.g. Sicard & Sabatier 2006, Kim et al 2011) use, for each observation to predict, all the \eqn{n} training observation. This can be very time consuming, in particular for large \eqn{n}. A faster and often more efficient strategy is to preliminary select, in the training set, a number of \eqn{k} nearest neighbors to the observation to predict (this is referred to as \eqn{"weighting 1"} in function \code{\link{locw}}) and then to apply LWPLSR only to this pre-selected neighborhood (this is referred to as\eqn{weighting "2"} in \code{\link{locw}}). This strategy corresponds to KNN-LWPLSR. 
 
 In function \code{lwplsr}, the dissimilarities used for computing the weights can be calculated from the original X-data or after a dimension reduction (argument \code{nlvdis}). In the last case, global PLS scores are computed from \eqn{(X, Y)} and the dissimilarities are calculated on these scores. For high dimension X-data, the dimension reduction is in general required for using the Mahalanobis distance.   
 
@@ -22,12 +20,10 @@ In function \code{lwplsr}, the dissimilarities used for computing the weights ca
 
 \usage{
 
-lwplsr(
-    X, Y,
+lwplsr(X, Y,
     nlvdis, diss = c("eucl", "mahal"),
     h, k,
-    nlv
-    )
+    nlv)
 
 \method{predict}{Lwplsr}(object, X, ..., nlv = NULL)  
 
@@ -53,14 +49,9 @@ lwplsr(
 
 \item{...}{Optional arguments.}
 
-
 }
 
-\value{
-
-See the examples.
-
-}
+\value{See the examples.}
 
 \references{
 
