@@ -46,9 +46,6 @@ S3method(predict, Dkplsr)
 S3method(predict, Plsda)
 S3method(predict, Plsdaprob)
 
-S3method(predict, Lwplsr)
-S3method(predict, Lwplsda)
-
 S3method(coef, Rr)
 S3method(predict, Rr)
 
@@ -58,21 +55,16 @@ S3method(predict, Krr)
 S3method(coef, Dkrr)
 S3method(predict, Dkrr)
 
+S3method(predict, Lwplsr)
+S3method(predict, Lwplsda)
 
+S3method(predict, Knnr)
 
 #exportMethods("transform", "coef", "predict")
 #exportClasses("PcaOrtho", "PlsOrtho", 
 #              "Dmnorm", "Lda", "Qda", "Plsda", "PlsDaProb",
 #              "LwplsR")
 #export(plskern)
-
-
-
-
-
-
-
-
 
 
 

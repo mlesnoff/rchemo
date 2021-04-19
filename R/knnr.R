@@ -9,7 +9,7 @@ knnr <- function(X, Y,
         )
     }
 
-predict.Knnr <- function(object, X, ..., fun) {
+predict.Knnr <- function(object, X, ...) {
     X <- .mat(X)
     m <- dim(X)[1]
     Y <- .mat(object$Y, "y")
