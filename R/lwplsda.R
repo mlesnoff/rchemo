@@ -16,6 +16,6 @@ lwplsda <- function(
     
     
 predict.Lwplsda <- function(object, X, ..., nlv = NULL)
-    .predict_Lwpls(object, X, ..., nlv = nlv, fun = plsda)
+    .predict_lwpls(object, X, ..., nlv = nlv, fun = plsda)
    
 

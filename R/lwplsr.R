@@ -13,7 +13,7 @@ lwplsr <- function(
     }
     
     
-.predict_Lwpls <- function(object, X, ..., nlv = NULL, fun) {
+.predict_lwpls <- function(object, X, ..., nlv = NULL, fun) {
     X <- .mat(X)
     A <- object$nlv
     if(is.null(nlv))
@@ -40,11 +40,11 @@ lwplsr <- function(
         object$Y <- object$y
     pred <- locwlv(object$X, object$Y, X,
         listnn = res$listnn, listw = listw, fun = fun, nlv = nlv)$pred
-    list(pred = pred, listnn = res$listnn, listd = res$listd, listw = listw)
+    list(pred = pred, listnn = res$listnn, listd = res$listd, listw = listw)    
     }
 
 predict.Lwplsr <- function(object, X, ..., nlv = NULL)
-    .predict_Lwpls(object, X, ..., nlv = nlv, fun = plskern)
+    .predict_lwpls(object, X, ..., nlv = nlv, fun = plskern)
     
 
 

@@ -76,15 +76,17 @@ Sicard, E. Sabatier, R., 2006. Theoretical framework for local PLS1 regression a
 
 \examples{
 
-n <- 20 ; p <- 10
-Xtrain <- matrix(rnorm(n * p), ncol = p, byrow = TRUE)
+n <- 30 ; p <- 10
+Xtrain <- matrix(rnorm(n * p), ncol = p)
 ytrain <- rnorm(n)
 Ytrain <- cbind(ytrain, 100 * ytrain)
 m <- 4
-Xtest <- matrix(rnorm(m * p), ncol = p, byrow = TRUE)
+Xtest <- matrix(rnorm(m * p), ncol = p)
+ytest <- rnorm(m)
+Ytest <- cbind(ytest, 10 * ytest)
 
 nlvdis <- 5 ; diss <- "mahal"
-h <- 2 ; k <- 5
+h <- 2 ; k <- 10
 nlv <- 2  
 fm <- lwplsr(
     Xtrain, Ytrain, 
@@ -95,9 +97,30 @@ fm <- lwplsr(
 res <- predict(fm, Xtest)
 names(res)
 res$pred
+msep(res$pred, Ytest)
 
-predict(fm, Xtest, nlv = nlv)$pred
-predict(fm, Xtest, nlv = 0:2)$pred
+res <- predict(fm, Xtest, nlv = 0:2)
+res$pred
+
+nlvdis <- 5
+h <- c(1, 2, Inf)
+k <- c(10, 20)
+nlv <- 5
+pars <- expand.grid(
+    nlvdis = nlvdis,
+    diss = "mahal",
+    h = h, k = k,
+    nlv = 0:nlv
+    )
+headm(pars)
+res <- gridscorelv(
+    Xtrain, Ytrain, Xtest, Ytest, 
+    score = msep, 
+    fun = lwplsr, 
+    pars = pars,
+    verb = TRUE
+    )
+head(res)
 
 }
 
