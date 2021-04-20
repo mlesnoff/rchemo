@@ -16,6 +16,9 @@ importFrom("signal", "sgolayfilt")
 
 S3method(predict, Dmnorm)
 
+S3method(transform, Fda)
+S3method(summary, Fda)
+
 S3method(predict, Lda)
 S3method(predict, Qda)
 
