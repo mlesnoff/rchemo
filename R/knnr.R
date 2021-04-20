@@ -12,8 +12,8 @@ knnr <- function(X, Y,
 predict.Knnr <- function(object, X, ...) {
     X <- .mat(X)
     m <- dim(X)[1]
-    Y <- .mat(object$Y, "y")
-    q <- dim(Y)[2]
+    object$Y <- .mat(object$Y, "y")
+    q <- dim(object$Y)[2]
     ## Getknn
     if (object$nlvdis == 0)
         res <- getknn(object$X, X, k = object$k, diss = object$diss)
@@ -26,10 +26,10 @@ predict.Knnr <- function(object, X, ...) {
     pred <- matrix(nrow = m, ncol = q)
     for(i in seq_len(m)) { 
         s <- res$listnn[[i]]
-        zY <- Y[s, , drop = FALSE]
+        zY <- object$Y[s, , drop = FALSE]
         pred[i, ] <- .colmeans(zY, weights = listw[[i]])
         }
-    dimnames(pred) <- list(row.names(X), colnames(Y))
+    dimnames(pred) <- list(row.names(X), colnames(object$Y))
     list(pred = pred, listnn = res$listnn, listd = res$listd, listw = listw)
     }
 

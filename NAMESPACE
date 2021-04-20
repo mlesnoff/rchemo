@@ -59,6 +59,7 @@ S3method(predict, Lwplsr)
 S3method(predict, Lwplsda)
 
 S3method(predict, Knnr)
+S3method(predict, Knnda)
 
 #exportMethods("transform", "coef", "predict")
 #exportClasses("PcaOrtho", "PlsOrtho", 
