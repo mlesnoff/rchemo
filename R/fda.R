@@ -8,7 +8,8 @@ fda <- function(X, y, nlv = NULL) {
     xmeans <- colMeans(X)
     X <- .center(X, xmeans)
     z <- matW(X, y)
-    nlev <- length(z$lev)
+    lev <- z$lev
+    nlev <- length(lev)
     W <- z$W * n / (n - nlev)
     ni <- z$ni
     z <- matB(X, y)
@@ -52,7 +53,8 @@ fdasvd <- function(X, y, nlv = NULL) {
     xmeans <- colMeans(X)
     X <- .center(X, xmeans)
     z <- matW(X, y)
-    nlev <- length(z$lev)
+    lev <- z$lev    
+    nlev <- length(lev)
     W <- z$W * n / (n - nlev)
     ni <- z$ni
     z <- matB(X, y)

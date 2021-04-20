@@ -8,7 +8,7 @@
 
 \description{
 
-KNN weighted discrimination. For each new observation to predict, a number of \eqn{k} nearest neighbors is selected and the prediction is calculated by the average (eventually weighted) of the response \eqn{Y} over this neighborhood.
+KNN weighted discrimination. For each new observation to predict, a number of \eqn{k} nearest neighbors is selected and the prediction is calculated by the the most frequent class in \eqn{y} in this neighborhood.
 
 In function \code{knnda}, the dissimilarities used for computing the neighborhood and the weights can be calculated from the original X-data or after a dimension reduction (argument \code{nlvdis}). In the last case, global PLS scores are computed from \eqn{(X, Y)} and the dissimilarities are calculated on these scores. For high dimension X-data, the dimension reduction is in general required for using the Mahalanobis distance.   
 

@@ -23,10 +23,9 @@ fda(X, y, nlv = NULL)
 
 fdasvd(X, y, nlv = NULL)
 
-\method{transform}{Fda}(object, ...) 
+\method{transform}{Fda}(object, X, ..., nlv = NULL) 
 
 \method{summary}{Fda}(object, ...) 
-
 
 }
 
@@ -37,6 +36,10 @@ fdasvd(X, y, nlv = NULL)
 \item{y}{Training class membership (\eqn{n}).}
 
 \item{nlv}{The number(s) of LVs to calculate.}
+
+\item{object}{A fitted model, output of a call to the main function.}
+
+\item{...}{OPtional arguments.}
 
 }
 
@@ -68,7 +71,8 @@ fm$P
 ## Explained variance by PCA of the class centers 
 ## in transformed scale
 summary(fm)
-plotxy(fm$T, group = y, ellipse = TRUE, pch = 16, cex = 1.5, ncol = 2)
+plotxy(fm$T, group = y, ellipse = TRUE, 
+    zeroes = TRUE, pch = 16, cex = 1.5, ncol = 2)
 points(fm$Tcenters, pch = 8, col = "blue", cex = 1.5)
 
 }
