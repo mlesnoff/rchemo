@@ -9,10 +9,10 @@ lda <- function(X, y, prior = c("unif", "prop")) {
     lev <- res$lev
     nlev <- length(lev)
     ni <- res$ni
-    if(prior == "unif")
-        wprior <- rep(1 / nlev, nlev)
-    if(prior == "prop")
-        wprior <- ni / sum(ni)
+    wprior <- switch(prior,
+        "unif" = rep(1 / nlev, nlev),
+        "prop" = ni / sum(ni)
+        )
     res <- matW(X, y)
     W <- res$W * n / (n - nlev)
     structure(

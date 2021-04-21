@@ -18,12 +18,10 @@ fda <- function(X, y, nlv = NULL) {
     if(is.null(nlv)) 
         nlv <- nlev - 1
     nlv <- min(nlv, p, nlev - 1)
-    ## If W is singular ==> Uses a pseudo-inverse 
-    z <- tryCatch(solve(W), error = function(e) e)
-    if(inherits(z, "error")) 
+    ## If W is singular, a pseudo-inverse is calculated 
+    Winv <- tryCatch(solve(W), error = function(e) e)
+    if(inherits(Winv, "error")) 
         Winv <- pinv(W)$Xplus
-    else
-        Winv <- solve(W)
     ## End
     fm <- eigen(Winv %*% B)
     P <- fm$vectors[, seq_len(nlv), drop = FALSE]
@@ -63,12 +61,10 @@ fdasvd <- function(X, y, nlv = NULL) {
     if(is.null(nlv)) 
         nlv <- nlev - 1
     nlv <- min(nlv, p, nlev - 1)
-    ## If W is singular ==> Uses a pseudo-inverse 
-    z <- tryCatch(solve(W), error = function(e) e)
-    if(inherits(z, "error")) 
+    ## If W is singular, a pseudo-inverse is calculated 
+    Winv <- tryCatch(solve(W), error = function(e) e)
+    if(inherits(Winv, "error")) 
         Winv <- pinv(W)$Xplus
-    else
-        Winv <- solve(W)
     ## End
     U <- chol(Winv)
     tU <- t(U)

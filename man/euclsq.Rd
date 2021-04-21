@@ -29,9 +29,9 @@ euclsq(X, Y = NULL)
 
 euclsq_mu(X, mu)
 
-mahsq(X, Y = NULL, U = NULL)
+mahsq(X, Y = NULL, Uinv = NULL)
 
-mahsq_mu(X, mu, U = NULL)
+mahsq_mu(X, mu, Uinv = NULL)
 
 }
 
@@ -44,7 +44,7 @@ mahsq_mu(X, mu, U = NULL)
 
 \item{mu}{Vector (\eqn{p}) compared to \code{X}.}
 
-\item{U}{For Mahalanobis distance. A Choleski factorization matrix of the covariance matrix of \code{X}. If \code{NULL} (default), \code{U} is calculated internally.} 
+\item{Uinv}{For Mahalanobis distance. The inverse of a Choleski factorization matrix of the covariance matrix of \code{X}. If \code{NULL} (default), \code{Uinv} is calculated internally.} 
 
 }
 

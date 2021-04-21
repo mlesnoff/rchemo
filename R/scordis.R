@@ -12,9 +12,9 @@ scordis <- function(
     
     n <- dim(object$T)[1]
     S <- cov(object$T[, seq(nlv), drop = FALSE]) * (n - 1) / n
-    U <- chol(S)
+    Uinv <- solve(chol(S))
     d2 <- c(mahsq_mu(object$T[, seq(nlv), drop = FALSE], 
-                   mu = rep(0, nlv), U = U))
+                   mu = rep(0, nlv), Uinv = Uinv))
     d <- sqrt(d2)
     if(!rob) {
         mu <- mean(d2)   
@@ -33,7 +33,7 @@ scordis <- function(
     res <- NULL
     if(!is.null(X)) {
         T <- transform(object, X, nlv = nlv)
-        d2 <- c(mahsq_mu(T, mu = rep(0, nlv), U = U))
+        d2 <- c(mahsq_mu(T, mu = rep(0, nlv), Uinv = Uinv))
         d <- sqrt(d2)
         dstand <- d / cutoff 
         res <- data.frame(d = d, dstand = dstand, gh = d2 / nlv)

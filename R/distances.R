@@ -26,16 +26,15 @@ euclsq_mu <- function(X, mu) {
     matrix(rowSums(X * X), ncol = 1, dimnames = dimnames)
     }
 
-mahsq <- function(X, Y = NULL, U = NULL) {
+mahsq <- function(X, Y = NULL, Uinv = NULL) {
     X <- .mat(X)
     n <- dim(X)[1]
-    if(is.null(U)) {
+    if(is.null(Uinv)) {
         S <- cov(X) * (n - 1) / n
-        U <- chol(S)
+        Uinv <- solve(chol(S))
         }
     else 
-        U <- as.matrix(U)
-    Uinv <- solve(U)
+        Uinv <- as.matrix(Uinv)
     X <- X %*% Uinv
     if(is.null(Y))
         D <- euclsq(X)
@@ -46,16 +45,15 @@ mahsq <- function(X, Y = NULL, U = NULL) {
     D
     }
 
-mahsq_mu <- function(X, mu, U = NULL) {
+mahsq_mu <- function(X, mu, Uinv = NULL) {
     X <- .mat(X)
-    if(is.null(U)) {
+    if(is.null(Uinv)) {
         n <- dim(X)[1]
         S <- cov(X) * (n - 1) / n
-        U <- chol(S)
+        Uinv <- solve(chol(S))
         }
     else 
-        U <- as.matrix(U)
-    Uinv <- solve(U)
+        Uinv <- as.matrix(Uinv)
     zX <- X %*% Uinv
     zmu <- mu %*% Uinv
     euclsq_mu(zX, zmu)
