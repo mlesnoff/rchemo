@@ -56,11 +56,11 @@ See the examples.
 \examples{
 
 n <- 50 ; p <- 7
-X <- matrix(rnorm(n * p), ncol = p, byrow = TRUE)
-y <- sample(c(1, 4, 10), size = n, replace = TRUE)
-Xtrain <- X ; ytrain <- y
-m <- 5
-Xtest <- X[1:m, ] ; ytest <- y[1:m]
+Xtrain <- matrix(rnorm(n * p), ncol = p)
+ytrain <- sample(c(1, 4, 10), size = n, replace = TRUE)
+m <- 4
+Xtest <- matrix(rnorm(m * p), ncol = p)
+ytest <- sample(c(1, 4, 10), size = m, replace = TRUE)
 
 nlvdis <- 5 ; diss <- "mahal"
 h <- 2 ; k <- 10
@@ -74,12 +74,31 @@ fm <- lwplsda(
 res <- predict(fm, Xtest)
 res$pred
 res$listnn
-
-res <- predict(fm, Xtest, nlv = nlv)
-res$pred
+err(res$pred, ytest)
 
 res <- predict(fm, Xtest, nlv = 0:2)
 res$pred
+
+nlvdis <- 5
+h <- c(1, 2, Inf)
+k <- c(10, 20)
+nlv <- 5
+pars <- expand.grid(
+    nlvdis = nlvdis,
+    diss = "mahal",
+    h = h, k = k,
+    nlv = 0:nlv
+    )
+headm(pars)
+res <- gridscorelv(
+    Xtrain, ytrain, Xtest, ytest, 
+    score = err, 
+    fun = lwplsda, 
+    pars = pars,
+    verb = TRUE
+    )
+head(res)
+
 
 }
 

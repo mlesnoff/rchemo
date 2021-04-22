@@ -14,12 +14,18 @@ dmnorm <- function(X = NULL, mu = NULL, sigma = NULL) {
     U <- tryCatch(chol(sigma), error = function(e) e)
     if(inherits(U, "error")) {
         lb <- 1e-5
-        U <- chol(sigma + lb * diag(p, ncol = p))
+        U <- chol(sigma + diag(lb, nrow = p, ncol = p))
         ## Alternative (rnirs): chol of diag(sigma)
         ## U <- sqrt(diag(diag(sigma), nrow = p))
         }
     ### End
-    Uinv <- solve(U)
+    Uinv <- tryCatch(solve(U), error = function(e) e)
+    if(inherits(Uinv, "error")) {
+        lb <- 1e-5
+        Uinv <- solve(U + diag(lb, nrow = p, ncol = p))
+        ## Alternative (rnirs): inverse of diag(sigma)
+        ## Uinv <- solve(diag(diag(sigma), nrow = p))
+        }        
     zdet <- det(U)^2
     if(zdet == 0) 
         zdet <- 1e-20

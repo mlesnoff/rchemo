@@ -12,9 +12,9 @@
 
 Discrimination (DA) based on PLS latent variables (LVs).
 
-The training class membership variable \eqn{y} (univariatel) is firstly transformed (with function \code{\link{dummy}}) to a dummy table containing \eqn{nclas} columns, where \eqn{nclas} is the number of classes present in \eqn{y}. Each column is a dummy variable (0/1). Then, a PLS2 is implemented on the \eqn{X-}data and the dummy table, returning LVs that are used as dependent variables in a DA model.
+The training variable \eqn{y} (univariate class membership) is firstly transformed to a dummy table containing \eqn{nclas} columns, where \eqn{nclas} is the number of classes present in \eqn{y}. Each column is a dummy variable (0/1). Then, a PLS2 is implemented on the \eqn{X-}data and the dummy table, returning LVs that are used as dependent variables in a DA model.
 
-- \code{plsda}: Usual "PLDA": the final prediction (a given class) corresponds to the dummy variable for which the prediction (unbounded probability estimate) is the highest.
+- \code{plsda}: Usual "PLDA". For a given observation, the final prediction is the class corresponding to the dummy variable for which the prediction is the highest.
 
 - \code{plslda} and \code{plsqda}: PLS-LDA and PLS-QDA, respectively. \code{\link{lda}} and \code{\link{qda}} are run over the PLS2 LVs.
 
@@ -52,11 +52,7 @@ plsqda(X, y, nlv, weights = NULL, prior = c("unif", "prop"))
 
 }
 
-\value{
-
-See the examples.
-
-}
+\value{See the examples.}
 
 \examples{
 

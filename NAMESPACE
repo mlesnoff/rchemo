@@ -51,6 +51,7 @@ S3method(predict, Plsdaprob)
 
 S3method(coef, Rr)
 S3method(predict, Rr)
+S3method(predict, Rrda)
 
 S3method(coef, Krr)
 S3method(predict, Krr)
