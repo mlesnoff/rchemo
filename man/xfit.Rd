@@ -1,7 +1,7 @@
 \name{xfit}
 \alias{xfit}
 \alias{xfit.Pca}
-\alias{xfit.Pls}
+\alias{xfit.Plsr}
 \alias{xresid}
 \encoding{latin1}
 
@@ -21,7 +21,7 @@ xfit(object, X, ...)
 
 \method{xfit}{Pca}(object, X, ..., nlv = NULL) 
 
-\method{xfit}{Pls}(object, X, ..., nlv = NULL) 
+\method{xfit}{Plsr}(object, X, ..., nlv = NULL) 
 
 xresid(object, X, ..., nlv = NULL)
 
