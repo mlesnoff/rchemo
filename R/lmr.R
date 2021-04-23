@@ -2,11 +2,11 @@ lmr <- function(X, Y, weights = NULL) {
     fm <- lm(Y ~ X, weights = weights)
     structure(
         fm,
-        class = c("Lmr", "Lm")
+        class = c("Lmr")
         )
     }
 
-coef.Lm <- function(object, ...) {
+coef.Lmr <- function(object, ...) {
     z <- .mat(object$coefficients, "y")
     int <- z[1, ]
     B <- z[-1, , drop = FALSE]

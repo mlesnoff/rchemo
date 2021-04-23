@@ -1,4 +1,4 @@
-plsda <- function(X, y, nlv, weights = NULL) {
+plsrda <- function(X, y, nlv, weights = NULL) {
     if(is.factor(y))
         y <- as.character(y)
     X <- .mat(X)
@@ -12,19 +12,16 @@ plsda <- function(X, y, nlv, weights = NULL) {
     z <- dummy(y)
     fm <- plskern(X, z$Y, nlv = nlv, weights = weights)
     structure(
-        list(T = fm$T, P = fm$P, R = fm$R, W = fm$W, C = fm$C, TT = fm$TT, sstot = fm$sstot,
-            xmeans = fm$xmeans, ymeans = fm$ymeans, weights = fm$weights, 
-            lev = z$lev, ni = z$ni),
-        class = c("Plsda", "Pls")
+        list(fm = fm, lev = z$lev, ni = z$ni),
+        class = c("Plsrda")
         )       
     }
 
-
-predict.Plsda <- function(object, X, ..., nlv = NULL) {
+predict.Plsrda <- function(object, X, ..., nlv = NULL) {
     X <- .mat(X)
     rownam <- row.names(X)
     colnam <- "y1"
-    A <- dim(object$P)[2]
+    A <- dim(object$fm$P)[2]
     if(is.null(nlv))
         nlv <- A
     else 
@@ -32,8 +29,7 @@ predict.Plsda <- function(object, X, ..., nlv = NULL) {
     le_nlv <- length(nlv)
     posterior <- pred <- vector(mode = "list", length = le_nlv)
     for(i in seq_len(le_nlv)) {
-        z <- coef(object, nlv = nlv[i])
-        zposterior <- t(c(z$int) + t(X %*% z$B))
+        zposterior <- predict(object$fm, X, nlv = nlv[i])$pred
         z <- apply(zposterior, FUN = .findmax, MARGIN = 1)
         zpred <- matrix(.replace_bylev(z, object$lev), ncol = 1)
         dimnames(zpred) <- list(rownam, colnam)

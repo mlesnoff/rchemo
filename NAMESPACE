@@ -29,14 +29,17 @@ S3method(xfit, Pca)
 S3method(transform, Kpca)
 S3method(summary, Kpca)
 
-S3method(coef, Lm)
+S3method(coef, Lmr)
 S3method(predict, Lmr)
 
-S3method(transform, Pls)
-S3method(summary, Pls)
-S3method(coef, Pls)
-S3method(xfit, Pls)
+S3method(transform, Plsr)
+S3method(summary, Plsr)
+S3method(coef, Plsr)
+S3method(xfit, Plsr)
 S3method(predict, Plsr)
+
+S3method(predict, Plsrda)
+S3method(predict, Plsdaprob)
 
 S3method(transform, Kpls)
 S3method(coef, Kpls)
@@ -46,21 +49,19 @@ S3method(transform, Dkpls)
 S3method(coef, Dkpls)
 S3method(predict, Dkplsr)
 
-S3method(predict, Plsda)
-S3method(predict, Plsdaprob)
-
 S3method(coef, Rr)
 S3method(predict, Rr)
 S3method(predict, Rrda)
 
 S3method(coef, Krr)
 S3method(predict, Krr)
+S3method(predict, Krrda)
 
 S3method(coef, Dkrr)
 S3method(predict, Dkrr)
 
 S3method(predict, Lwplsr)
-S3method(predict, Lwplsda)
+S3method(predict, Lwplsrda)
 
 S3method(predict, Knnr)
 S3method(predict, Knnda)

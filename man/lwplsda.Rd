@@ -1,27 +1,27 @@
-\name{lwplsda}
-\alias{lwplsda}
-\alias{predict.Lwplsda}
+\name{lwplsrda}
+\alias{lwplsrda}
+\alias{predict.Lwplsrda}
 
 \encoding{latin1}
 
-\title{KNN-LWPLSDA}
+\title{KNN-LWPLSRDA}
 
 \description{
 
-Function \code{lwplsda} fits KNN-LWPLSDA models. This is the same methodology as for \code{\link{lwplsr}} except that PLSR is replaced by PLSDA. See the help page of \code{\link{lwplsr}} for details.
+Function \code{lwplsrda} fits KNN-LWPLSRDA models. This is the same methodology as for \code{\link{lwplsr}} except that PLSR is replaced by PLSRDA. See the help page of \code{\link{lwplsr}} for details.
 
 }
 
 \usage{
 
-lwplsda(
+lwplsrda(
     X, y,
     nlvdis, diss = c("eucl", "mahal"),
     h, k,
     nlv
     )
 
-\method{predict}{Lwplsda}(object, X, ..., nlv = NULL)  
+\method{predict}{Lwplsrda}(object, X, ..., nlv = NULL)  
 
 }
 
@@ -65,7 +65,7 @@ ytest <- sample(c(1, 4, 10), size = m, replace = TRUE)
 nlvdis <- 5 ; diss <- "mahal"
 h <- 2 ; k <- 10
 nlv <- 2  
-fm <- lwplsda(
+fm <- lwplsrda(
     Xtrain, ytrain, 
     nlvdis = nlvdis, diss = diss,
     h = h, k = k,
@@ -93,7 +93,7 @@ headm(pars)
 res <- gridscorelv(
     Xtrain, ytrain, Xtest, ytest, 
     score = err, 
-    fun = lwplsda, 
+    fun = lwplsrda, 
     pars = pars,
     verb = TRUE
     )

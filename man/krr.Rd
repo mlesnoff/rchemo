@@ -8,13 +8,13 @@
 
 \description{
 
-Kernel ridge regression models, also referred to as LS-SVMR (Suykens et al. 2000, Bennett & Embrechts 2003, Krell 2018). 
+Kernel ridge regression models (KRR), also referred to as LS-SVMR (Suykens et al. 2000, Bennett & Embrechts 2003, Krell 2018). LS-SVMR is a variant of SVMR in which the epsilon coefficient is set to zero (no marge) and a L2-norm (instead L1-norm) optimization is done.   
 
 }
 
 \usage{
 
-krr(X, Y, lb = 0, kern = "krbf", weights = NULL, ...)
+krr(X, Y, lb = 1e-5, kern = "krbf", weights = NULL, ...)
 
 \method{coef}{Krr}(object, ..., lb = NULL)  
 
@@ -28,7 +28,7 @@ krr(X, Y, lb = 0, kern = "krbf", weights = NULL, ...)
 
 \item{Y}{Training Y-data (\eqn{n, q}).}
 
-\item{lb}{A value of regularization parameter \eqn{lambda}.}
+\item{lb}{A value of regularization parameter \eqn{lambda}. If \code{lb = 0}, a pseudo-inverse is used in the RR.}
 
 \item{kern}{Name of the function defining the considered kernel for building the Gram matrix. See \code{\link{krbf}} for syntax, and other available kernel functions.}
 

@@ -1,6 +1,6 @@
 \name{lmr}
 \alias{lmr}
-\alias{coef.Lm}
+\alias{coef.Lmr}
 \alias{predict.Lmr}
 \encoding{latin1}
 
@@ -16,7 +16,7 @@ Linear regression models (wrapper using function \code{\link{lm}}).
 
 lmr(X, Y, weights = NULL)
 
-\method{coef}{Lm}(object, ...) 
+\method{coef}{Lmr}(object, ...) 
 
 \method{predict}{Lmr}(object, X, ...)  
 

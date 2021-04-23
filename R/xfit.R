@@ -20,7 +20,7 @@ xfit.Pca <- function(object, X, ..., nlv = NULL) {
     X
     }
     
-xfit.Pls <- function(object, X, ..., nlv = NULL) {
+xfit.Plsr <- function(object, X, ..., nlv = NULL) {
     A <- dim(object$R)[2]
     if(is.null(nlv))
         nlv <- A

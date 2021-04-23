@@ -1,18 +1,14 @@
-krr <- function(X, Y, lb = 0, kern = "krbf", weights = NULL, ...) {
-    
+krr <- function(X, Y, lb = 1e-5, kern = "krbf", weights = NULL, ...) {
     X <- .mat(X, "x")
     Y <- .mat(Y, "y")     
     zdim <- dim(X)
     n <- zdim[1]
     p <- zdim[2]
     q <- dim(Y)[2]
-    
     if(is.null(weights))
         weights <- rep(1, n)
     weights <- .mweights(weights)
-    
     ymeans <- .colmeans(Y, weights = weights) 
-    
     kern <- eval(parse(text = kern))
     dots <- list(...)
     K <- kern(X, ...)
@@ -21,19 +17,15 @@ krr <- function(X, Y, lb = 0, kern = "krbf", weights = NULL, ...) {
     Kc <- t(t(K - colSums(weights * tK)) - colSums(weights * tK)) + 
         sum(weights * t(weights * tK))
     Kd <- sqrt(weights) * t(sqrt(weights) * t(Kc))
-    
     fm <- eigen(Kd)
     tol <- sqrt(.Machine$double.eps)
     posit <- fm$values > max(tol * fm$values[1L], 0)
-    
     A <- fm$vectors[, posit, drop = FALSE]
     eig <- fm$values[posit]
     sv <- sqrt(eig)
-    
     P <- sqrt(weights) * .scale(A, scale = sv)
     T <- Kc %*% P
     tTDY <- crossprod(T, weights * Y)
-    
     structure(
         list(
             X = X, K = K, tK = tK, 
@@ -42,7 +34,6 @@ krr <- function(X, Y, lb = 0, kern = "krbf", weights = NULL, ...) {
             kern = kern, dots = dots),
         class = c("Krr")
         )
-
     }
 
 coef.Krr <- function(object, ..., lb = NULL) {

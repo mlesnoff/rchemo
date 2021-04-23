@@ -1,4 +1,4 @@
-rrda <- function(X, y, lb = 1e-5, weights = NULL) {
+krrda <- function(X, y, lb = 1e-5, kern = "krbf", weights = NULL, ...) {
     if(is.factor(y))
         y <- as.character(y)
     X <- .mat(X)
@@ -7,14 +7,14 @@ rrda <- function(X, y, lb = 1e-5, weights = NULL) {
         weights <- rep(1, n)
     weights <- .mweights(weights)
     z <- dummy(y)
-    fm <- rr(X, z$Y, lb = lb, weights = weights)
+    fm <- krr(X, z$Y, lb = lb, kern = kern, weights = weights, ...)
     structure(
         list(fm = fm, lev = z$lev, ni = z$ni),
-        class = c("Rrda")
+        class = c("Krrda")
         )   
     }
 
-predict.Rrda <- function(object, X, ..., lb = NULL) {
+predict.Krrda <- function(object, X, ..., lb = NULL) {
     X <- .mat(X)
     q <- length(object$fm$ymeans)
     rownam <- row.names(X)
@@ -24,7 +24,7 @@ predict.Rrda <- function(object, X, ..., lb = NULL) {
     le_lb <- length(lb)
     posterior <- pred <- vector(mode = "list", length = le_lb)
     for(i in seq_len(le_lb)) {
-        zposterior <- predict(object$fm, X, lb = lb[i])$pred
+        zposterior <- predict(object$fm, X, lb = lb[i])$pred        
         z <- apply(zposterior, FUN = .findmax, MARGIN = 1)
         zpred <- matrix(.replace_bylev(z, object$lev), ncol = 1)
         dimnames(zpred) <- list(rownam, colnam)

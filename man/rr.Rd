@@ -8,13 +8,13 @@
 
 \description{
 
-Fitting linear ridge regression models (Hoerl & Kennard 1970, Hastie & Tibshirani 2004, Hastie et al 2009, Cule & De Iorio 2012) by eigen decomposition. The "kernel cross-product trick" (such as in \code{\link{pcaeigenk}}; Wu et al. 1997) is used when \eqn{n < p}. 
+Fitting linear ridge regression models (RR) (Hoerl & Kennard 1970, Hastie & Tibshirani 2004, Hastie et al 2009, Cule & De Iorio 2012) by eigen decomposition. The "kernel cross-product trick" (such as in \code{\link{pcaeigenk}}; Wu et al. 1997) is used in the algorithm when \eqn{n < p}. 
 
 }
 
 \usage{
 
-rr(X, Y, lb = 0, weights = NULL)
+rr(X, Y, lb = 1e-5, weights = NULL)
 
 \method{coef}{Rr}(object, ..., lb = NULL)  
 
@@ -28,7 +28,7 @@ rr(X, Y, lb = 0, weights = NULL)
 
 \item{Y}{Training Y-data (\eqn{n, q}).}
 
-\item{lb}{A value of regularization parameter \eqn{lambda}.}
+\item{lb}{A value of regularization parameter \eqn{lambda}. If \code{lb = 0}, a pseudo-inverse is used.}
 
 \item{weights}{Weights (\eqn{n, 1}) to apply to the training observations. Internally, weights are "normalized" to sum to 1. Default to \code{NULL} (weights are set to \eqn{1 / n}).}
 

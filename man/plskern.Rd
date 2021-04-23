@@ -2,9 +2,9 @@
 \alias{plskern}
 \alias{plsnipals}
 \alias{plsrannar}
-\alias{transform.Pls}
-\alias{summary.Pls}
-\alias{coef.Pls}
+\alias{transform.Plsr}
+\alias{summary.Plsr}
+\alias{coef.Plsr}
 \alias{predict.Plsr}
 \encoding{latin1}
 
@@ -40,11 +40,11 @@ plsnipals(X, Y, nlv, weights = NULL)
 
 plsrannar(X, Y, nlv, weights = NULL)
 
-\method{transform}{Pls}(object, X, ..., nlv = NULL)  
+\method{transform}{Plsr}(object, X, ..., nlv = NULL)  
 
-\method{summary}{Pls}(object, ...)  
+\method{summary}{Plsr}(object, ...)  
 
-\method{coef}{Pls}(object, ..., nlv = NULL) 
+\method{coef}{Plsr}(object, ..., nlv = NULL) 
 
 \method{predict}{Plsr}(object, X, ..., nlv = NULL)  
 

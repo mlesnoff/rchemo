@@ -1,8 +1,8 @@
-\name{plsda}
-\alias{plsda}
+\name{plsrda}
+\alias{plsrda}
 \alias{plslda}
 \alias{plsqda}
-\alias{predict.Plsda}
+\alias{predict.Plsrda}
 \alias{predict.Plsdaprob}
 \encoding{latin1}
 
@@ -10,25 +10,25 @@
 
 \description{
 
-Discrimination (DA) based on PLS latent variables (LVs).
+Discrimination (DA) based on PLSR.
 
-The training variable \eqn{y} (univariate class membership) is firstly transformed to a dummy table containing \eqn{nclas} columns, where \eqn{nclas} is the number of classes present in \eqn{y}. Each column is a dummy variable (0/1). Then, a PLS2 is implemented on the \eqn{X-}data and the dummy table, returning LVs that are used as dependent variables in a DA model.
+The training variable \eqn{y} (univariate class membership) is firstly transformed to a dummy table containing \eqn{nclas} columns, where \eqn{nclas} is the number of classes present in \eqn{y}. Each column is a dummy variable (0/1). Then, a PLS2 is implemented on the \eqn{X-}data and the dummy table, returning latent variables (LVs) that are used as dependent variables in a DA model.
 
-- \code{plsda}: Usual "PLDA". For a given observation, the final prediction is the class corresponding to the dummy variable for which the prediction is the highest.
+- \code{plsrda}: Usual "PLSDA". A linear regression model predicts the Y-dummy table from the PLS2 LVs. This corresponds to the PLSR2 of the X-data and the Y-dummy table. For a given observation, the final prediction is the class corresponding to the dummy variable for which the prediction is the highest.
 
-- \code{plslda} and \code{plsqda}: PLS-LDA and PLS-QDA, respectively. \code{\link{lda}} and \code{\link{qda}} are run over the PLS2 LVs.
+- \code{plslda} and \code{plsqda}: Probabilistic LDA and QDA are run over the PLS2 LVs, respectively.
 
 }
 
 \usage{
 
-plsda(X, y, nlv, weights = NULL)
+plsrda(X, y, nlv, weights = NULL)
 
 plslda(X, y, nlv, weights = NULL, prior = c("unif", "prop"))
 
 plsqda(X, y, nlv, weights = NULL, prior = c("unif", "prop"))
 
-\method{predict}{Plsda}(object, X, ..., nlv = NULL) 
+\method{predict}{Plsrda}(object, X, ..., nlv = NULL) 
 
 \method{predict}{Plsdaprob}(object, X, ..., nlv = NULL) 
 
@@ -62,15 +62,20 @@ ytrain <- sample(c(1, 4, 10), size = n, replace = TRUE)
 #ytrain <- sample(c("a", "10", "d"), size = n, replace = TRUE)
 Xtest <- Xtrain[1:5, ] ; ytest <- ytrain[1:5]
 
+#### PLSDA
+
 nlv <- 5
-fm <- plsda(Xtrain, ytrain, nlv = nlv)
+fm <- plsrda(Xtrain, ytrain, nlv = nlv)
 names(fm)
-transform(fm, Xtest)
-transform(fm, Xtest, nlv = 1)
-summary(fm)
-coef(fm)
-coef(fm, nlv = 0)
-coef(fm, nlv = 2)
+## The PLS2 model
+zfm <- fm$fm
+transform(zfm, Xtest)
+transform(zfm, Xtest, nlv = 1)
+summary(zfm)
+coef(zfm)
+coef(zfm, nlv = 0)
+coef(zfm, nlv = 2)
+## PLSDA
 predict(fm, Xtest)
 predict(fm, Xtest, nlv = 0:2)$pred
 
@@ -81,7 +86,7 @@ nlv <- 5
 pars <- data.frame(nlv = 0:nlv)
 gridscorelv(
     Xtrain, ytrain, Xtest, ytest, 
-    score = err, fun = plsda, 
+    score = err, fun = plsrda, 
     pars
     )
 
@@ -91,6 +96,14 @@ nlv <- 5
 fm <- plslda(Xtrain, ytrain, nlv = nlv)
 predict(fm, Xtest)
 predict(fm, Xtest, nlv = 1:2)$pred
+
+nlv <- 5
+pars <- expand.grid(nlv = 1:nlv, prior = c("unif", "prop"))
+gridscorelv(
+    Xtrain, ytrain, Xtest, ytest, 
+    score = err, fun = plslda, 
+    pars
+    )
 
 ## The PLS2 model
 zfm <- fm[[1]]
