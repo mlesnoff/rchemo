@@ -1,21 +1,16 @@
-rr <- function(X, Y, lb = 0, weights = NULL) {
-    
+rr <- function(X, Y, lb = 1e-5, weights = NULL) {
     X <- .mat(X, "x")
     zdim <- dim(X)
     n <- zdim[1]
     p <- zdim[2]
-    
     Y <- .mat(Y, "y")     
     q <- dim(Y)[2]
-    
     if(is.null(weights))
         weights <- rep(1, n)
     weights <- .mweights(weights)
-    
     xmeans <- .colmeans(X, weights = weights) 
     X <- .center(X, xmeans)
     ymeans <- .colmeans(Y, weights = weights) 
-
     tol <- sqrt(.Machine$double.eps) 
     if(n >= p) {
         fm <- eigen(crossprod(sqrt(weights) * X), symmetric = TRUE)
@@ -33,14 +28,12 @@ rr <- function(X, Y, lb = 0, weights = NULL) {
         } 
     T <- X %*% V
     tTDY <- crossprod(T, weights * Y)
-    
     structure(
         list(
             V = V, tTDY = tTDY, eig = eig, lb = lb, 
             xmeans = xmeans, ymeans = ymeans, weights = weights),
         class = c("Rr")
         )
-
     }
 
 coef.Rr <- function(object, ..., lb = NULL) {
