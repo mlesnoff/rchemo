@@ -76,7 +76,6 @@ res <- gridscorelv(
     )
 res
 
-
 }
 
 \keyword{datagen}

@@ -42,9 +42,10 @@ S3method(predict, Plsr)
 S3method(predict, Plsrda)
 S3method(predict, Plsdaprob)
 
-S3method(transform, Kpls)
-S3method(coef, Kpls)
+S3method(transform, Kplsr)
+S3method(coef, Kplsr)
 S3method(predict, Kplsr)
+S3method(predict, Kplsrda)
 
 S3method(transform, Dkpls)
 S3method(coef, Dkpls)

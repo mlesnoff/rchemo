@@ -74,7 +74,7 @@ kplsr <- function(X, Y, nlv, kern = "krbf", weights = NULL,
 
     }
 
-transform.Kpls <- function(object, X, ..., nlv = NULL) {
+transform.Kplsr <- function(object, X, ..., nlv = NULL) {
     X <- .mat(X)
     a <- dim(object$T)[2]
     if(is.null(nlv))
@@ -89,7 +89,7 @@ transform.Kpls <- function(object, X, ..., nlv = NULL) {
     T
     }
 
-coef.Kpls <- function(object, ..., nlv = NULL) {
+coef.Kplsr <- function(object, ..., nlv = NULL) {
     a <- dim(object$T)[2]
     if(is.null(nlv))
         nlv <- a
