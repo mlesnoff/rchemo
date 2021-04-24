@@ -87,10 +87,7 @@ predict(fm, Xtest, nlv = nlv)
 
 sigma <- 10^(-1:1)
 nlv <- 2
-pars <- expand.grid(
-    sigma = sigma,
-    nlv = 0:nlv
-    )
+pars <- expand.grid(sigma = sigma, nlv = 0:nlv)
 res <- gridscorelv(
     Xtrain, ytrain, Xtest, ytest, 
     score = msep, 
