@@ -31,6 +31,7 @@ S3method(summary, Kpca)
 
 S3method(coef, Lmr)
 S3method(predict, Lmr)
+S3method(predict, Lmrda)
 
 S3method(transform, Plsr)
 S3method(summary, Plsr)
