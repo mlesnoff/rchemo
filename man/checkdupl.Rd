@@ -1,37 +1,28 @@
 \name{checkdupl}
 \alias{checkdupl}
-\alias{rmdupl}
 \encoding{latin1}
 
-\title{Find or remove duplicated row observations between two datasets}
+\title{Find and remove duplicated rows between two datasets}
 
 \description{
 
-- \code{checkdupl}: Finds the duplicated row observations between two datasets.
-
-- \code{rmdupl}: Removes the duplicated row observations between two datasets.
+Finds the duplicated row observations between two datasets.
 
 }
 
 \usage{
 
-checkdupl(X, Y, nam = NULL, digits = NULL, check.all = FALSE)
-
-rmdupl(X, nam = NULL, digits = NULL, check.all = FALSE)
+checkdupl(X, Y = NULL, digits = NULL)
 
 }
 
 \arguments{
 
-\item{X}{A datset compared to \code{Y}.}
+\item{X}{A dataset compared to \code{Y}.}
 
 \item{Y}{A dataset compared to \code{X}.}
 
-\item{nam}{Names of the variables to consider in \code{X} and \code{Y} in the duplication test. If \code{NULL} (default), \code{nam} is set to all the column names of \code{X}. Variables defined in \code{nam} must be common between \code{X} and \code{Y}.}
-
-\item{digits}{The number of digits used when rounding the variables (in \code{nam}) before the duplication test. Default to \code{NULL} (no rounding.}
-
-\item{check.all}{Logical (default = \code{FALSE}). If \code{TRUE}, an additionnal test of duplication is done considering all the columns of \code{X} (even if \code{nam} is defined as a part of these columns).}
+\item{digits}{The number of digits used when rounding the data before the duplication test. Default to \code{NULL} (no rounding.}
 
 }
 
@@ -50,19 +41,16 @@ X2
 
 checkdupl(X1, X2)
 
-checkdupl(X1, X2, nam = c("v1", "v2"))
+checkdupl(X1)
 
-checkdupl(X1, X2, nam = c("v1", "v2"), check.all = TRUE)
+checkdupl(matrix(rnorm(20), nrow = 5))
 
-z <- checkdupl(X1, X1)
-z[z$rownum.X != z$rownum.Y, ]
+## Removing duplicates
 
-z <- checkdupl(X1, X1, nam = c("v1", "v2"))
-z[z$rownum.X != z$rownum.Y, ]
-
-rmdupl(X1)
-
-rmdupl(X1, nam = c("v1", "v2"))
+res <- checkdupl(X1)
+s <- unique(res$rownum2)
+zX1 <- X1[-s, ]
+zX1
 
 }
 
