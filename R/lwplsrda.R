@@ -2,12 +2,13 @@ lwplsrda <- function(
     X, y,
     nlvdis, diss = c("eucl", "mahal"),
     h, k,
-    nlv
+    nlv,
+    verb = FALSE
     ) {
     structure(
         list(X = X, y = y,
              nlvdis = nlvdis, diss = diss, 
-             h = h, k = k, nlv = nlv),
+             h = h, k = k, nlv = nlv, verb = verb),
         class = "Lwplsrda"
         )
     }

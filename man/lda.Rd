@@ -5,13 +5,13 @@
 \alias{predict.Qda}
 \encoding{latin1}
 
-\title{Probabilistic LDA and QDA}
+\title{LDA and QDA}
 
 \description{
 
-Probabilistic linear and quadratic discriminant analysis.
+Probabilistic (parametric) linear and quadratic discriminant analysis.
 
-For each observation to predict, the posterior probability to belong to a given class is estimated using the Bayes' formula, assuming priors (proportional or uniform) and that the dependent variables \eqn{X} have a multivariate Normal distribution. The prediction result is the class with the highest posterior probability.
+For each observation to predict, the posterior probability to belong to a given class is estimated using the Bayes' formula, assuming priors (proportional or uniform) and a multivariate Normal distribution for the dependent variables \eqn{X}. The prediction is the class with the highest posterior probability.
 
 LDA assumes homogeneous \eqn{X-}covariance matrices for the classes while QDA assumes different covariance matrices. The functions use \code{\link{dmnorm}} for estimating the multivariate Normal densities.  
 

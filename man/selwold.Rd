@@ -91,13 +91,12 @@ X <- cassav$Xtest
 y <- cassav$ytest
 
 nlv <- 20
-pars <- data.frame(nlv = 0:nlv)
 res <- gridscorelv(
     Xtrain, ytrain, X, y, 
     score = msep, fun = plskern, 
-    pars = pars
+    nlv = 0:nlv
     )
-selwold(res$nlv, res$y1, f = 2/3)
+selwold(res$y1, res$nlv, f = 2/3)
 
 }
 

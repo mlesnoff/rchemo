@@ -18,6 +18,7 @@ fda <- function(X, y, nlv = NULL) {
     if(is.null(nlv)) 
         nlv <- nlev - 1
     nlv <- min(nlv, p, nlev - 1)
+    ## Temporary - As in rnirs:
     ## If W is singular, a pseudo-inverse is calculated 
     Winv <- tryCatch(solve(W), error = function(e) e)
     if(inherits(Winv, "error")) 
@@ -25,7 +26,7 @@ fda <- function(X, y, nlv = NULL) {
     ## End
     fm <- eigen(Winv %*% B)
     P <- fm$vectors[, seq_len(nlv), drop = FALSE]
-    eig <- fm$values#[seq_len(nlv)]
+    eig <- fm$values
     P <- Re(P)
     eig <- Re(eig)
     sstot <- sum(eig)
@@ -61,6 +62,7 @@ fdasvd <- function(X, y, nlv = NULL) {
     if(is.null(nlv)) 
         nlv <- nlev - 1
     nlv <- min(nlv, p, nlev - 1)
+    ## Temporary - As in rnirs:
     ## If W is singular, a pseudo-inverse is calculated 
     Winv <- tryCatch(solve(W), error = function(e) e)
     if(inherits(Winv, "error")) 

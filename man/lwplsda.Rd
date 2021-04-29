@@ -18,7 +18,8 @@ lwplsrda(
     X, y,
     nlvdis, diss = c("eucl", "mahal"),
     h, k,
-    nlv
+    nlv,
+    verb = FALSE
     )
 
 \method{predict}{Lwplsrda}(object, X, ..., nlv = NULL)  
@@ -41,17 +42,15 @@ lwplsrda(
 
 \item{nlv}{The number(s) of LVs to calculate in the local PLSDA models.}
 
+\item{verb}{Logical. If \code{TRUE}, fitting information are printed.}
+
 \item{object}{A fitted model, output of a call to the main function.}
 
 \item{...}{Optional arguments.}
 
 }
 
-\value{
-
-See the examples.
-
-}
+\value{See the examples.}
 
 \examples{
 
@@ -78,26 +77,6 @@ err(res$pred, ytest)
 
 res <- predict(fm, Xtest, nlv = 0:2)
 res$pred
-
-nlvdis <- 5
-h <- c(1, 2, Inf)
-k <- c(10, 20)
-nlv <- 5
-pars <- expand.grid(
-    nlvdis = nlvdis,
-    diss = "mahal",
-    h = h, k = k,
-    nlv = 0:nlv
-    )
-headm(pars)
-res <- gridscorelv(
-    Xtrain, ytrain, Xtest, ytest, 
-    score = err, 
-    fun = lwplsrda, 
-    pars = pars,
-    verb = TRUE
-    )
-head(res)
 
 
 }

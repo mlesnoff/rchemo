@@ -58,16 +58,6 @@ err(pred, ytest)
 predict(fm, Xtest, lb = 0:2)
 predict(fm, Xtest, lb = 0)
 
-pars <- data.frame(lb = c(0.1, 1e5))
-res <- gridscorelb(
-    Xtrain, ytrain, Xtest, ytest, 
-    score = err, 
-    fun = rrda, 
-    pars = pars,
-    verb = TRUE
-    )
-res
-
 }
 
 \keyword{datagen}

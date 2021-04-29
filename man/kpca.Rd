@@ -4,11 +4,11 @@
 \alias{summary.Kpca}
 \encoding{latin1}
 
-\title{Kernel PCA}
+\title{KPCA}
 
 \description{
 
-KPCA (Scholkopf et al. 1997, Scholkopf & Smola 2002, Tipping 2001).
+Kernel PCA (Scholkopf et al. 1997, Scholkopf & Smola 2002, Tipping 2001).
 
 }
 

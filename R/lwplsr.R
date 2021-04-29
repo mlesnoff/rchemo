@@ -2,12 +2,13 @@ lwplsr <- function(
     X, Y,
     nlvdis, diss = c("eucl", "mahal"),
     h, k,
-    nlv
+    nlv,
+    verb = FALSE
     ) {
     structure(
         list(X = X, Y = Y,
              nlvdis = nlvdis, diss = diss, 
-             h = h, k = k, nlv = nlv),
+             h = h, k = k, nlv = nlv, verb = verb),
         class = "Lwplsr"
         )
     }
@@ -39,7 +40,7 @@ lwplsr <- function(
     if(da)
         object$Y <- object$y
     pred <- locwlv(object$X, object$Y, X,
-        listnn = res$listnn, listw = listw, fun = fun, nlv = nlv)$pred
+        listnn = res$listnn, listw = listw, fun = fun, nlv = nlv, verb = object$verb)$pred
     list(pred = pred, listnn = res$listnn, listd = res$listd, listw = listw)    
     }
 

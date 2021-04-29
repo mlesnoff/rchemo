@@ -71,19 +71,5 @@ names(res)
 res$pred
 err(res$pred, ytest)
 
-nlvdis <- 5
-h <- c(2, Inf)
-k <- c(20, 30)
-pars <- expand.grid(nlvdis = nlvdis, diss = "mahal", h = h, k = k)
-pars
-res <- gridscore(
-    Xtrain, ytrain, Xtest, ytest, 
-    score = err, 
-    fun = knnda, 
-    pars = pars,
-    verb = TRUE
-    )
-res
-
 }
 

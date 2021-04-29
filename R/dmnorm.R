@@ -9,22 +9,22 @@ dmnorm <- function(X = NULL, mu = NULL, sigma = NULL) {
         sigma <- cov(X)
     else
         sigma <- as.matrix(sigma)
-    ## Cholesky decomposition of sigma
-    ## If sigma is singular, use of a ridge chol
     U <- tryCatch(chol(sigma), error = function(e) e)
     if(inherits(U, "error")) {
-        lb <- 1e-5
-        U <- chol(sigma + diag(lb, nrow = p, ncol = p))
-        ## Alternative (rnirs): chol of diag(sigma)
-        ## U <- sqrt(diag(diag(sigma), nrow = p))
+        ## Temporary - As in rnirs:
+        U <- sqrt(diag(diag(sigma), nrow = p))
+        ## Alternative: ridge chol
+        #lb <- 1e-5
+        #U <- chol(sigma + diag(lb, nrow = p, ncol = p))
         }
     ### End
     Uinv <- tryCatch(solve(U), error = function(e) e)
     if(inherits(Uinv, "error")) {
-        lb <- 1e-5
-        Uinv <- solve(U + diag(lb, nrow = p, ncol = p))
-        ## Alternative (rnirs): inverse of diag(sigma)
-        ## Uinv <- solve(diag(diag(sigma), nrow = p))
+        ## Temporary - As in rnirs:
+        Uinv <- solve(diag(diag(sigma), nrow = p))
+        ## Alternative: ridge solve
+        #lb <- 1e-5
+        #Uinv <- solve(U + diag(lb, nrow = p, ncol = p))
         }        
     zdet <- det(U)^2
     if(zdet == 0) 

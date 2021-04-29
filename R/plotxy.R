@@ -12,6 +12,8 @@ plotxy <- function(
     
     fg <- "grey70"
     
+    right <- left <- 4
+    op <- par(mar = c(5, left, 4, right) + 0.1)
     plot(X, 
         type = "n", xaxt = "n",
         las = 1, fg = fg,
@@ -19,6 +21,7 @@ plotxy <- function(
         ...
         )
     axis(side = 1, fg = fg, asp = asp, ...)
+    par(op)
     
     if(zeroes)
         abline(h = 0, v = 0, lty = 2, col = fg)
@@ -85,8 +88,11 @@ plotxy <- function(
 
             legend("topright", legend = levs,
                 box.col = fg, ncol = ncol,
-                col = col, pch = pch, xjust = 1, yjust = 1,
-                title = legend.title)
+                col = col, pch = pch, xjust = 1, yjust = 0.5,
+                title = legend.title,
+                bty = "n", 
+                xpd =TRUE
+                )
             
             }
         

@@ -9,7 +9,7 @@
 
 \description{
 
-NIPALS Kernel PLSR algorithm such as described in Rosipal & Trejo (2001). 
+NIPALS Kernel PLSR algorithm described in Rosipal & Trejo (2001). 
 
 The algorithm is slow for \eqn{n >= 500}.
 }
@@ -84,18 +84,6 @@ msep(pred, Ytest)
 nlv <- 2
 fm <- kplsr(Xtrain, Ytrain, nlv = nlv, kern = "kpol", degree = 2, offset = 10)
 predict(fm, Xtest, nlv = nlv)
-
-sigma <- 10^(-1:1)
-nlv <- 2
-pars <- expand.grid(sigma = sigma, nlv = 0:nlv)
-res <- gridscorelv(
-    Xtrain, ytrain, Xtest, ytest, 
-    score = msep, 
-    fun = kplsr, 
-    pars = pars,
-    verb = TRUE
-    )
-res
 
 ####### Example of fitting the function sinc(x)
 ####### described in Rosipal & Trejo 2001 p. 105-106 

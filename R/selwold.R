@@ -67,7 +67,8 @@ selwold <- function(
             lines(indx, Rs, type = "l", col = "red")
             legend("topright", legend = c("Raw", "Smoothed"),
                 box.col = "grey70", ncol = 1,
-                col = c("#045a8d", "red"), lty = 1, xjust = 1, yjust = 1)
+                col = c("#045a8d", "red"), lty = 1, 
+                xjust = 1, yjust = 1, bty = "n", xpd = TRUE)
             }
         axis(side = 1, at = labs, labels = labs, fg = fg)
         abline(h = c(0, alpha), col = c("grey", "blue"), lty = seq_len(2))

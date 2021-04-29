@@ -1,26 +1,30 @@
-\name{knnr}
-\alias{knnr}
-\alias{predict.Knnr}
+\name{lwplsr_agg}
+\alias{lwplsr_agg}
+\alias{predict.Lwplsragg}
 
 \encoding{latin1}
 
-\title{KNN-R}
+\title{KNN-LWPLSR with aggregation of latent variables}
 
 \description{
 
-KNN weighted regression. For each new observation to predict, a number of \eqn{k} nearest neighbors is selected and the prediction is calculated by the average (eventually weighted) of the response \eqn{Y} over this neighborhood.
+Ensemblist approach where the predictions are calculated by averaging the predictions of KNN-LWPLSR models (\code{\link{lwplsr}}) built with different numbers of latent variables (LVs). 
 
-In function \code{knnr}, the dissimilarities used for computing the neighborhood and the weights can be calculated from the original X-data or after a dimension reduction (argument \code{nlvdis}). In the last case, global PLS scores are computed from \eqn{(X, Y)} and the dissimilarities are calculated on these scores. For high dimension X-data, the dimension reduction is in general required for using the Mahalanobis distance.   
+For instance, if argument \code{nlv} is set to \code{nlv = 5:10}, the predictions are the average (without weighting) of the models with 5 LVS, 6 LVs, ... 10 LVs. 
 
 }
 
 \usage{
 
-knnr(X, Y,
+lwplsr_agg(
+    X, Y,
     nlvdis, diss = c("eucl", "mahal"),
-    h, k)
+    h, k,
+    nlv, 
+    verb = FALSE
+    )
 
-\method{predict}{Knnr}(object, X, ...)  
+\method{predict}{Lwplsragg}(object, X, ...)  
 
 }
 
@@ -38,6 +42,10 @@ knnr(X, Y,
 
 \item{k}{The number of nearest neighbors to select for each observation to predict.}
 
+\item{nlv}{A vector of numbers of LVs to consider in the aggregation.}
+
+\item{verb}{Logical. If \code{TRUE}, fitting information are printed.}
+
 \item{object}{A fitted model, output of a call to the main function.}
 
 \item{...}{Optional arguments.}
@@ -45,10 +53,6 @@ knnr(X, Y,
 }
 
 \value{See the examples.}
-
-\references{
-Venables, W. N. and Ripley, B. D. (2002) Modern Applied Statistics with S. Fourth edition. Springer.
-}
 
 \examples{
 
@@ -63,15 +67,49 @@ Ytest <- cbind(ytest, 10 * ytest)
 
 nlvdis <- 5 ; diss <- "mahal"
 h <- 2 ; k <- 10
-fm <- knnr(
+nlv <- 2:6 
+fm <- lwplsr_agg(
     Xtrain, Ytrain, 
     nlvdis = nlvdis, diss = diss,
-    h = h, k = k
+    h = h, k = k,
+    nlv = nlv
     )
+names(fm)
 res <- predict(fm, Xtest)
 names(res)
 res$pred
 msep(res$pred, Ytest)
+
+## Gridscore
+## Here, there is no sense to use gridscorelv 
+nlvdis <- 5 ; diss <- "mahal"
+h <- c(2, Inf)
+k <- c(10, 20)
+nlv <- list(1:3, 2:5)
+pars <- mpars(nlvdis = nlvdis, diss = diss,
+    h = h, k = k, nlv = nlv)
+pars
+res <- gridscore(
+    Xtrain, Ytrain, Xtest, Ytest, 
+    score = msep, 
+    fun = lwplsr_agg, 
+    pars = pars
+    )
+res
+
+## Gridcv
+## Here, there is no sense to use gridcvlv 
+K = 3
+segm <- segmkf(n = n, K = K, nrep = 1)
+segm
+res <- gridcv(
+    Xtrain, Ytrain, 
+    segm, score = msep, 
+    fun = lwplsr_agg, 
+    pars = pars,
+    verb = TRUE
+    )
+res
 
 }
 

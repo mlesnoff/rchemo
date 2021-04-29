@@ -82,28 +82,12 @@ predict(fm, Xtest, nlv = 0:2)$pred
 pred <- predict(fm, Xtest)$pred
 err(pred, ytest)
 
-nlv <- 5
-pars <- data.frame(nlv = 0:nlv)
-gridscorelv(
-    Xtrain, ytrain, Xtest, ytest, 
-    score = err, fun = plsrda, 
-    pars
-    )
-
 #### PLS-LDA
 
 nlv <- 5
 fm <- plslda(Xtrain, ytrain, nlv = nlv)
 predict(fm, Xtest)
 predict(fm, Xtest, nlv = 1:2)$pred
-
-nlv <- 5
-pars <- expand.grid(nlv = 1:nlv, prior = c("unif", "prop"))
-gridscorelv(
-    Xtrain, ytrain, Xtest, ytest, 
-    score = err, fun = plslda, 
-    pars
-    )
 
 ## The PLS2 model
 zfm <- fm[[1]]

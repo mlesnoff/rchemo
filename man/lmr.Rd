@@ -8,7 +8,7 @@
 
 \description{
 
-Linear regression models (wrapper using function \code{\link{lm}}).
+Linear regression models (uses function \code{\link{lm}}).
 
 }
 

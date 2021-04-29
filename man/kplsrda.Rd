@@ -64,18 +64,6 @@ predict(fm, Xtest, nlv = 0)$posterior
 predict(fm, Xtest, nlv = 0:nlv)$pred
 predict(fm, Xtest, nlv = 0)$pred
 
-sigma <- 10^(-1:1)
-nlv <- 2
-pars <- expand.grid(sigma = sigma, nlv = 0:nlv)
-res <- gridscorelv(
-    Xtrain, ytrain, Xtest, ytest, 
-    score = err, 
-    fun = kplsrda, 
-    pars = pars,
-    verb = TRUE
-    )
-res
-
 }
 
 \keyword{datagen}

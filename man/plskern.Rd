@@ -8,7 +8,7 @@
 \alias{predict.Plsr}
 \encoding{latin1}
 
-\title{PLS algorithms}
+\title{PLSR algorithms}
 
 \description{
 
@@ -111,41 +111,36 @@ Wold, S., Sjostrom, M., Eriksson, l., 2001. PLS-regression: a basic tool for che
 
 \examples{
 
-n <- 8 ; p <- 6
-X <- matrix(rnorm(n * p), ncol = p)
-y1 <- rnorm(n)
-y2 <- rnorm(n)
-Y <- cbind(y1, y2)
+n <- 6 ; p <- 4
+Xtrain <- matrix(rnorm(n * p), ncol = p)
+ytrain <- rnorm(n)
+Ytrain <- cbind(y1 = ytrain, y2 = 100 * ytrain)
+m <- 3
+Xtest <- Xtrain[1:m, , drop = FALSE] 
+Ytest <- Ytrain[1:m, , drop = FALSE] ; ytest <- Ytest[1:m, 1]
 
-plskern(X, y1, nlv = 3)
-plskern(X, Y, nlv = 3)
-plskern(X, Y, nlv = 3)$T
-plskern(X, Y, nlv = 3, weights = 1:n)$T
+nlv <- 3
+plskern(Xtrain, Ytrain, nlv = nlv)
+plskern(Xtrain, Ytrain, nlv = nlv)
+plskern(Xtrain, Ytrain, nlv = nlv)$T
+plskern(Xtrain, Ytrain, nlv = nlv, weights = 1:n)$T
 
-fm <- plskern(X, Y, nlv = 3)
+fm <- plskern(Xtrain, Ytrain, nlv = nlv)
 coef(fm)
 coef(fm, nlv = 0)
 coef(fm, nlv = 1)
 
 fm$T
-transform(fm, X[1:2, ])
-transform(fm, X[1:2, ], nlv = 1)
+transform(fm, Xtest)
+transform(fm, Xtest, nlv = 1)
 
 summary(fm)
 
-predict(fm, X)
-predict(fm, X, nlv = 0:3)
+predict(fm, Xtest)
+predict(fm, Xtest, nlv = 0:3)
 
-pred <- predict(fm, X)$pred
-msep(pred, Y)
-
-nlv <- 5
-pars <- data.frame(nlv = 0:nlv)
-gridscorelv(
-    X, Y, X[1:2, ], Y[1:2, ], 
-    score = msep, fun = plskern, 
-    pars
-    )
+pred <- predict(fm, Xtest)$pred
+msep(pred, Ytest)
 
 }
 

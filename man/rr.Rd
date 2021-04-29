@@ -74,16 +74,6 @@ predict(fm, Xtest, lb = c(0.1, .8))
 pred <- predict(fm, Xtest)$pred
 msep(pred, Ytest)
 
-pars <- data.frame(lb = c(0.1, .8))
-res <- gridscorelb(
-    Xtrain, Ytrain, Xtest, Ytest, 
-    score = msep, 
-    fun = rr, 
-    pars = pars,
-    verb = TRUE
-    )
-res
-
 }
 
 \keyword{datagen}

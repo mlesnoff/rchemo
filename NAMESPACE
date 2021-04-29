@@ -42,6 +42,8 @@ S3method(predict, Plsr)
 S3method(predict, Plsrda)
 S3method(predict, Plsdaprob)
 
+S3method(predict, Plsragg)
+
 S3method(transform, Kplsr)
 S3method(coef, Kplsr)
 S3method(predict, Kplsr)
@@ -64,6 +66,8 @@ S3method(predict, Dkrr)
 
 S3method(predict, Lwplsr)
 S3method(predict, Lwplsrda)
+
+S3method(predict, Lwplsragg)
 
 S3method(predict, Knnr)
 S3method(predict, Knnda)

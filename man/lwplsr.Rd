@@ -8,7 +8,7 @@
 
 \description{
 
-Function \code{lwplsr} fits KNN-LWPLSR models such as described in Lesnoff et al. (2020). This is a wrapper using functions \code{\link{getknn}}, \code{\link{locw}} and PLSR functions. See the code for details. Many variants of such pipelines can be build using function \code{\link{locw}}.
+Function \code{lwplsr} fits KNN-LWPLSR models described in Lesnoff et al. (2020). The function uses functions \code{\link{getknn}}, \code{\link{locw}} and PLSR functions. See the code for details. Many variants of such pipelines can be build using \code{\link{locw}}.
 
 - LWPLSR: This is a particular case of "weighted PLSR" (WPLSR) (e.g. Schaal et al. 2002). In WPLSR, a priori weights, different from the usual \eqn{1/n} (standard PLSR), are given to the \eqn{n} training observations. These weights are used for calculating (i) the PLS scores and loadings and (ii) the regression model of the response(s) over the scores (by weighted least squares). LWPLSR is a particular case of WPLSR. "L" comes from "localized": the weights are defined from dissimilarities (e.g. distances) between the new observation to predict and the training observations. By definition of LWPLSR, the weights, and therefore the fitted WPLSR model, change for each new observation to predict.
 
@@ -23,7 +23,8 @@ In function \code{lwplsr}, the dissimilarities used for computing the weights ca
 lwplsr(X, Y,
     nlvdis, diss = c("eucl", "mahal"),
     h, k,
-    nlv)
+    nlv,
+    verb = FALSE)
 
 \method{predict}{Lwplsr}(object, X, ..., nlv = NULL)  
 
@@ -44,6 +45,8 @@ lwplsr(X, Y,
 \item{k}{The number of nearest neighbors to select for each observation to predict.}
 
 \item{nlv}{The number(s) of LVs to calculate in the local PLSR models.}
+
+\item{verb}{Logical. If \code{TRUE}, fitting information are printed.}
 
 \item{object}{A fitted model, output of a call to the main function.}
 
@@ -92,26 +95,6 @@ msep(res$pred, Ytest)
 
 res <- predict(fm, Xtest, nlv = 0:2)
 res$pred
-
-nlvdis <- 5
-h <- c(1, 2, Inf)
-k <- c(10, 20)
-nlv <- 5
-pars <- expand.grid(
-    nlvdis = nlvdis,
-    diss = "mahal",
-    h = h, k = k,
-    nlv = 0:nlv
-    )
-headm(pars)
-res <- gridscorelv(
-    Xtrain, Ytrain, Xtest, Ytest, 
-    score = msep, 
-    fun = lwplsr, 
-    pars = pars,
-    verb = TRUE
-    )
-head(res)
 
 }
 

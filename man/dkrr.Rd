@@ -75,21 +75,6 @@ lb <- 2
 fm <- dkrr(Xtrain, Ytrain, lb = lb, kern = "kpol", degree = 2, offset = 10)
 predict(fm, Xtest)
 
-sigma <- 10^(-1:1)
-lb <- 2
-pars <- expand.grid(
-    sigma = sigma,
-    lb = c(.1, .6)
-    )
-res <- gridscorelb(
-    Xtrain, ytrain, Xtest, ytest, 
-    score = msep, 
-    fun = dkrr, 
-    pars = pars,
-    verb = TRUE
-    )
-res
-
 ####### Example of fitting the function sinc(x)
 ####### described in Rosipal & Trejo 2001 p. 105-106 
 

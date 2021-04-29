@@ -1,64 +1,58 @@
 gridscore <- function(Xtrain, Ytrain, X, Y, score, fun, pars, verb = FALSE) {
-  
-    ## pars = arguments involved in the calculation of the score
-    
+    ## pars = List of named vectors (arguments) involved in the calculation of the score
     Xtrain <- .mat(Xtrain)
     Ytrain <- .mat(Ytrain, "y")   
     X <- .mat(X)
     Y <- .mat(Y, "y")
     q <- dim(Ytrain)[2]
-    
-    pars <- data.frame(
-        lapply(pars, FUN = function(x) {if(is.factor(x)) as.character(x) else x})
-        )
-    npar <- dim(pars)[1]
+    #pars <- list(...)
+    nco <- length(pars[[1]])
+    npar <- length(pars)
     if(verb) 
-        cat("-- Nb. combinations = ", npar, "\n")
-    
-    res <- matrix(nrow = npar, ncol = q)
-    for(i in seq_len(npar)) {
-        zpars <- pars[i, , drop = FALSE]
+        cat("-- Nb. combinations = ", nco, "\n")
+    res <- matrix(nrow = nco, ncol = q)
+    for(i in seq_len(nco)) {
+        zpars <- lapply(pars, FUN = function(x) x[[i]])
         if (verb)
-            print(zpars)
+            print(data.frame(zpars))
         fm <- do.call(
             fun, 
             c(list(Xtrain, Ytrain), zpars)
             )
         pred <- predict(fm, X)$pred
         res[i, ] <- score(pred, Y)
-        }
+    }
     if (verb) 
         cat("-- End. \n\n")
     colnames(res) <- colnames(Ytrain)
-    res <- data.frame(pars, res, stringsAsFactors = FALSE)
-  
-    res
-    
+    for(i in seq_len(npar)) {
+        z <- pars[[i]]
+        if(is.list(z)) {
+            m <- length(z)
+            for(j in seq_len(m))
+                z[[j]] <- paste(min(z[[j]]), "-", max(z[[j]]), sep = "")
+            pars[[i]] <- unlist(z)
+        }
     }
+    res <- data.frame(pars, res, stringsAsFactors = FALSE)
+    res
+}
 
-gridscorelv <- function(Xtrain, Ytrain, X, Y, score, fun, pars, verb = FALSE) {
-  
-    ## pars = arguments involved in the calculation of the score
-    ## !! Must contains nlv
-    
+gridscorelv <- function(Xtrain, Ytrain, X, Y, score, fun, nlv, pars = NULL, verb = FALSE) {
+    ## pars = List of named vectors (arguments) involved in the calculation of the score
+    ## Must not contains nlv
     Xtrain <- .mat(Xtrain)
     Ytrain <- .mat(Ytrain, "y")     
     X <- .mat(X)
     Y <- .mat(Y, "y")
     q <- dim(Ytrain)[2]
-    
-    pars <- data.frame(
-        lapply(pars, FUN = function(x) {if(is.factor(x)) as.character(x) else x})
-        )
-    nlv <- pars$nlv
     nlv <- seq(min(nlv), max(nlv))
     le_nlv <- length(nlv) 
-
-    ## Only nlv
-    if(dim(pars)[2] == 1) {
-       if(verb) 
-           cat("-- Nb. combinations = 0 \n")
-       fm <- fun(Xtrain, Ytrain, nlv = max(nlv))
+    ## Case where pars is empty
+    if(is.null(pars)) {
+        if(verb) 
+            cat("-- Nb. combinations = 0 \n")
+        fm <- fun(Xtrain, Ytrain, nlv = max(nlv))
         pred <- predict(fm, X, nlv = nlv)$pred
         if(le_nlv == 1)
             pred <- list(pred)
@@ -67,19 +61,18 @@ gridscorelv <- function(Xtrain, Ytrain, X, Y, score, fun, pars, verb = FALSE) {
             res[i, ] <- score(pred[[i]], Y)
         colnames(res) <- colnames(Ytrain)
         res <- data.frame(nlv = nlv, res, stringsAsFactors = FALSE)
-        } 
+    } 
     ## End
     else {
-        pars <- pars[ , names(pars) != "nlv", drop = FALSE]
-        pars <- unique(pars)
-        npar <- dim(pars)[1]
+        npar <- length(pars)
+        nco <- length(pars[[1]])
         if(verb) 
-            cat("-- Nb. combinations = ", npar, "\n")
-        res <- vector(mode = "list", length = npar)
-        for(i in seq_len(npar)) {
-            zpars <- pars[i, , drop = FALSE]
+            cat("-- Nb. combinations = ", nco, "\n")
+        res <- vector(mode = "list", length = nco)
+        for(i in seq_len(nco)) {
+            zpars <- lapply(pars, FUN = function(x) x[[i]])
             if (verb)
-                print(zpars)
+                print(data.frame(zpars))
             fm <- do.call(
                 fun,
                 c(list(Xtrain, Ytrain), nlv = max(nlv), zpars)
@@ -93,36 +86,27 @@ gridscorelv <- function(Xtrain, Ytrain, X, Y, score, fun, pars, verb = FALSE) {
             colnames(zres) <- colnames(Ytrain)
             zres <- data.frame(nlv = nlv, zres, stringsAsFactors = FALSE)
             res[[i]] <- suppressWarnings(data.frame(zpars, zres)) 
-            }
+        }
         
         res <- setDF(rbindlist(res))    
-        }
+    }
     if (verb) 
         cat("-- End. \n\n")
-  
     res
-    
-    }
+}
 
-gridscorelb <- function(Xtrain, Ytrain, X, Y, score, fun, pars, verb = FALSE) {
-  
-    ## pars = arguments involved in the calculation of the score
-    ## !! Must contains lb
-    
+gridscorelb <- function(Xtrain, Ytrain, X, Y, score, fun, lb, pars = NULL, verb = FALSE) {
+    ## pars = List of named vectors (arguments) involved in the calculation of the score
+    ## Must not contains lb
     Xtrain <- .mat(Xtrain)
     Ytrain <- .mat(Ytrain, "y")     
     X <- .mat(X)
     Y <- .mat(Y, "y")
     q <- dim(Ytrain)[2]
-    
-    pars <- data.frame(
-        lapply(pars, FUN = function(x) {if(is.factor(x)) as.character(x) else x})
-        )
-    lb <- sort(unique(pars$lb))
+    lb <- sort(unique(lb))
     le_lb <- length(lb) 
-
-    ## Only lb
-    if(dim(pars)[2] == 1) {
+    ## Case where pars is empty
+    if(is.null(pars)) {
         if(verb) 
             cat("-- Nb. combinations = 0 \n")
         fm <- fun(Xtrain, Ytrain, lb = max(lb))
@@ -134,19 +118,18 @@ gridscorelb <- function(Xtrain, Ytrain, X, Y, score, fun, pars, verb = FALSE) {
             res[i, ] <- score(pred[[i]], Y)
         colnames(res) <- colnames(Ytrain)
         res <- data.frame(lb = lb, res, stringsAsFactors = FALSE)
-        } 
+    } 
     ## End
     else {
-        pars <- pars[ , names(pars) != "lb", drop = FALSE]
-        pars <- unique(pars)
-        npar <- dim(pars)[1]
+        npar <- length(pars)
+        nco <- length(pars[[1]])
         if(verb) 
-            cat("-- Nb. combinations = ", npar, "\n")
-        res <- vector(mode = "list", length = npar)
-        for(i in seq_len(npar)) {
-            zpars <- pars[i, , drop = FALSE]
+            cat("-- Nb. combinations = ", nco, "\n")
+        res <- vector(mode = "list", length = nco)
+        for(i in seq_len(nco)) {
+            zpars <- lapply(pars, FUN = function(x) x[[i]])
             if(verb) 
-                print(zpars)
+                print(data.frame(zpars))
             fm <- do.call(
                 fun,
                 c(list(Xtrain, Ytrain), lb = max(lb), zpars)
@@ -160,56 +143,11 @@ gridscorelb <- function(Xtrain, Ytrain, X, Y, score, fun, pars, verb = FALSE) {
             colnames(zres) <- colnames(Ytrain)
             zres <- data.frame(lb = lb, zres, stringsAsFactors = FALSE)
             res[[i]] <- suppressWarnings(data.frame(zpars, zres)) 
-            }
-        
-        res <- setDF(rbindlist(res))    
         }
+        res <- setDF(rbindlist(res))    
+    }
     if (verb) 
         cat("-- End. \n\n")
-  
     res
-    
-    }
-
-
-.gridscore_old <- function(Xtrain, Ytrain, X, Y, score, fun, verb = FALSE, ...) {
-  
-    ## Here the arguments were given independently in ... instead of in pars
-    ## ... = arguments involved in the calculation of the score
-    dots <- list(...)
-    
-    Xtrain <- .mat(Xtrain)
-    Ytrain <- .mat(Ytrain)     
-    q <- dim(Ytrain)[2]
-    X <- .mat(X)
-    Y <- .mat(Y)
-    
-    pars <- unique(do.call(
-        expand.grid, 
-        list(dots, stringsAsFactors = FALSE)
-        ))
-    npar <- dim(pars)[1]
-    
-    res <- matrix(nrow = npar, ncol = q)
-    for(i in 1:nrow(pars)) {
-        zpars <- pars[i, , drop = FALSE]
-        if (verb)
-            print(zpars)
-        fm <- do.call(
-            fun, 
-            c(list(Xtrain, Ytrain), zpars)
-            )
-        pred <- predict(fm, X)$pred
-        res[i, ] <- score(pred, Y)
-        }
-    if (verb) 
-        cat("/ End. \n\n")
-    
-    colnames(res) <- paste("y", seq_len(q), sep = "")
-    res <- data.frame(pars, res, stringsAsFactors = FALSE)
-  
-    res
-    
-    }
-
+}
 

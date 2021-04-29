@@ -24,9 +24,9 @@ Function  \code{locwlv} is dedicated to prediction models based on latent variab
 
 \usage{
 
-locw(Xtrain, Ytrain, X, listnn, listw = NULL, fun, ...)
+locw(Xtrain, Ytrain, X, listnn, listw = NULL, fun, verb = FALSE, ...)
 
-locwlv(Xtrain, Ytrain, X, listnn, listw = NULL, fun, nlv, ...)
+locwlv(Xtrain, Ytrain, X, listnn, listw = NULL, fun, nlv, verb = FALSE, ...)
   
 }
 
@@ -38,13 +38,15 @@ locwlv(Xtrain, Ytrain, X, listnn, listw = NULL, fun, nlv, ...)
 
 \item{X}{New X-data (\eqn{m, p}) to predict.}
 
-\item{nlv}{The number of LVs to calculate.}
-
 \item{listnn}{A list of \eqn{m} vectors defining weighting "1". Component \eqn{i} of this list is a vector (of length between 1 and \eqn{n}) of indexes. These indexes define the training observations that are the nearest neighbors of new observation \eqn{i}. Typically, \code{listnn} can be built from \code{\link{getknn}}, but any other list of length \eqn{m} can be provided. The \eqn{m} vectors can have equal length (i.e. the \eqn{m} neighborhoods are of equal size) or not (the number of neighbors varies between the observations to predict).}
 
 \item{listw}{A list of \eqn{m} vectors defining weighting "2". Component \eqn{i} of this list is a vector (that must have the same length as component \eqn{i} of \code{listnn}) of the weights given to the nearest neighbors when the prediction model is fitted. Internally, weights are "normalized" to sum to 1 in each component. Default to \code{NULL} (weights are set to \eqn{1 / k} where \eqn{k}is the size of the neihborhodd).}
 
 \item{fun}{A function corresponding to the prediction model to fit on the \eqn{m} neighborhoods.}
+
+\item{nlv}{The number of LVs to calculate.}
+
+\item{verb}{Logical. If \code{TRUE}, fitting information are printed.}
 
 \item{...}{Optionnal arguments to pass in function \code{fun}.}
 
@@ -59,7 +61,7 @@ See the examples.
 
 \references{
 
-1. Lesnoff M, Metz M, Roger J-M. Comparison of locally weighted PLS strategies for regression and discrimination on agronomic NIR data. Journal of Chemometrics. 2020;n/a(n/a):e3209. doi:10.1002/cem.3209.
+Lesnoff M, Metz M, Roger J-M. Comparison of locally weighted PLS strategies for regression and discrimination on agronomic NIR data. Journal of Chemometrics. 2020;n/a(n/a):e3209. doi:10.1002/cem.3209.
 
 }
 

@@ -2,11 +2,11 @@
 \alias{checkdupl}
 \encoding{latin1}
 
-\title{Find and remove duplicated rows between two datasets}
+\title{Duplicated rows in datasets}
 
 \description{
 
-Finds the duplicated row observations between two datasets.
+Finding and removing duplicated row observations in datasets.
 
 }
 
@@ -18,11 +18,11 @@ checkdupl(X, Y = NULL, digits = NULL)
 
 \arguments{
 
-\item{X}{A dataset compared to \code{Y}.}
+\item{X}{A dataset.}
 
 \item{Y}{A dataset compared to \code{X}.}
 
-\item{digits}{The number of digits used when rounding the data before the duplication test. Default to \code{NULL} (no rounding.}
+\item{digits}{The number of digits when rounding the data before the duplication test. Default to \code{NULL} (no rounding.}
 
 }
 
