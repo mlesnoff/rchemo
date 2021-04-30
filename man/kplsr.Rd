@@ -45,7 +45,7 @@ kplsr(X, Y, nlv, kern = "krbf", weights = NULL,
 
 \item{maxit}{Maximum number of NIPALS iterations.}
 
-\item{...}{Optionnal arguments to pass in the kernel function defined in \code{kern} (e.g. \code{sigma} for \code{\link{krbf}}).}
+\item{...}{Optional arguments to pass in the kernel function defined in \code{kern} (e.g. \code{sigma} for \code{\link{krbf}}).}
 
 }
 

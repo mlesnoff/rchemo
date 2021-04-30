@@ -6,7 +6,7 @@ Author: Matthieu Lesnoff <matthieu.lesnoff@cirad.fr>
 Maintainer: Matthieu Lesnoff <matthieu.lesnoff@cirad.fr>
 Description: Dimension reduction, regression and discrimination, with special focus on chemometrics.
 VignetteBuilder: knitr
-Imports: stats, graphics, grDevices, data.table, FNN, ptw, signal
+Imports: stats, graphics, grDevices, data.table, FNN, signal, e1071
 Depends: R (>= 4.0)
 Suggests: knitr, rmarkdown
 URL: https://github.com/mlesnoff/rchemo

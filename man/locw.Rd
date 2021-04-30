@@ -48,7 +48,7 @@ locwlv(Xtrain, Ytrain, X, listnn, listw = NULL, fun, nlv, verb = FALSE, ...)
 
 \item{verb}{Logical. If \code{TRUE}, fitting information are printed.}
 
-\item{...}{Optionnal arguments to pass in function \code{fun}.}
+\item{...}{Optional arguments to pass in function \code{fun}.}
 
 }
 

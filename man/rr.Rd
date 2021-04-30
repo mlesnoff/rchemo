@@ -34,7 +34,7 @@ rr(X, Y, lb = 1e-5, weights = NULL)
 
 \item{object}{A fitted model, output of a call to the main function.}
 
-\item{...}{Optionnal arguments.}
+\item{...}{Optional arguments.}
 
 }
 

@@ -36,8 +36,9 @@ selwold <- function(
             labs <- seq(xmin, xmax, by = 2)
         else
             labs <- seq(xmin, xmax, by = 10)
-        
-        oldpar <- par(mfrow = c(1, 1))
+    
+        right <- left <- 4
+        op <- par(mfrow = c(1, 1), mar = c(5, left, 4, right) + 0.1)
         par(mfrow = c(1, 2))
         plot(
             indx, r, 
@@ -53,7 +54,7 @@ selwold <- function(
         points(opt, r[indx == opt], pch = 16, col = "red", cex = 1.2)
         axis(side = 1, at = labs, labels = labs, fg = fg)
         abline(h = min(r), col = "grey")
-        on.exit(par(oldpar))
+        on.exit(par(op))
         
         plot(
             indx, R, 
@@ -72,8 +73,8 @@ selwold <- function(
             }
         axis(side = 1, at = labs, labels = labs, fg = fg)
         abline(h = c(0, alpha), col = c("grey", "blue"), lty = seq_len(2))
-        on.exit(par(oldpar))
-        par(oldpar)
+        on.exit(par(op))
+        par(op)
         
         }
 

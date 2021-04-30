@@ -6,10 +6,12 @@ import(grDevices)
 
 import(data.table)
 import(FNN)
+import(e1071)
 
 importFrom("data.table", "data.table", "rbindlist", "setDF")
 importFrom("FNN", "knn")
 importFrom("signal", "sgolayfilt")
+importFrom("e1071", "svm")
 
 #importFrom("stats", "coef", "predict")
 #importFrom("base", "transform")      ### ==> create error
@@ -71,6 +73,9 @@ S3method(predict, Lwplsragg)
 
 S3method(predict, Knnr)
 S3method(predict, Knnda)
+
+S3method(predict, Svm)
+S3method(summary, Svm)
 
 #exportMethods("transform", "coef", "predict")
 #exportClasses("PcaOrtho", "PlsOrtho", 

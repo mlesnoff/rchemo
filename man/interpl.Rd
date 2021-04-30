@@ -24,7 +24,7 @@ interpl(X, w, meth = "cubic", ...)
 
 \item{meth}{The method of interpolation. See \code{\link{interp1}}.}
 
-\item{...}{Optionnal arguments to pass in function \code{\link{splinefun}} if \code{meth = "spline"}.}
+\item{...}{Optional arguments to pass in function \code{\link{splinefun}} if \code{meth = "spline"}.}
 
 }
 

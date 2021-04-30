@@ -38,7 +38,7 @@ dkplsr(X, Y, nlv, kern = "krbf", weights = NULL, ...)
 
 \item{object}{A fitted model, output of a call to the main function.}
 
-\item{...}{Optionnal arguments to pass in the kernel function defined in \code{kern} (e.g. \code{sigma} for \code{\link{krbf}}).}
+\item{...}{Optional arguments to pass in the kernel function defined in \code{kern} (e.g. \code{sigma} for \code{\link{krbf}}).}
 
 }
 
