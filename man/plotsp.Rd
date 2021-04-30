@@ -73,7 +73,6 @@ plotsp(X[23, , drop = FALSE], lwd = 2, add = TRUE)
 plotsp(X[c(23, 16), ], lwd = 2, add = TRUE)
 
 plotsp(X[5, , drop = FALSE], labels = TRUE)
-plotsp(X[5, ])
 
 plotsp(X[c(5, 61), ], labels = TRUE)
 

@@ -9,7 +9,7 @@
 \usage{
 plotjit(x, y, group = NULL, 
   jit = 1, col = NULL, alpha.f = .8,
-  legend = TRUE, legend.title = NULL, ncol = 2, med = TRUE,
+  legend = TRUE, legend.title = NULL, ncol = 1, med = TRUE,
   ...)
 }
 

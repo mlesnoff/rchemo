@@ -1,13 +1,10 @@
 plotsp1 <- function(X, col = NULL, zeroes = FALSE, ...) {
-
     if(is.vector(X))
         X <- matrix(X, nrow = 1)
     X <- .mat(X)
-    n <- nrow(X)
-    
+    n <- dim(X)[1]
     if(is.null(col)) 
         col <- "#045a8d"
-    
     a <- ""
     i <- 1
     while(a == "") {
@@ -20,10 +17,10 @@ plotsp1 <- function(X, col = NULL, zeroes = FALSE, ...) {
         if(zeroes)
             abline(h = 0, lty = 2, col = "grey70")
         i <- i + 1
-        if(i > nrow(X)) a <- "stop"
-        }
-    
+        if(i > nrow(X)) 
+            a <- "stop"
     }
+}
 
 
 

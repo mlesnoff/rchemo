@@ -26,13 +26,7 @@ plotxna(X, pch = 16, col = "red", grid = FALSE, asp = 0, ...)
 
 }
 
-\value{
-
-A plot.
-
-}
-
-
+\value{A plot.}
 
 \examples{
 
@@ -45,7 +39,7 @@ N <- n * p
 s <- sample(1:N, size = 50)
 zX <- replace(X, s, NA)
 plotxna(zX)
-plotxna(zX, grid = TRUE, asp = 1)
+plotxna(zX, grid = TRUE, asp = 0)
 
 }
 
