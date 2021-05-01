@@ -20,7 +20,7 @@ or write in the R console
 news(package = "rchemo")
 ```
 
-### <span style="color:green"> **Dependent packages** </span> 
+## <span style="color:green"> **Dependent packages** </span> 
 
 **rchemo** is dependent to the following packages available on CRAN:
 
@@ -31,7 +31,7 @@ news(package = "rchemo")
 | signal | Savitsky-Golay derivation, and signal interpolation |
 | e1071 | SVM models |
 
-### <span style="color:green"> **Installation** </span> 
+## <span style="color:green"> **Installation** </span> 
 
 Using [**Rstudio**](https://www.rstudio.com/products/rstudio/download/) is recommended for installation and usage
 
@@ -77,7 +77,7 @@ Write in the R console
 library(rchemo)
 ```
 
-### <span style="color:green"> **Author** </span> 
+## <span style="color:green"> **Author** </span> 
 
 **Matthieu Lesnoff**
 
