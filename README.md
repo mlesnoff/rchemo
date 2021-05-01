@@ -1,12 +1,24 @@
 ## rchemo - Dimension reduction, Regression and Discrimination for Chemometrics  
 
-**Under construction - Already working but non-stable test version**
+**rchemo** provides elementary functions (mainly focusing on methods of dimension reduction or regularization for high dimensional data) to build ad'hoc pipelines for predictions in chemometrics or other domains. Only few examples of many possible pipelines useful in chemomtrics and machine learning are provided in the package.  
 
-**rchemo** will replace package **rnirs** that will not be developed anymore (only maintenance).
+Generic functions such as **transform**, **predict**, **coef** and **summary** are available. The tuning of the prediction models is facilitated by functions **gridscore** (validation dataset) and **gridcv** (cross-validation), with specific fast versions for models based on latent variables (LVs) and ridge regularization.
 
-**rchemo** is built on a different logic than **rnirs**, making it more scalable. The predictions are done not inside the main functions but by generic functions **predict**. In the same way, the dimension reductions are done by functions **transform**, etc. The generic functions for model tuning are **gridscore** and **gridcv** (with fast versions for LVs models).
+## <span style="color:grey70"> **Version 0.0-1** </span> 
+## <span style="color:green"> **Available functions** </span> 
 
-**rchemo** is not push-button oriented. The objective is rather to provide bricks (mainly based on dimension reduction) to build ad'hoc pipelines for predictions in chemometrics or other domains. Only few examples of many possible wrappers useful in chemomtrics and machine learning are provided in the package.  
+**Click** [**HERE**](https://github.com/mlesnoff/rchemo/blob/master/doc/rchemo_functions_github.md) **to see the list of the available functions** 
+
+After the package installation, all the functions have a help page with documented examples. 
+
+## <span style="color:green"> **News** </span> 
+
+Click [**HERE**](https://github.com/mlesnoff/rchemo/blob/master/inst/NEWS.md) to see **what changed** in the last version 
+
+or write in the R console
+```{r}
+news(package = "rchemo")
+```
 
 ### <span style="color:green"> **Dependent packages** </span> 
 
@@ -17,6 +29,7 @@
 | data.table | Fast data management |
 | FNN | Fast search of nearest neighbours |
 | signal | Savitsky-Golay derivation, and signal interpolation |
+| e1071 | SVM models |
 
 ### <span style="color:green"> **Installation** </span> 
 

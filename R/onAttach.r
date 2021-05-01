@@ -1,7 +1,7 @@
 .onAttach <- function(libname, pkgname){
   
     packageStartupMessage(
-      "Package rchemo version : 0.0-0.5
+      "Package rchemo version : 0.0-1
       
       --- To see what changed in the new version, write: 
       --- news(package = 'rchemo')

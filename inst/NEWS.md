@@ -1,8 +1,8 @@
 ## NEWS for package **rchemo**
 
-## **Version 0.0-0**
+## **Version 0.0-1**
 
-Temporary test version
+- First version of the package made available
 
 
 

@@ -2,7 +2,7 @@
 \alias{getknn}
 \encoding{latin1}
 
-\title{kNN selection}
+\title{KNN selection}
 
 \description{
 
