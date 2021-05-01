@@ -23,7 +23,7 @@
 
 - ***lmr*** Multiple linear regression
 
-#### PLS
+#### Partial least squares
 
 - ***plskernel*** "Improved Kernel #1" (Dayal & McGregor 1997)
 - ***plsnipals*** Nipals
