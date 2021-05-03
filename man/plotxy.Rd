@@ -8,7 +8,7 @@
 
 \usage{
 plotxy(X, group = NULL, 
-    asp = 1, col = NULL, alpha.f = .8,
+    asp = 0, col = NULL, alpha.f = .8,
     zeroes = FALSE, circle = FALSE, ellipse = FALSE,
     labels = FALSE,
     legend = TRUE, legend.title = NULL, ncol = 1,
@@ -60,7 +60,11 @@ T <- rbind(Ttrain, Ttest)
 group <- c(rep("Training", nrow(Ttrain)), rep("Test", nrow(Ttest)))
 i <- 1
 plotxy(T[, i:(i+1)], group = group, 
-       asp = 0, pch = 16, zeroes = TRUE,
+       pch = 16, zeroes = TRUE,
+       main = "PCA")
+       
+plotxy(T[, i:(i+1)], group = group, 
+       pch = 16, zeroes = TRUE, asp = 1,
        main = "PCA")
 
 }

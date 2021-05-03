@@ -1,6 +1,6 @@
 plotxy <- function(
     X, group = NULL, 
-    asp = 1, col = NULL, alpha.f = .8,
+    asp = 0, col = NULL, alpha.f = .8,
     zeroes = FALSE, circle = FALSE, ellipse = FALSE,
     labels = FALSE,
     legend = TRUE, legend.title = NULL, ncol = 1, ...
