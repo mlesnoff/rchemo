@@ -1,4 +1,4 @@
-plsrda <- function(X, y, nlv, weights = NULL) {
+plsrda <- function(X, y, weights = NULL, nlv) {
     if(is.factor(y))
         y <- as.character(y)
     X <- .mat(X)
@@ -10,12 +10,11 @@ plsrda <- function(X, y, nlv, weights = NULL) {
         weights <- rep(1, n)
     weights <- .mweights(weights)
     z <- dummy(y)
-    fm <- plskern(X, z$Y, nlv = nlv, weights = weights)
+    fm <- plskern(X, z$Y, weights = weights, nlv = nlv)
     structure(
         list(fm = fm, lev = z$lev, ni = z$ni),
-        class = c("Plsrda")
-        )       
-    }
+        class = c("Plsrda"))       
+}
 
 predict.Plsrda <- function(object, X, ..., nlv = NULL) {
     X <- .mat(X)
@@ -35,12 +34,12 @@ predict.Plsrda <- function(object, X, ..., nlv = NULL) {
         dimnames(zpred) <- list(rownam, colnam)
         pred[[i]] <- zpred
         posterior[[i]] <- zposterior
-        }
+    }
     names(posterior) <- names(pred) <- paste("lv", nlv, sep = "")
     if(le_nlv == 1) {
         pred <- pred[[1]] 
         posterior <- posterior[[1]]
-        }
-    list(pred = pred, posterior = posterior)
     }
+    list(pred = pred, posterior = posterior)
+}
 

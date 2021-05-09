@@ -1,9 +1,9 @@
-plskern <- function(X, Y, nlv, weights = NULL) {
+plskern <- function(X, Y, weights = NULL, nlv) {
     X <- .mat(X)
+    Y <- .mat(Y, "y")     
     zdim <- dim(X)
     n <- zdim[1]
     zp <- zdim[2]
-    Y <- .mat(Y, "y")     
     q <- dim(Y)[2]
     if(is.null(weights))
         weights <- rep(1, n)
@@ -12,7 +12,6 @@ plskern <- function(X, Y, nlv, weights = NULL) {
     X <- .center(X, xmeans)
     ymeans <- .colmeans(Y, weights = weights) 
     Y <- .center(Y, ymeans)
-    sstot <- sum(weights * X * X)
     nam <- paste("lv", seq_len(nlv), sep = "")
     T <- matrix(nrow = n, ncol = nlv, dimnames = list(row.names(X), nam))                     
     R <- W <- P <- matrix(nrow = zp, ncol = nlv, dimnames = list(colnames(X), nam)) 
@@ -30,7 +29,7 @@ plskern <- function(X, Y, nlv, weights = NULL) {
                 ## u <- svd(tXY, nu = 0, nv = 1)$v
                 ## u <- eigen(crossprod(tXY), symmetric = TRUE)$vectors[, 1]
                 w <- tXY %*% u
-                } 
+            } 
         w <- w / sqrt(sum(w * w))
         r <- w
         if(a > 1)
@@ -47,13 +46,29 @@ plskern <- function(X, Y, nlv, weights = NULL) {
         R[, a] <- r
         C[, a] <- c
         TT[a] <- tt
-        }
-    structure(
-        list(T = T, P = P, R = R, W = W, C = C, TT = TT, sstot = sstot,
-             xmeans = xmeans, ymeans = ymeans, weights = weights, U = NULL),
-        class = c("Plsr")
-        )
     }
+    structure(
+        list(T = T, P = P, R = R, W = W, C = C, TT = TT,
+             xmeans = xmeans, ymeans = ymeans, weights = weights, U = NULL),
+        class = c("Plsr"))
+    }
+
+summary.Plsr <- function(object, X, ...) {
+    zdim <- dim(object$T)
+    n <- zdim[1]
+    nlv <- zdim[2]
+    X <- .center(X, object$xmeans)
+    sstot <- sum(object$weights * X * X, na.rm = TRUE)
+    tt <- object$TT
+    ## Only valid if scores T are orthogonal (or approximate)
+    tt.adj <- colSums(object$P * object$P) * tt
+    pvar <- tt.adj / sstot
+    cumpvar <- cumsum(pvar)
+    xvar <- tt.adj / n
+    explvar <- data.frame(nlv = seq(nlv), var = xvar, pvar = pvar, cumpvar = cumpvar)
+    row.names(explvar) <- seq(nlv)
+    list(explvarx = explvar)
+}
 
 transform.Plsr <- function(object, X, ..., nlv = NULL) {
     a <- dim(object$T)[2]
@@ -65,21 +80,7 @@ transform.Plsr <- function(object, X, ..., nlv = NULL) {
                  object$xmeans) %*% object$R[, seq_len(nlv), drop = FALSE]
     colnames(T) <- paste("lv", seq_len(dim(T)[2]), sep = "")
     T
-    }
-
-summary.Plsr <- function(object, ...) {
-    zdim <- dim(object$T)
-    n <- zdim[1]
-    nlv <- zdim[2]
-    tt <- object$TT
-    tt.adj <- colSums(object$P * object$P) * tt
-    pvar <- tt.adj / object$sstot
-    cumpvar <- cumsum(pvar)
-    xvar <- tt.adj / n
-    z <- data.frame(nlv = seq(nlv), var = xvar, pvar = pvar, cumpvar = cumpvar)
-    row.names(z) <- seq(nlv)
-    list(explvarx = z)
-    }
+}
 
 coef.Plsr <- function(object, ..., nlv = NULL) {
     ## Works also for nlv = 0
@@ -92,7 +93,7 @@ coef.Plsr <- function(object, ..., nlv = NULL) {
     B <- object$R[, seq_len(nlv), drop = FALSE] %*% beta
     int <- object$ymeans - t(object$xmeans) %*% B
     list(int = int, B = B) 
-    }
+}
 
 predict.Plsr <- function(object, X, ..., nlv = NULL) {
     X <- .mat(X)
@@ -118,4 +119,4 @@ predict.Plsr <- function(object, X, ..., nlv = NULL) {
     if(le_nlv == 1)
         pred <- pred[[1]] 
     list(pred = pred)
-    }
+}

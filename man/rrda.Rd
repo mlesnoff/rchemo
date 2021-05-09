@@ -6,16 +6,14 @@
 \title{RR-DA models}
 
 \description{
-
 Discrimination (DA) based on ridge regression (RR).
 
 The training variable \eqn{y} (univariate class membership) is transformed to a dummy table containing \eqn{nclas} columns, where \eqn{nclas} is the number of classes present in \eqn{y}. Each column is a dummy variable (0/1). Then, a ridge regression (RR) is run on the \eqn{X-}data and the dummy table, returning predictions of the dummy variables. For a given observation, the final prediction is the class corresponding to the dummy variable for which the prediction is the highest.
-
 }
 
 \usage{
 
-rrda(X, y, lb = 1e-5, weights = NULL)
+rrda(X, y, weights = NULL, lb = 1e-5)
 
 \method{predict}{Rrda}(object, X, ..., lb = NULL) 
 
@@ -27,9 +25,9 @@ rrda(X, y, lb = 1e-5, weights = NULL)
 
 \item{y}{Training class membership (\eqn{n}).}
 
-\item{lb}{A value of regularization parameter \eqn{lambda}. If \code{lb = 0}, a pseudo-inverse is used in the RR.}
-
 \item{weights}{Weights (\eqn{n}) to apply to the training observations for the PLS2. Internally, weights are "normalized" to sum to 1. Default to \code{NULL} (weights are set to \eqn{1 / n}).}
+
+\item{lb}{A value of regularization parameter \eqn{lambda}. If \code{lb = 0}, a pseudo-inverse is used in the RR.}
 
 \item{object}{A fitted model, output of a call to the main functions.}
 

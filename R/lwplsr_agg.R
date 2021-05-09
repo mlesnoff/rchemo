@@ -3,14 +3,12 @@ lwplsr_agg <- function(
     nlvdis, diss = c("eucl", "mahal"),
     h, k,
     nlv, 
-    verb = FALSE
-    ) {
+    verb = FALSE) {
     structure(
         list(X = X, Y = Y,
              nlvdis = nlvdis, diss = diss, 
              h = h, k = k, nlv = nlv, verb = verb),
-        class = "Lwplsragg"
-        )
+        class = "Lwplsragg")
     }
     
 predict.Lwplsragg <- function(object, X, ...) {
@@ -19,7 +17,7 @@ predict.Lwplsragg <- function(object, X, ...) {
     if (object$nlvdis == 0)
         res <- getknn(object$X, X, k = object$k, diss = object$diss)
     else {
-        zfm <- plskern(object$X, object$Y, object$nlvdis)
+        zfm <- plskern(object$X, object$Y, nlv = object$nlvdis)
         res <- getknn(zfm$T, transform(zfm, X), k = object$k, diss = object$diss)
         }
     ## End

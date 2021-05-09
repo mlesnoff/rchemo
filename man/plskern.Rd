@@ -34,15 +34,15 @@ Algorithms fitting a (centered) PLS1 or PLS2 model between dependent variables \
 
 \usage{
 
-plskern(X, Y, nlv, weights = NULL)
+plskern(X, Y, weights = NULL, nlv)
 
-plsnipals(X, Y, nlv, weights = NULL)
+plsnipals(X, Y, weights = NULL, nlv)
 
-plsrannar(X, Y, nlv, weights = NULL)
+plsrannar(X, Y, weights = NULL, nlv)
 
 \method{transform}{Plsr}(object, X, ..., nlv = NULL)  
 
-\method{summary}{Plsr}(object, ...)  
+\method{summary}{Plsr}(object, X, ...)  
 
 \method{coef}{Plsr}(object, ..., nlv = NULL) 
 
@@ -52,13 +52,13 @@ plsrannar(X, Y, nlv, weights = NULL)
 
 \arguments{
 
-\item{X}{For the main functions: Training X-data (\eqn{n, p}). --- For auxiliary functions: New X-data (\eqn{m, p}) to consider.}
+\item{X}{For the main functions and \code{summary}: Training X-data (\eqn{n, p}). --- For other auxiliary functions: New X-data (\eqn{m, p}) to consider.}
 
 \item{Y}{Training Y-data (\eqn{n, q}).}
 
-\item{nlv}{The number(s) of LVs to calculate.}
-
 \item{weights}{Weights (\eqn{n, 1}) to apply to the training observations. Internally, weights are "normalized" to sum to 1. Default to \code{NULL} (weights are set to \eqn{1 / n}).}
+
+\item{nlv}{The number(s) of LVs to calculate.}
 
 \item{object}{A fitted model, output of a call to the main functions.}
 
@@ -134,7 +134,7 @@ fm$T
 transform(fm, Xtest)
 transform(fm, Xtest, nlv = 1)
 
-summary(fm)
+summary(fm, Xtrain)
 
 predict(fm, Xtest)
 predict(fm, Xtest, nlv = 0:3)

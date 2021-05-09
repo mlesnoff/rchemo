@@ -10,11 +10,11 @@
 \description{
 Factorial discriminant analysis (FDA). The functions maximize the compromise \eqn{p'Bp / p'Wp}, i.e. \eqn{max p'Bp} with constraint \eqn{p'Wp = 1}. Vectors \eqn{p} are the linear discrimant coefficients "LD".
 
-- \code{fda}: Eigen decomposition of \eqn{W^(-1)B}
+- \code{fda}: Eigen factorization of \eqn{W^(-1)B}
 
-- \code{fdasvd}: Weighted SVD decomposition of the matrix of the class centers.
+- \code{fdasvd}: Weighted SVD factorization of the matrix of the class centers.
 
-If \eqn{W} is singular, W^(-1) is replaced by a pseudo-inverse.
+If \eqn{W} is singular, W^(-1) is replaced by a MP pseudo-inverse.
 }
 
 \usage{

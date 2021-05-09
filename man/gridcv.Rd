@@ -80,16 +80,14 @@ gridcv(
     X, Y, segm,
     score = msep, 
     fun = plskern, 
-    pars = pars, verb = TRUE
-    )
+    pars = pars, verb = TRUE)
 
 ## Using gridcvlv (much faster) 
 gridcvlv(
     X, Y, segm, 
     score = msep, 
     fun = plskern, 
-    nlv = 0:nlv, verb = TRUE
-    )
+    nlv = 0:nlv, verb = TRUE)
 
 ######################## EXAMPLES WITH PLSLDA
 
@@ -112,8 +110,7 @@ gridcv(
     X, y, segm, 
     score = err, 
     fun = plslda,
-    pars = pars, verb = TRUE
-    )
+    pars = pars, verb = TRUE)
 
 ## Using gridcvlv (much faster) 
 pars <- mpars(prior = c("unif", "prop"))
@@ -122,8 +119,7 @@ gridcvlv(
     X, y, segm, 
     score = err, 
     fun = plslda,
-    nlv = 1:nlv, pars = pars, verb = TRUE
-    )
+    nlv = 1:nlv, pars = pars, verb = TRUE)
 
 ######################## EXAMPLES WITH RR
 
@@ -144,16 +140,14 @@ gridcv(
     X, Y, segm, 
     score = msep, 
     fun = rr, 
-    pars = pars, verb = TRUE
-)
+    pars = pars, verb = TRUE)
 
 ## Using gridcvlb (much faster) 
 gridcvlb(
     X, Y, segm, 
     score = msep, 
     fun = rr, 
-    lb = lb, verb = TRUE
-)
+    lb = lb, verb = TRUE)
 
 ######################## EXAMPLES WITH KRR
 
@@ -175,8 +169,7 @@ gridcv(
     X, Y, segm, 
     score = msep, 
     fun = krr, 
-    pars = pars, verb = TRUE
-    )
+    pars = pars, verb = TRUE)
 
 ## Using gridcvlb (much faster) 
 pars <- mpars(sigma = sigma)
@@ -184,8 +177,7 @@ gridcvlb(
     X, Y, segm, 
     score = msep, 
     fun = krr, 
-    lb = lb, pars = pars, verb = TRUE
-    )
+    lb = lb, pars = pars, verb = TRUE)
 
 ######################## EXAMPLES WITH LWPLSR
 
@@ -209,10 +201,8 @@ res <- gridcvlv(
     X, Y, segm, 
     score = msep, 
     fun = lwplsr, 
-    nlv = 0:nlv, pars = pars, verb = TRUE
-    )
+    nlv = 0:nlv, pars = pars, verb = TRUE)
 res
-
 
 }
 

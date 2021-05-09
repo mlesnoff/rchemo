@@ -1,4 +1,4 @@
-dkplsr <- function(X, Y, nlv, kern = "krbf", weights = NULL, ...) {
+dkplsr <- function(X, Y, weights = NULL, nlv, kern = "krbf", ...) {
     
     kern <- eval(parse(text = kern))
     dots <- list(...)

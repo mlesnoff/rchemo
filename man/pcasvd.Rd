@@ -12,19 +12,19 @@
 
 \description{
 
-Algorithms fitting a centered PCA of a matrix \eqn{X}. 
+Algorithms fitting a centered weighted PCA of a matrix \eqn{X}. 
 
-Noting \eqn{D} a \eqn{n, n} diagonal matrix of weights for the observations (rows of \eqn{X}), the functions consist in:
+Noting \eqn{D} a (\eqn{n, n}) diagonal matrix of weights for the observations (rows of \eqn{X}), the functions consist in:
 
-- \code{pcasvd}: SVD decomposition of \eqn{D^(1/2) * X}, using function \code{\link{svd}}. 
+- \code{pcasvd}: SVD factorization of \eqn{D^(1/2) * X}, using function \code{\link{svd}}. 
 
-- \code{pcaeigen}:Eigen decomposition of \eqn{X' * D * X}, using function \code{\link{eigen}}. 
+- \code{pcaeigen}:Eigen factorization of \eqn{X' * D * X}, using function \code{\link{eigen}}. 
 
-- \code{pcaeigenk}: Eigen decomposition of \eqn{D^(1/2) *, * X' D^(1/2)}, using function \code{\link{eigen}}. This is the "kernel cross-product trick" version of the PCA algorithm (Wu et al. 1997). For wide matrices (\eqn{n << p}) and \eqn{n} not too large, this algorithm can be much faster than the others. 
+- \code{pcaeigenk}: Eigen factorization of \eqn{D^(1/2) * X * X' D^(1/2)}, using function \code{\link{eigen}}. This is the "kernel cross-product trick" version of the PCA algorithm (Wu et al. 1997). For wide matrices (\eqn{n << p}) and \eqn{n} not too large, this algorithm can be much faster than the others. 
 
-- \code{pcanipals}: Eigen decomposition of \eqn{X' * D * X} using NIPALS. 
+- \code{pcanipals}: Eigen factorization of \eqn{X' * D * X} using NIPALS. 
 
-- \code{pcanipalsna}: Eigen decomposition of \eqn{X' * D * X} using NIPALS allowing missing data in \eqn{X}. 
+- \code{pcanipalsna}: Eigen factorization of \eqn{X' * D * X} using NIPALS allowing missing data in \eqn{X}. 
 
 
 Function \code{pcanipalsna} accepts missing data (\code{NA}s) in \eqn{X}, unlike the other functions. The part of \code{pcanipalsna} accounting specifically for missing missing data is based on the efficient code of K. Wright in the R package \code{nipals} (https://cran.r-project.org/web/packages/nipals/index.html).
@@ -49,13 +49,13 @@ For the case with missing data, the iterative CGS does not insure that the ortho
 
 \usage{
 
-pcasvd(X, nlv, weights = NULL)
+pcasvd(X, weights = NULL, nlv)
 
-pcaeigen(X, nlv, weights = NULL)
+pcaeigen(X, weights = NULL, nlv)
 
-pcaeigenk(X, nlv, weights = NULL)
+pcaeigenk(X,weights = NULL,  nlv)
 
-pcanipals(X, nlv, weights = NULL,
+pcanipals(X, weights = NULL, nlv,
     gs = TRUE, 
     tol = .Machine$double.eps^0.5, maxit = 200)
 
@@ -65,17 +65,17 @@ pcanipalsna(X, nlv,
   
 \method{transform}{Pca}(object, X, ..., nlv = NULL)  
 
-\method{summary}{Pca}(object, X = NULL, ...)  
+\method{summary}{Pca}(object, X, ...)  
   
 }
 
 \arguments{
 
-\item{X}{For the main functions and auxiliary function \code{summary}: Training X-data (\eqn{n, p}). In \code{summary}, \code{X} is only required for variable coordinates and contributions, and the correlation circle (Default to \code{NULL}). --- For the other auxiliary functions: New X-data (\eqn{m, p}) to consider.}
-
-\item{nlv}{The number of PCs to calculate.}
+\item{X}{For the main functions and auxiliary function \code{summary}: Training X-data (\eqn{n, p}). --- For the other auxiliary functions: New X-data (\eqn{m, p}) to consider.}
 
 \item{weights}{Weights (\eqn{n, 1}) to apply to the training observations. Internally, weights are "normalized" to sum to 1. Default to \code{NULL} (weights are set to \eqn{1 / n}).}
+
+\item{nlv}{The number of PCs to calculate.}
 
 \item{object}{A fitted model, output of a call to the main functions.}
 
@@ -171,7 +171,6 @@ plotxy(fm$P, zeroes = TRUE, label = TRUE, cex = 2, col = "red3")
 
 ## Summary
 
-summary(fm)
 summary(fm, Xtrain)
 
 res <- summary(fm, Xtrain)

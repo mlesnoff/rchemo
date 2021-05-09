@@ -6,11 +6,9 @@
 \title{LMR-DA models}
 
 \description{
-
 Discrimination (DA) based on linear regression (LMR).
 
 The training variable \eqn{y} (univariate class membership) is transformed to a dummy table containing \eqn{nclas} columns, where \eqn{nclas} is the number of classes present in \eqn{y}. Each column is a dummy variable (0/1). Then, a linear regression model (LMR) is run on the \eqn{X-}data and the dummy table, returning predictions of the dummy variables. For a given observation, the final prediction is the class corresponding to the dummy variable for which the prediction is the highest.
-
 }
 
 \usage{

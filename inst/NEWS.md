@@ -1,12 +1,29 @@
 ## NEWS for package **rchemo**
 
+## **Version 0.0-3**
+
+- Modifications of functions
+
+  - Internal computations in **rr** and **krr** 
+  - summary.Pca: now requires argument "X"
+  - Function using weights: argument "weights" changed of position
+
+- Code cleaning
+
+
+
+
 ## **Version 0.0-2**
 
 - **plotxy**: Modification of default value in argument "asp"
 
+
+
+
+
 ## **Version 0.0-1**
 
-- First version of the package made available
+- First version of the package 
 
 
 

@@ -1,4 +1,4 @@
-kplsrda <- function(X, y, nlv, kern = "krbf", weights = NULL, ...) {
+kplsrda <- function(X, y, weights = NULL, nlv, kern = "krbf", ...) {
     if(is.factor(y))
         y <- as.character(y)
     X <- .mat(X)
@@ -10,8 +10,7 @@ kplsrda <- function(X, y, nlv, kern = "krbf", weights = NULL, ...) {
     fm <- kplsr(X, z$Y, nlv = nlv, kern = kern, weights = weights, ...)
     structure(
         list(fm = fm, lev = z$lev, ni = z$ni),
-        class = c("Kplsrda")
-        )   
+        class = c("Kplsrda"))   
     }
 
 predict.Kplsrda <- function(object, X, ..., nlv = NULL) {

@@ -1,4 +1,4 @@
-dkrr <- function(X, Y, lb = 0, kern = "krbf", weights = NULL, ...) {
+dkrr <- function(X, Y, weights = NULL, lb = 1e-2, kern = "krbf", ...) {
     kern <- eval(parse(text = kern))
     dots <- list(...)
     K <- kern(X, ...)

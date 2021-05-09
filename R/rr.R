@@ -1,9 +1,9 @@
-rr <- function(X, Y, lb = 1e-5, weights = NULL) {
+rr <- function(X, Y, weights = NULL, lb = 1e-2) {
     X <- .mat(X, "x")
+    Y <- .mat(Y, "y")     
     zdim <- dim(X)
     n <- zdim[1]
     p <- zdim[2]
-    Y <- .mat(Y, "y")     
     q <- dim(Y)[2]
     if(is.null(weights))
         weights <- rep(1, n)
@@ -11,26 +11,15 @@ rr <- function(X, Y, lb = 1e-5, weights = NULL) {
     xmeans <- .colmeans(X, weights = weights) 
     X <- .center(X, xmeans)
     ymeans <- .colmeans(Y, weights = weights) 
-    tol <- sqrt(.Machine$double.eps) 
-    if(n >= p) {
-        fm <- eigen(crossprod(sqrt(weights) * X), symmetric = TRUE)
-        posit <- fm$values > max(tol * fm$values[1L], 0)
-        eig <- fm$values[posit]
-        V <- fm$vectors[, posit, drop = FALSE]
-        }
-    else {
-        zX <- sqrt(weights) * X
-        fm <- eigen(tcrossprod(zX), symmetric = TRUE)
-        posit <- fm$values > max(tol * fm$values[1L], 0)
-        eig <- fm$values[posit]
-        U <- fm$vectors[, posit, drop = FALSE]
-        V <- crossprod(zX, .scale(U, scale = sqrt(eig)))
-        } 
-    T <- X %*% V
-    tTDY <- crossprod(T, weights * Y)
+    fm <- svd(sqrt(weights) * X)
+    U <- fm$u
+    V <- fm$v
+    sv <- fm$d
+    ## T = X V
+    ## T'DY = Delta * U' * D^(1/2) * Y
+    TtDY <- sv * t(U) %*% (sqrt(weights) * Y)
     structure(
-        list(
-            V = V, tTDY = tTDY, eig = eig, lb = lb, 
+        list(V = V, TtDY = TtDY, sv = sv, lb = lb, 
             xmeans = xmeans, ymeans = ymeans, weights = weights),
         class = c("Rr")
         )
@@ -38,13 +27,14 @@ rr <- function(X, Y, lb = 1e-5, weights = NULL) {
 
 coef.Rr <- function(object, ..., lb = NULL) {
     n <- length(object$weights)
+    eig <- object$sv^2
     if(is.null(lb))
         lb <- object$lb
-    z <- 1 / (object$eig + lb / n)
-    beta <- z * object$tTDY
+    z <- 1 / (eig + lb^2)
+    beta <- z * object$TtDY
     B <- object$V %*% beta
     int <- object$ymeans - crossprod(object$xmeans, B)
-    tr <- sum(object$eig * z)
+    tr <- sum(eig * z)
     row.names(B) <- paste("x", seq_len(dim(B)[1]), sep = "")
     list(int = int, B = B, df = 1 + tr) 
     }

@@ -8,13 +8,12 @@
 \title{Direct KPLSR Models}
 
 \description{
-
-Direct kernel PLSR (DKPLSR) (Bennett & Embrechts 2003). The method builds kernel Gram matrices (such as doing a pre-processing on the X-data) and then runs a usual PLSR algorithm on them. This is faster (but not equivalent) to the "true" NIPALS KPLSR algorithm such as described in Rosipal & Trejo (2001). 
+Direct kernel PLSR (DKPLSR) (Bennett & Embrechts 2003). The method builds kernel Gram matrices and then runs a usual PLSR algorithm on them. This is faster (but not equivalent) to the "true" NIPALS KPLSR algorithm such as described in Rosipal & Trejo (2001). 
 }
 
 \usage{
 
-dkplsr(X, Y, nlv, kern = "krbf", weights = NULL, ...)
+dkplsr(X, Y, weights = NULL, nlv, kern = "krbf", ...)
 
 \method{transform}{Dkpls}(object, X, ..., nlv = NULL)  
 
@@ -30,11 +29,11 @@ dkplsr(X, Y, nlv, kern = "krbf", weights = NULL, ...)
 
 \item{Y}{Training Y-data (\eqn{n, q}).}
 
+\item{weights}{Weights (\eqn{n, 1}) to apply to the training observations. Internally, weights are "normalized" to sum to 1. Default to \code{NULL} (weights are set to \eqn{1 / n}).}
+
 \item{nlv}{The number(s) of LVs to calculate.}
 
 \item{kern}{Name of the function defining the considered kernel for building the Gram matrix. See \code{\link{krbf}} for syntax, and other available kernel functions.}
-
-\item{weights}{Weights (\eqn{n, 1}) to apply to the training observations. Internally, weights are "normalized" to sum to 1. Default to \code{NULL} (weights are set to \eqn{1 / n}).}
 
 \item{object}{A fitted model, output of a call to the main function.}
 

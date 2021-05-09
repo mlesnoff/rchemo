@@ -6,8 +6,7 @@ knnr <- function(X, Y,
         list(X = X, Y = Y,
              nlvdis = nlvdis, diss = diss, 
              h = h, k = k),
-        class = "Knnr"
-        )
+        class = "Knnr")
     }
 
 predict.Knnr <- function(object, X, ...) {
@@ -19,7 +18,7 @@ predict.Knnr <- function(object, X, ...) {
     if (object$nlvdis == 0)
         res <- getknn(object$X, X, k = object$k, diss = object$diss)
     else {
-        fm <- plskern(object$X, object$Y, object$nlvdis)
+        fm <- plskern(object$X, object$Y, nlv = object$nlvdis)
         res <- getknn(fm$T, transform(fm, X), k = object$k, diss = object$diss)
         }
     ## End

@@ -22,11 +22,11 @@ The training variable \eqn{y} (univariate class membership) is firstly transform
 
 \usage{
 
-plsrda(X, y, nlv, weights = NULL)
+plsrda(X, y, weights = NULL, nlv)
 
-plslda(X, y, nlv, weights = NULL, prior = c("unif", "prop"))
+plslda(X, y, weights = NULL, nlv, prior = c("unif", "prop"))
 
-plsqda(X, y, nlv, weights = NULL, prior = c("unif", "prop"))
+plsqda(X, y, weights = NULL, nlv, prior = c("unif", "prop"))
 
 \method{predict}{Plsrda}(object, X, ..., nlv = NULL) 
 
@@ -40,9 +40,9 @@ plsqda(X, y, nlv, weights = NULL, prior = c("unif", "prop"))
 
 \item{y}{Training class membership (\eqn{n}).}
 
-\item{nlv}{The number(s) of LVs to calculate.}
-
 \item{weights}{Weights (\eqn{n}) to apply to the training observations for the PLS2. Internally, weights are "normalized" to sum to 1. Default to \code{NULL} (weights are set to \eqn{1 / n}).}
+
+\item{nlv}{The number(s) of LVs to calculate.}
 
 \item{prior}{The prior probabilities of the classes. Possible values are "unif" (default; probabilities are set equal for all the classes) or "prop" (probabilities are set equal to the observed proportions of the classes in \code{y}).}
 
@@ -71,7 +71,7 @@ names(fm)
 zfm <- fm$fm
 transform(zfm, Xtest)
 transform(zfm, Xtest, nlv = 1)
-summary(zfm)
+summary(zfm, Xtrain)
 coef(zfm)
 coef(zfm, nlv = 0)
 coef(zfm, nlv = 2)
@@ -93,7 +93,7 @@ predict(fm, Xtest, nlv = 1:2)$pred
 zfm <- fm[[1]]
 class(zfm)
 names(zfm)
-summary(zfm)
+summary(zfm, Xtrain)
 transform(zfm, Xtest[1:2, ])
 coef(zfm)
 

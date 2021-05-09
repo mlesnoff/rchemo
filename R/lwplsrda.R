@@ -9,8 +9,7 @@ lwplsrda <- function(
         list(X = X, y = y,
              nlvdis = nlvdis, diss = diss, 
              h = h, k = k, nlv = nlv, verb = verb),
-        class = "Lwplsrda"
-        )
+        class = "Lwplsrda")
     }
     
 predict.Lwplsrda <- function(object, X, ..., nlv = NULL)

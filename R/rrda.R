@@ -1,4 +1,4 @@
-rrda <- function(X, y, lb = 1e-5, weights = NULL) {
+rrda <- function(X, y, weights = NULL, lb = 1e-5) {
     if(is.factor(y))
         y <- as.character(y)
     X <- .mat(X)

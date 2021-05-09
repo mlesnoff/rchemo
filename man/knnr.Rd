@@ -66,8 +66,7 @@ h <- 2 ; k <- 10
 fm <- knnr(
     Xtrain, Ytrain, 
     nlvdis = nlvdis, diss = diss,
-    h = h, k = k
-    )
+    h = h, k = k)
 res <- predict(fm, Xtest)
 names(res)
 res$pred

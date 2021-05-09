@@ -7,9 +7,7 @@
 \title{Linear regression models}
 
 \description{
-
 Linear regression models (uses function \code{\link{lm}}).
-
 }
 
 \usage{

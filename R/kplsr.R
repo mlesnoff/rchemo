@@ -1,21 +1,16 @@
-kplsr <- function(X, Y, nlv, kern = "krbf", weights = NULL,
+kplsr <- function(X, Y, weights = NULL, nlv, kern = "krbf",
      tol = .Machine$double.eps^0.5, maxit = 100, ...) {
-    
     X <- .mat(X)
+    Y <- .mat(Y, "y")     
     zdim <- dim(X)
     n <- zdim[1]
     zp <- zdim[2]
-    
-    Y <- .mat(Y, "y")     
     q <- dim(Y)[2]
-    
     if(is.null(weights))
         weights <- rep(1, n)
     weights <- .mweights(weights)
-    
     ymeans <- .colmeans(Y, weights = weights) 
     Y <- .center(Y, ymeans)
-    
     kern <- eval(parse(text = kern))
     dots <- list(...)
     K <- kern(X, ...)
@@ -23,7 +18,6 @@ kplsr <- function(X, Y, nlv, kern = "krbf", weights = NULL,
     tK <- t(K)
     Kc <- K <- t(t(K - colSums(weights * tK)) - colSums(weights * tK)) + 
         sum(weights * t(weights * tK))
-
     nam <- paste("lv", seq_len(nlv), sep = "")
     U <- T <- matrix(nrow = n, ncol = nlv, dimnames = list(row.names(X), nam))                     
     C <- matrix(nrow = q, ncol = nlv, dimnames = list(colnames(Y), nam))                     
@@ -34,12 +28,11 @@ kplsr <- function(X, Y, nlv, kern = "krbf", weights = NULL,
             c <- crossprod(weights * Y, t)
             u <- Y %*% c
             u <- u / sqrt(sum(u * u))
-            }
+        }
         else {
             u <- Y[, 1]
             ztol <- 1
             iter <- 1
-            #tic()
             while(ztol > tol & iter <= maxit) {
                 t <- K %*% (weights * u)
                 t <- t / sqrt(sum(weights * t * t))
@@ -49,29 +42,24 @@ kplsr <- function(X, Y, nlv, kern = "krbf", weights = NULL,
                 ztol <- .colnorms(u - zu)
                 u <- zu
                 iter <- iter + 1
-                }
-            #toc()
             }
+        }
         z <- diag(n) - tcrossprod(t, weights * t)
         ## Slow, ~ .2 s/component for n=500 ==> 4 s for nlv=20
         K <- z %*% K %*% t(z)
         ## End
         Y <- Y - tcrossprod(t, c)
-        
         T[, a] <- t
         C[, a] <- c
         U[, a] <- u
-        }
+    }
     DU <- weights * U
     zR <- DU %*% solve(crossprod(T, weights * Kc) %*% DU)
-
     structure(
         list(X = X, tK = tK, T = T, C = C, U = U, R = zR,
              ymeans = ymeans, weights = weights,
              kern = kern, dots = dots),
-        class = c("Kplsr", "Kpls")
-        )
-
+        class = c("Kplsr", "Kpls"))
     }
 
 transform.Kplsr <- function(object, X, ..., nlv = NULL) {

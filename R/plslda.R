@@ -1,4 +1,4 @@
-plslda <- function(X, y, nlv, weights = NULL, prior = c("unif", "prop")) {
+plslda <- function(X, y, weights = NULL, nlv, prior = c("unif", "prop")) {
     if(is.factor(y))
         y <- as.character(y)
     X <- .mat(X)
@@ -11,7 +11,7 @@ plslda <- function(X, y, nlv, weights = NULL, prior = c("unif", "prop")) {
     weights <- .mweights(weights)
     Y <- dummy(y)$Y
     fm <- list()
-    fm[[1]] <- plskern(X, Y, nlv = nlv, weights = weights)
+    fm[[1]] <- plskern(X, Y, weights = weights, nlv = nlv)
     ## Should be:
     ## z <- transform(fm[[1]], X)
     ## But same as:
@@ -20,7 +20,7 @@ plslda <- function(X, y, nlv, weights = NULL, prior = c("unif", "prop")) {
     for(i in seq_len(nlv))
       fm[[2]][[i]] <- lda(z[, seq_len(i), drop = FALSE], y, prior = prior)
     structure(fm, class = "Plsdaprob")       
-    }
+  }
 
 predict.Plsdaprob <- function(object, X, ..., nlv = NULL) {
     X <- .mat(X)
@@ -42,7 +42,7 @@ predict.Plsdaprob <- function(object, X, ..., nlv = NULL) {
     if(le_nlv == 1) {
         pred <- pred[[1]] 
         posterior <- posterior[[1]]
-        }
+      }
     list(pred = pred, posterior = posterior)
-    }
+  }
 

@@ -1,4 +1,4 @@
-krr <- function(X, Y, lb = 1e-5, kern = "krbf", weights = NULL, ...) {
+krr <- function(X, Y, weights = NULL, lb = 1e-2, kern = "krbf", ...) {
     X <- .mat(X, "x")
     Y <- .mat(Y, "y")     
     zdim <- dim(X)
@@ -13,39 +13,38 @@ krr <- function(X, Y, lb = 1e-5, kern = "krbf", weights = NULL, ...) {
     dots <- list(...)
     K <- kern(X, ...)
     ## If non-symmetric Gram matrix
-    tK <- t(K)     
-    Kc <- t(t(K - colSums(weights * tK)) - colSums(weights * tK)) + 
-        sum(weights * t(weights * tK))
+    Kt <- t(K)     
+    ## Kc = Phi * Phi', where Phi is centered
+    Kc <- t(t(K - colSums(weights * Kt)) - colSums(weights * Kt)) + 
+        sum(weights * t(weights * Kt))
+    ## Kd = D^(1/2) * Kc * D^(1/2) 
+    ## = U * Delta^2 * U'
     Kd <- sqrt(weights) * t(sqrt(weights) * t(Kc))
-    fm <- eigen(Kd)
-    tol <- sqrt(.Machine$double.eps)
-    posit <- fm$values > max(tol * fm$values[1L], 0)
-    A <- fm$vectors[, posit, drop = FALSE]
-    eig <- fm$values[posit]
-    sv <- sqrt(eig)
-    P <- sqrt(weights) * .scale(A, scale = sv)
-    T <- Kc %*% P
-    tTDY <- crossprod(T, weights * Y)
+    fm <- svd(Kd, nu = 0)
+    U <- fm$v
+    sv <- sqrt(fm$d)
+    ## U' * D^(1/2) * Y
+    UtDY <- crossprod(U, sqrt(weights) * Y)
     structure(
         list(
-            X = X, K = K, tK = tK, 
-            A = A, P = P, tTDY = tTDY, eig = eig, lb = lb, 
+            X = X, K = K, Kt = Kt, 
+            U = U, UtDY = UtDY, sv = sv, lb = lb, 
             ymeans = ymeans, weights = weights,
             kern = kern, dots = dots),
-        class = c("Krr")
-        )
-    }
+        class = c("Krr"))
+}
 
 coef.Krr <- function(object, ..., lb = NULL) {
     n <- length(object$weights)
+    eig <- object$sv^2
     if(is.null(lb))
         lb <- object$lb
-    z <- 1 / (object$eig + lb / n)
-    beta <- z * object$tTDY
+    z <- 1 / (eig + lb^2)
+    alpha <- object$U %*% (z * object$UtDY)
     int <- object$ymeans
-    tr <- sum(object$eig * z)
-    list(int = int, beta = beta, df = 1 + tr) 
-    }
+    tr <- sum(eig * z)
+    list(int = int, alpha = alpha, df = 1 + tr) 
+}
 
 predict.Krr <- function(object, X, ..., lb = NULL) {
     X <- .mat(X)
@@ -53,23 +52,25 @@ predict.Krr <- function(object, X, ..., lb = NULL) {
     rownam <- row.names(X)
     colnam <- paste("y", seq_len(q), sep = "")
     weights <- object$weights
+    ## Kc = Knew
     K <- do.call(object$kern, c(list(X = X, Y = object$X), object$dots))
-    Kc <- t(t(K - colSums(weights * t(K))) - colSums(weights * object$tK)) + 
-        sum(weights * t(weights * object$tK))
-    T <- Kc %*% object$P  
+    Kc <- t(t(K - colSums(weights * t(K))) - colSums(weights * object$Kt)) + 
+        sum(weights * t(weights * object$Kt))
     if(is.null(lb))
         lb <- object$lb
     le_lb <- length(lb)
     pred <- vector(mode = "list", length = le_lb)
+    sqrtw <- sqrt(object$weights)
     for(i in seq_len(le_lb)) {
         z <- coef(object, lb = lb[i])
-        zpred <- t(c(z$int) + t(T %*% z$beta))
+        ## INT + Knew * D^(1/2) * alpha
+        zpred <- t(c(z$int) + t(Kc %*% (sqrtw * z$alpha)))
         pred[[i]] <- zpred
-        }
+    }
     names(pred) <- paste("lb", lb, sep = "")
     if(le_lb == 1)
         pred <- pred[[1]] 
     list(pred = pred)
-    }
+}
     
     

@@ -3,14 +3,12 @@ lwplsr <- function(
     nlvdis, diss = c("eucl", "mahal"),
     h, k,
     nlv,
-    verb = FALSE
-    ) {
+    verb = FALSE) {
     structure(
         list(X = X, Y = Y,
              nlvdis = nlvdis, diss = diss, 
              h = h, k = k, nlv = nlv, verb = verb),
-        class = "Lwplsr"
-        )
+        class = "Lwplsr")
     }
     
     
@@ -32,7 +30,7 @@ lwplsr <- function(
     else {
         if(da)
             object$Y <- dummy(object$y)$Y
-        fm <- plskern(object$X, object$Y, object$nlvdis)
+        fm <- plskern(object$X, object$Y, nlv = object$nlvdis)
         res <- getknn(fm$T, transform(fm, X), k = object$k, diss = object$diss)
         }
     ## End

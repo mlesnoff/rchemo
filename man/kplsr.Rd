@@ -16,7 +16,7 @@ The algorithm is slow for \eqn{n >= 500}.
 
 \usage{
 
-kplsr(X, Y, nlv, kern = "krbf", weights = NULL,
+kplsr(X, Y, weights = NULL, nlv, kern = "krbf",
      tol = .Machine$double.eps^0.5, maxit = 100, ...)
 
 \method{transform}{Kplsr}(object, X, ..., nlv = NULL)  
@@ -29,15 +29,15 @@ kplsr(X, Y, nlv, kern = "krbf", weights = NULL,
 
 \arguments{
 
-\item{X}{For the main function: Training X-data (\eqn{n, p}). --- For the auxiliary functions: New X-data (\eqn{m, p}) to consider.}
+\item{X}{For main function: Training X-data (\eqn{n, p}). --- For auxiliary functions: New X-data (\eqn{m, p}) to consider.}
 
 \item{Y}{Training Y-data (\eqn{n, q}).}
+
+\item{weights}{Weights (\eqn{n, 1}) to apply to the training observations. Internally, weights are "normalized" to sum to 1. Default to \code{NULL} (weights are set to \eqn{1 / n}).}
 
 \item{nlv}{The number(s) of LVs to calculate.}
 
 \item{kern}{Name of the function defining the considered kernel for building the Gram matrix. See \code{\link{krbf}} for syntax, and other available kernel functions.}
-
-\item{weights}{Weights (\eqn{n, 1}) to apply to the training observations. Internally, weights are "normalized" to sum to 1. Default to \code{NULL} (weights are set to \eqn{1 / n}).}
 
 \item{object}{A fitted model, output of a call to the main function.}
 

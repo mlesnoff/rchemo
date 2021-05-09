@@ -6,16 +6,14 @@
 \title{KPLSR-DA models}
 
 \description{
-
-Discrimination (DA) based on kernel PLSR (PLSR)
+Discrimination (DA) based on kernel PLSR (KPLSR)
 
 The training variable \eqn{y} (univariate class membership) is transformed to a dummy table containing \eqn{nclas} columns, where \eqn{nclas} is the number of classes present in \eqn{y}. Each column is a dummy variable (0/1). Then, a kernel PLSR (KPLSR) is run on the \eqn{X-}data and the dummy table, returning predictions of the dummy variables. For a given observation, the final prediction is the class corresponding to the dummy variable for which the prediction is the highest.
-
 }
 
 \usage{
 
-kplsrda(X, y, nlv, kern = "krbf", weights = NULL, ...)
+kplsrda(X, y, weights = NULL, nlv, kern = "krbf", ...)
 
 \method{predict}{Kplsrda}(object, X, ..., nlv = NULL) 
 
@@ -23,15 +21,15 @@ kplsrda(X, y, nlv, kern = "krbf", weights = NULL, ...)
 
 \arguments{
 
-\item{X}{For the main functions: Training X-data (\eqn{n, p}). --- For auxiliary functions: New X-data (\eqn{m, p}) to consider.}
+\item{X}{For main functions: Training X-data (\eqn{n, p}). --- For auxiliary functions: New X-data (\eqn{m, p}) to consider.}
 
 \item{y}{Training class membership (\eqn{n}).}
+
+\item{weights}{Weights (\eqn{n}) to apply to the training observations for the PLS2. Internally, weights are "normalized" to sum to 1. Default to \code{NULL} (weights are set to \eqn{1 / n}).}
 
 \item{nlv}{The number(s) of LVs to calculate.}
 
 \item{kern}{Name of the function defining the considered kernel for building the Gram matrix. See \code{\link{krbf}} for syntax, and other available kernel functions.}
-
-\item{weights}{Weights (\eqn{n}) to apply to the training observations for the PLS2. Internally, weights are "normalized" to sum to 1. Default to \code{NULL} (weights are set to \eqn{1 / n}).}
 
 \item{object}{A fitted model, output of a call to the main functions.}
 

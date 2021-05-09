@@ -8,13 +8,13 @@
 
 \description{
 
-Direct kernel ridge regression (DKRR), following the same approcah as for DKPLSR (Bennett & Embrechts 2003). The method builds kernel Gram matrices (such as doing a pre-processing on the X-data) and then runs a usual RR algorithm on them. This is faster (but not equivalent) to the "true" KRR (= LS-SVM) algorithm. 
+Direct kernel ridge regression (DKRR), following the same approcah as for DKPLSR (Bennett & Embrechts 2003). The method builds kernel Gram matrices and then runs a RR algorithm on them. This is not equivalent to the "true" KRR (= LS-SVM) algorithm. 
 
 }
 
 \usage{
 
-dkrr(X, Y, lb = 0, kern = "krbf", weights = NULL, ...)
+dkrr(X, Y, weights = NULL, lb = 1e-2, kern = "krbf", ...)
 
 \method{coef}{Dkrr}(object, ..., lb = NULL)  
 
@@ -28,11 +28,11 @@ dkrr(X, Y, lb = 0, kern = "krbf", weights = NULL, ...)
 
 \item{Y}{Training Y-data (\eqn{n, q}).}
 
+\item{weights}{Weights (\eqn{n, 1}) to apply to the training observations. Internally, weights are "normalized" to sum to 1. Default to \code{NULL} (weights are set to \eqn{1 / n}).}
+
 \item{lb}{A value of regularization parameter \eqn{lambda}.}
 
 \item{kern}{Name of the function defining the considered kernel for building the Gram matrix. See \code{\link{krbf}} for syntax, and other available kernel functions.}
-
-\item{weights}{Weights (\eqn{n, 1}) to apply to the training observations. Internally, weights are "normalized" to sum to 1. Default to \code{NULL} (weights are set to \eqn{1 / n}).}
 
 \item{object}{A fitted model, output of a call to the main function.}
 
@@ -87,7 +87,7 @@ plot(x, y, type = "p")
 lines(x, zy, lty = 2)
 X <- matrix(x, ncol = 1)
 
-fm <- dkrr(X, y, lb = .1, sigma = 2)
+fm <- dkrr(X, y, lb = .01, sigma = 2)
 pred <- predict(fm, X)$pred
 plot(X, y, type = "p")
 lines(X, zy, lty = 2)

@@ -15,7 +15,7 @@ For instance, if argument \code{nlv} is set to \code{nlv = 5:10}, the prediction
 
 \usage{
 
-plsr_agg(X, Y, nlv, weights = NULL)
+plsr_agg(X, Y, weights = NULL, nlv)
 
 \method{predict}{Plsragg}(object, X, ...)  
 
@@ -27,9 +27,9 @@ plsr_agg(X, Y, nlv, weights = NULL)
 
 \item{Y}{Training Y-data (\eqn{n, q}).}
 
-\item{nlv}{A vector of number of LVs to consider.}
-
 \item{weights}{Weights (\eqn{n, 1}) to apply to the training observations. Internally, weights are "normalized" to sum to 1. Default to \code{NULL} (weights are set to \eqn{1 / n}).}
+
+\item{nlv}{A vector of number of LVs to consider.}
 
 \item{object}{A fitted model, output of a call to the main functions.}
 
@@ -58,7 +58,7 @@ names(fm)
 zfm <- fm$fm
 class(zfm)
 names(zfm)
-summary(zfm)
+summary(zfm, Xtrain)
 
 ##### Predictions
 res <- predict(fm, Xtest)

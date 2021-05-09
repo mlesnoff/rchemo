@@ -1,9 +1,8 @@
-plsr_agg <- function(X, Y, nlv, weights = NULL) {
-    fm <- plskern(X, Y, max(nlv), weights = weights)
+plsr_agg <- function(X, Y, weights = NULL, nlv) {
+    fm <- plskern(X, Y, weights = weights, nlv = max(nlv))
     structure(
         list(fm = fm, nlv = nlv),
-        class = "Plsragg"
-        )
+        class = "Plsragg")
     }
 
 predict.Plsragg <- function(object, X, ...) {

@@ -18,12 +18,13 @@ fda <- function(X, y, nlv = NULL) {
     if(is.null(nlv)) 
         nlv <- nlev - 1
     nlv <- min(nlv, p, nlev - 1)
-    ## Temporary - As in rnirs:
-    ## If W is singular, a pseudo-inverse is calculated 
+    ## Temporary, as in rnirs:
+    ## If W is singular, a MP pseudo-inverse is calculated 
     Winv <- tryCatch(solve(W), error = function(e) e)
     if(inherits(Winv, "error")) 
         Winv <- pinv(W)$Xplus
     ## End
+    ## Winv %*% B is not symmetric
     fm <- eigen(Winv %*% B)
     P <- fm$vectors[, seq_len(nlv), drop = FALSE]
     eig <- fm$values
@@ -38,9 +39,8 @@ fda <- function(X, y, nlv = NULL) {
     structure(
         list(T = T, P = P, Tcenters = Tcenters, eig = eig, sstot = sstot,
             W = W, xmeans = xmeans, lev = lev, ni = ni),
-        class = "Fda"
-        )
-    }
+        class = "Fda")
+}
 
 fdasvd <- function(X, y, nlv = NULL) {
     X <- .mat(X)
@@ -62,8 +62,8 @@ fdasvd <- function(X, y, nlv = NULL) {
     if(is.null(nlv)) 
         nlv <- nlev - 1
     nlv <- min(nlv, p, nlev - 1)
-    ## Temporary - As in rnirs:
-    ## If W is singular, a pseudo-inverse is calculated 
+    ## Temporary, as in rnirs:
+    ## If W is singular, a MP pseudo-inverse is calculated 
     Winv <- tryCatch(solve(W), error = function(e) e)
     if(inherits(Winv, "error")) 
         Winv <- pinv(W)$Xplus
@@ -83,9 +83,8 @@ fdasvd <- function(X, y, nlv = NULL) {
     structure(
         list(T = T, P = P, Tcenters = Tcenters, eig = eig, sstot = sstot,
             W = W, xmeans = xmeans, lev = lev, ni = ni),
-        class = "Fda"
-        )
-    }
+        class = "Fda")
+}
 
 transform.Fda <- function(object, X, ..., nlv = NULL) {
     a <- dim(object$T)[2]
@@ -96,17 +95,17 @@ transform.Fda <- function(object, X, ..., nlv = NULL) {
     X <- .center(.mat(X), object$xmeans)
     T <- X %*% object$P
     T
-    }
+}
 
 summary.Fda <- function(object, ...) {
     nlv <- dim(object$T)[2]
     eig <- object$eig[seq_len(nlv)]
-    pvar <-  eig / object$sstot
+    pvar <-  eig / sum(object$eig)
     cumpvar <- cumsum(pvar)    
     explvar <- data.frame(lv = seq_len(nlv), var = eig, 
                           pvar = pvar, cumpvar = cumpvar)
     list(explvar = explvar)    
-    }
+}
 
 
 

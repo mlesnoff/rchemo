@@ -8,13 +8,15 @@
 
 \description{
 
-Kernel ridge regression models (KRR), also referred to as LS-SVMR (Suykens et al. 2000, Bennett & Embrechts 2003, Krell 2018). LS-SVMR is a variant of SVMR in which the epsilon coefficient is set to zero (no marge) and a L2-norm (instead L1-norm) optimization is done.   
+Kernel ridge regression models (KRR = LS-SVMR) (Suykens et al. 2000, Bennett & Embrechts 2003, Krell 2018). 
+
+KRR is close to the particular SVMR setting the \eqn{epsilon} coefficient to zero (no marges excluding observations). The difference is that a L2-norm optimization is done, instead L1 in SVM.   
 
 }
 
 \usage{
 
-krr(X, Y, lb = 1e-5, kern = "krbf", weights = NULL, ...)
+krr(X, Y, weights = NULL, lb = 1e-2, kern = "krbf", ...)
 
 \method{coef}{Krr}(object, ..., lb = NULL)  
 
@@ -28,11 +30,11 @@ krr(X, Y, lb = 1e-5, kern = "krbf", weights = NULL, ...)
 
 \item{Y}{Training Y-data (\eqn{n, q}).}
 
+\item{weights}{Weights (\eqn{n, 1}) to apply to the training observations. Internally, weights are "normalized" to sum to 1. Default to \code{NULL} (weights are set to \eqn{1 / n}).}
+
 \item{lb}{A value of regularization parameter \eqn{lambda}. If \code{lb = 0}, a pseudo-inverse is used in the RR.}
 
 \item{kern}{Name of the function defining the considered kernel for building the Gram matrix. See \code{\link{krbf}} for syntax, and other available kernel functions.}
-
-\item{weights}{Weights (\eqn{n, 1}) to apply to the training observations. Internally, weights are "normalized" to sum to 1. Default to \code{NULL} (weights are set to \eqn{1 / n}).}
 
 \item{object}{A fitted model, output of a call to the main function.}
 
