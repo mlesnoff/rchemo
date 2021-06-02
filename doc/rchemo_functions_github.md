@@ -79,8 +79,8 @@
 
 #### <span style="color:#1589F0"> ENSEMBLIST METHODS </span>
 
-- ***plsr_agg*** PLSR with averaging LVs predictions
-- ***lwplsr_agg*** KNN-LWPLSR with averaging LVs predictions
+- ***plsr_agg*** PLSR with averaging predictions over LVs
+- ***lwplsr_agg*** KNN-LWPLSR with averaging predictions over LVs
 
 #### <span style="color:#1589F0"> TUNING MODELS </span>
 
@@ -130,6 +130,7 @@
 - ***savgol*** Savitsky-Golay filtering (derivation)
 - ***dderiv*** Derivation by finite difference
 - ***xinterp*** Resampling of spectra by interpolation methods
+- ***gaprm** Remove vertical gaps in spectra (e.g. for ASD)
 
 #### Sampling
 

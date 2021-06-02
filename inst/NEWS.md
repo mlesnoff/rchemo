@@ -1,5 +1,23 @@
 ## NEWS for package **rchemo**
 
+## **Version 0.0-4**
+
+- New functions:
+
+  - **gaprm**: Remove gaps in spectra (e.g. for ASD)
+  
+- Modifications of functions:
+
+- New dataset: **asdgap**
+
+
+
+
+
+
+
+
+
 ## **Version 0.0-3**
 
 - Modifications of functions
