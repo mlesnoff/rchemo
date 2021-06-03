@@ -76,6 +76,7 @@
 
 - ***knnda*** KNN-DA
 - ***lwplsrda*** KNN Locally weighted PLSR-DA (KNN-LWPLSR-DA)
+- ***lwplslda*** KNN Locally weighted PLS-LDA/QDA (KNN-LWPLS-LDA/QDA)
 
 #### <span style="color:#1589F0"> ENSEMBLIST METHODS </span>
 

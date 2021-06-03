@@ -2,6 +2,7 @@
 \alias{lwplsrda}
 \alias{lwplslda}
 \alias{predict.Lwplsrda}
+\alias{predict.Lwplslda}
 \encoding{latin1}
 
 \title{KNN-LWPLS-DA Models}
