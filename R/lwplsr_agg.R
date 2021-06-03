@@ -9,10 +9,10 @@ lwplsr_agg <- function(
         list(X = X, Y = Y,
              nlvdis = nlvdis, diss = diss, 
              h = h, k = k, nlv = nlv, verb = verb),
-        class = "Lwplsragg")
+        class = "Lwplsr_agg")
     }
     
-predict.Lwplsragg <- function(object, X, ...) {
+predict.Lwplsr_agg <- function(object, X, ...) {
     X <- .mat(X)
     ## Getknn
     if (object$nlvdis == 0)

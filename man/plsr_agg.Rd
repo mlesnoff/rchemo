@@ -1,6 +1,6 @@
 \name{plsr_agg}
 \alias{plsr_agg}
-\alias{predict.Plsragg}
+\alias{predict.Plsr_agg}
 \encoding{latin1}
 
 \title{PLSR with aggregation of latent variables}
@@ -17,7 +17,7 @@ For instance, if argument \code{nlv} is set to \code{nlv = 5:10}, the prediction
 
 plsr_agg(X, Y, weights = NULL, nlv)
 
-\method{predict}{Plsragg}(object, X, ...)  
+\method{predict}{Plsr_agg}(object, X, ...)  
 
 }
 

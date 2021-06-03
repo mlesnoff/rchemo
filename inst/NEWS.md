@@ -1,5 +1,10 @@
 ## NEWS for package **rchemo**
 
+## **Version 0.0-6**
+
+
+
+
 ## **Version 0.0-5**
 
 - Modifications of functions

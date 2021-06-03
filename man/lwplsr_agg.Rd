@@ -1,6 +1,6 @@
 \name{lwplsr_agg}
 \alias{lwplsr_agg}
-\alias{predict.Lwplsragg}
+\alias{predict.Lwplsr_agg}
 
 \encoding{latin1}
 
@@ -24,7 +24,7 @@ lwplsr_agg(
     verb = FALSE
     )
 
-\method{predict}{Lwplsragg}(object, X, ...)  
+\method{predict}{Lwplsr_agg}(object, X, ...)  
 
 }
 

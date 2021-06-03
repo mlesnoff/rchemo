@@ -1,12 +1,12 @@
-plsr_agg <- function(X, Y, weights = NULL, nlv) {
+plsrda_agg <- function(X, y, weights = NULL, nlv) {
     nlv <- eval(parse(text = nlv))
-    fm <- plskern(X, Y, weights = weights, nlv = max(nlv))
+    fm <- plsrda(X, y, weights = weights, nlv = max(nlv))
     structure(
         list(fm = fm, nlv = nlv),
-        class = "Plsr_agg")
+        class = "Plsrda_agg")
 }
 
-predict.Plsr_agg <- function(object, X, ...) {
+predict.Plsrda_agg <- function(object, X, ...) {
     nlv <- object$nlv  
     zpred <- predict(object$fm, X, nlv = nlv)$pred
     le_nlv <- length(nlv)
