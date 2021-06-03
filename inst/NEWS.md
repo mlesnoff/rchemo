@@ -4,13 +4,11 @@
 
 - New functions:
 
-  - **gaprm**: Remove gaps in spectra (e.g. for ASD)
+  - **gaprm**: Remove vertical gaps in spectra (e.g. for ASD)
   
-- Modifications of functions:
+  - **eposvd**: Pre-processing data by external parameter orthogonalization (EPO; Roger et al 2003) 
 
 - New dataset: **asdgap**
-
-
 
 
 

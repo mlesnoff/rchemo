@@ -96,7 +96,7 @@
 - ***gridcvlv*** Models with LVs (faster)
 - ***gridcvlb*** Models with ridge parameter (faster)  
 
-#### Auxiliary
+##### Auxiliary
 
 - ***segmkf*** Building segments for K-fold CV
 - ***segmts*** Building segments for test-set CV
@@ -131,6 +131,7 @@
 - ***dderiv*** Derivation by finite difference
 - ***xinterp*** Resampling of spectra by interpolation methods
 - ***gaprm** Remove vertical gaps in spectra (e.g. for ASD)
+- **eposvd** Pre-processing data by external parameter orthogonalization (EPO; Roger et al 2003) 
 
 #### Sampling
 
