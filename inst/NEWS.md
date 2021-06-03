@@ -2,6 +2,9 @@
 
 ## **Version 0.0-6**
 
+- Modification of functions
+
+  - **eposvd**: changes of arguments
 
 
 

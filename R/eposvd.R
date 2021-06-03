@@ -1,5 +1,4 @@
-eposvd <- function(X, D, nlv) {
-    X <- .mat(X)
+eposvd <- function(D, nlv) {
     D <- .mat(D)
     zdim <- dim(D)
     m <- zdim[1]

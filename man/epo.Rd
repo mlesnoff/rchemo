@@ -16,11 +16,9 @@ The data corrected from the detrimental information \eqn{D} can be computed by \
 
 }
 
-\usage{eposvd(X, D, nlv)}
+\usage{eposvd(D, nlv)}
 
 \arguments{
-
-\item{X}{A dataset \eqn{(n, p)}.}
 
 \item{D}{A dataset  \eqn{(m, p)} containing detrimental information.}
 
@@ -47,7 +45,7 @@ m <- 3
 D <- matrix(rnorm(m * p), ncol = p)    # Detrimental information
 
 nlv <- 2
-res <- eposvd(X, D, nlv = nlv)
+res <- eposvd(D, nlv = nlv)
 M <- res$M       # orthogonalization matrix
 P <- res$P       # detrimental directions matrix (loadings of D = columns of P)
 M
