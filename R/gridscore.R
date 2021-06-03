@@ -25,15 +25,15 @@ gridscore <- function(Xtrain, Ytrain, X, Y, score, fun, pars, verb = FALSE) {
     if (verb) 
         cat("-- End. \n\n")
     colnames(res) <- colnames(Ytrain)
-    for(i in seq_len(npar)) {
-        z <- pars[[i]]
-        if(is.list(z)) {
-            m <- length(z)
-            for(j in seq_len(m))
-                z[[j]] <- paste(min(z[[j]]), "-", max(z[[j]]), sep = "")
-            pars[[i]] <- unlist(z)
-        }
-    }
+    #for(i in seq_len(npar)) {
+    #    z <- pars[[i]]
+    #    if(is.list(z)) {
+    #        m <- length(z)
+    #        for(j in seq_len(m))
+    #            z[[j]] <- paste(min(z[[j]]), "-", max(z[[j]]), sep = "")
+    #        pars[[i]] <- unlist(z)
+    #    }
+    #}
     res <- data.frame(pars, res, stringsAsFactors = FALSE)
     res
 }

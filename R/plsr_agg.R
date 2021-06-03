@@ -1,9 +1,10 @@
 plsr_agg <- function(X, Y, weights = NULL, nlv) {
+    nlv <- eval(parse(text = nlv))
     fm <- plskern(X, Y, weights = weights, nlv = max(nlv))
     structure(
         list(fm = fm, nlv = nlv),
         class = "Plsragg")
-    }
+}
 
 predict.Plsragg <- function(object, X, ...) {
     nlv <- object$nlv  
@@ -19,4 +20,4 @@ predict.Plsragg <- function(object, X, ...) {
       dimnames(pred) <- dimnames(zpred[[1]])
       }
     list(pred = pred, predlv = zpred)
-    }
+}

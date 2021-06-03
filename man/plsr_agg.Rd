@@ -29,7 +29,7 @@ plsr_agg(X, Y, weights = NULL, nlv)
 
 \item{weights}{Weights (\eqn{n, 1}) to apply to the training observations. Internally, weights are "normalized" to sum to 1. Default to \code{NULL} (weights are set to \eqn{1 / n}).}
 
-\item{nlv}{A vector of number of LVs to consider.}
+\item{nlv}{A character string such as "5:20" defining the range of the numbers of LVs to consider (here: the models with nb LVS = 5, 6, ..., 20 are averaged). Syntax such as "10" is also allowed (here: correponds to the single model with 10 LVs).}
 
 \item{object}{A fitted model, output of a call to the main functions.}
 
@@ -49,8 +49,8 @@ m <- 3
 Xtest <- Xtrain[1:m, , drop = FALSE] 
 Ytest <- Ytrain[1:m, , drop = FALSE] ; ytest <- Ytest[1:m, 1]
 
-nlv <- 1:3
-#nlv <- 2:3
+nlv <- "1:3"
+#nlv <- "2:3"
 fm <- plsr_agg(Xtrain, ytrain, nlv = nlv)
 names(fm)
 
@@ -71,7 +71,9 @@ res$predlv
 
 ## Gridscore
 ## Here, there is no sense to use gridscorelv 
-pars <- list(nlv = list(1:3, 2:5))
+pars <- mpars(nlv = c("1:3", "2:5"))
+## Same as:
+## pars <- list(nlv = c("1:3", "2:5"))
 pars
 res <- gridscore(
     Xtrain, Ytrain, Xtest, Ytest, 

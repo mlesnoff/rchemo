@@ -42,7 +42,7 @@ lwplsr_agg(
 
 \item{k}{The number of nearest neighbors to select for each observation to predict.}
 
-\item{nlv}{A vector of numbers of LVs to consider in the aggregation.}
+\item{nlv}{A character string such as "5:20" defining the range of the numbers of LVs to consider (here: the models with nb LVS = 5, 6, ..., 20 are averaged). Syntax such as "10" is also allowed (here: correponds to the single model with 10 LVs).}
 
 \item{verb}{Logical. If \code{TRUE}, fitting information are printed.}
 
@@ -67,7 +67,7 @@ Ytest <- cbind(ytest, 10 * ytest)
 
 nlvdis <- 5 ; diss <- "mahal"
 h <- 2 ; k <- 10
-nlv <- 2:6 
+nlv <- "2:6" 
 fm <- lwplsr_agg(
     Xtrain, Ytrain, 
     nlvdis = nlvdis, diss = diss,
@@ -85,7 +85,7 @@ msep(res$pred, Ytest)
 nlvdis <- 5 ; diss <- "mahal"
 h <- c(2, Inf)
 k <- c(10, 20)
-nlv <- list(1:3, 2:5)
+nlv <- c("1:3", "2:5")
 pars <- mpars(nlvdis = nlvdis, diss = diss,
     h = h, k = k, nlv = nlv)
 pars

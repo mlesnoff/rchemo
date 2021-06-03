@@ -1,5 +1,14 @@
 ## NEWS for package **rchemo**
 
+## **Version 0.0-5**
+
+- Modifications of functions
+
+  - **plsr_agg**, **lwplsr_agg**: The syntax of argument "nlv" has been modified. See the examples in the corresponding help pages.
+
+
+
+
 ## **Version 0.0-4**
 
 - New functions:
