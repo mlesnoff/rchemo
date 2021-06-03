@@ -1,4 +1,5 @@
 plsqda <- function(X, y, weights = NULL, nlv, prior = c("unif", "prop")) {
+    prior <- match.arg(prior)
     if(is.factor(y))
         y <- as.character(y)
     X <- .mat(X)

@@ -9,14 +9,14 @@ locw <- function(Xtrain, Ytrain, X, listnn, listw = NULL, fun, verb = FALSE, ...
             cat(i, " ")
         s <- listnn[[i]]
         zYtrain <- Ytrain[s, , drop = FALSE]
-        nval <- length(unique(zYtrain))
-        ## For discrimination, 
+        ##----- For discrimination, 
         ## case where all the neighbors are of same class
+        nval <- length(unique(zYtrain))
         if(q == 1 & nval == 1) {
             fm <- NULL
             pred[i, ] <- zYtrain[1]
             }
-        ## End
+        ##----- End
         else {
             if(is.null(listw))
                 fm <- fun(Xtrain[s, , drop = FALSE], zYtrain, ...)
@@ -48,14 +48,14 @@ locwlv <- function(Xtrain, Ytrain, X, listnn, listw = NULL, fun, nlv, verb = FAL
         s <- listnn[[i]]
         zYtrain <- Ytrain[s, , drop = FALSE]
         nval <- length(unique(zYtrain))
-        ## For discrimination, 
+        ##----- For discrimination, 
         ## case where all the neighbors are of same class
         if(q == 1 & nval == 1) {
             fm <- NULL
             for(a in seq_len(le_nlv)) 
                 res[i, , a] <- zYtrain[1]
             }
-        ## End
+        ##----- End
         else {   
             if(is.null(listw))
                 fm <- fun(Xtrain[s, , drop = FALSE], zYtrain, 

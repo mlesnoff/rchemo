@@ -6,6 +6,15 @@
 
   - **plsr_agg**, **lwplsr_agg**: The syntax of argument "nlv" has been modified. See the examples in the corresponding help pages.
 
+- New functions
+
+  - **lwplslda**
+
+
+
+
+
+
 
 
 

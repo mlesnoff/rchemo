@@ -1,14 +1,16 @@
 \name{lwplsrda}
 \alias{lwplsrda}
+\alias{lwplslda}
 \alias{predict.Lwplsrda}
-
 \encoding{latin1}
 
-\title{KNN-LWPLSRDA}
+\title{KNN-LWPLS-DA Models}
 
 \description{
 
-Function \code{lwplsrda} fits KNN-LWPLSRDA models. This is the same methodology as for \code{\link{lwplsr}} except that PLSR is replaced by PLSRDA. See the help page of \code{\link{lwplsr}} for details.
+- \code{lwplsrda}: KNN-LWPLSRDA models. This is the same methodology as for \code{\link{lwplsr}} except that PLSR is replaced by PLSRDA. See the help page of \code{\link{lwplsr}} for details.
+
+- \code{lwplslda}: Same as above but PLSRDA is replaced by either PLSLDA or PLSQDA, depending on argument \code{typda}.
 
 }
 
@@ -22,7 +24,19 @@ lwplsrda(
     verb = FALSE
     )
 
+lwplslda(
+    X, y,
+    nlvdis, diss = c("eucl", "mahal"),
+    h, k,
+    nlv,
+    prior = c("unif", "prop"),
+    typda = c("lda", "qda"),
+    verb = FALSE
+    ) 
+
 \method{predict}{Lwplsrda}(object, X, ..., nlv = NULL)  
+
+\method{predict}{Lwplslda}(object, X, ..., nlv = NULL)  
 
 }
 
@@ -41,6 +55,10 @@ lwplsrda(
 \item{k}{The number of nearest neighbors to select for each observation to predict.}
 
 \item{nlv}{The number(s) of LVs to calculate in the local PLSDA models.}
+
+\item{prior}{For \code{lwplslda}. See the help page of \code{\link{plslda}}.}
+
+\item{typda}{For \code{lwplslda}. Possible values are \code{"lda"} (default; \code{\link{plslda}} is used) or \code{"qda"} (\code{\link{plsqda}} is used).}
 
 \item{verb}{Logical. If \code{TRUE}, fitting information are printed.}
 

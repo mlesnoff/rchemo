@@ -4,6 +4,7 @@ lwplsr_agg <- function(
     h, k,
     nlv, 
     verb = FALSE) {
+    diss <- match.arg(diss)
     structure(
         list(X = X, Y = Y,
              nlvdis = nlvdis, diss = diss, 
@@ -20,11 +21,11 @@ predict.Lwplsragg <- function(object, X, ...) {
         zfm <- plskern(object$X, object$Y, nlv = object$nlvdis)
         res <- getknn(zfm$T, transform(zfm, X), k = object$k, diss = object$diss)
         }
-    ## End
     listw <- lapply(res$listd, wdist, h = object$h)    
+    ## End
     pred <- locw(object$X, object$Y, X,
-        listnn = res$listnn, listw = listw, fun = plsr_agg, nlv = object$nlv, 
-        verb = object$verb)$pred
+        listnn = res$listnn, listw = listw,
+        fun = plsr_agg, nlv = object$nlv, verb = object$verb)$pred
     list(pred = pred, listnn = res$listnn, listd = res$listd, listw = listw)
     }
 

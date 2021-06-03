@@ -4,6 +4,7 @@ lwplsr <- function(
     h, k,
     nlv,
     verb = FALSE) {
+    diss <- match.arg(diss)
     structure(
         list(X = X, Y = Y,
              nlvdis = nlvdis, diss = diss, 
@@ -11,8 +12,7 @@ lwplsr <- function(
         class = "Lwplsr")
     }
     
-    
-.predict_lwpls <- function(object, X, ..., nlv = NULL, fun) {
+predict.Lwplsr <- function(object, X, ..., nlv = NULL) {
     X <- .mat(X)
     A <- object$nlv
     if(is.null(nlv))
@@ -20,31 +20,22 @@ lwplsr <- function(
     else 
         nlv <- seq(min(nlv), min(max(nlv), A))
     le_nlv <- length(nlv)
-    if(is.null(object$Y))
-        da <- TRUE
-    else
-        da <- FALSE
     ## Getknn
     if (object$nlvdis == 0)
         res <- getknn(object$X, X, k = object$k, diss = object$diss)
     else {
-        if(da)
-            object$Y <- dummy(object$y)$Y
         fm <- plskern(object$X, object$Y, nlv = object$nlvdis)
         res <- getknn(fm$T, transform(fm, X), k = object$k, diss = object$diss)
         }
-    ## End
     listw <- lapply(res$listd, wdist, h = object$h)    
-    if(da)
-        object$Y <- object$y
+    ## End
     pred <- locwlv(object$X, object$Y, X,
-        listnn = res$listnn, listw = listw, fun = fun, nlv = nlv, verb = object$verb)$pred
+        listnn = res$listnn, listw = listw, 
+        fun = plskern, nlv = nlv, verb = object$verb)$pred
     list(pred = pred, listnn = res$listnn, listd = res$listd, listw = listw)    
     }
 
-predict.Lwplsr <- function(object, X, ..., nlv = NULL)
-    .predict_lwpls(object, X, ..., nlv = nlv, fun = plskern)
-    
+
 
 
 

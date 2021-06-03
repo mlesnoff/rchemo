@@ -68,6 +68,7 @@ S3method(predict, Dkrr)
 
 S3method(predict, Lwplsr)
 S3method(predict, Lwplsrda)
+S3method(predict, Lwplslda)
 
 S3method(predict, Lwplsragg)
 
