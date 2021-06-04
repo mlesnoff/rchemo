@@ -30,7 +30,7 @@ lmr(X, Y, weights = NULL)
 
 \item{object}{A fitted model, output of a call to the main functions.}
 
-\item{...}{Optional arguments.}
+\item{...}{Optional arguments. Not used.}
 
 }
 

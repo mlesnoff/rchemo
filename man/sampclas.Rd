@@ -6,7 +6,7 @@
 
 \description{
 
-The function divides a datset in two sets, "train" vs "test", using a atratified sampling on pre-defined classes.
+The function divides a datset in two sets, "train" vs "test", using a stratified sampling on pre-defined classes.
 
 If argument \code{y = NULL} (default), the sampling is random within each class. If not, the sampling is systematic (regular grid) over the quantitative variable \eqn{y}.
 

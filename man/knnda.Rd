@@ -28,7 +28,7 @@ knnda(X, y,
 
 \item{X}{For the main functions: Training X-data (\eqn{n, p}). --- For the auxiliary functions: New X-data (\eqn{m, p}) to consider.}
 
-\item{y}{Training class membership (\eqn{n}).}
+\item{y}{Training class membership (\eqn{n}). \bold{Note:} If \code{y} is a factor, it is replaced by a character vector.}
 
 \item{nlvdis}{The number of LVs to consider in the global PLS used for the dimension reduction before calculating the dissimilarities. If \code{nlvdis = 0}, there is no dimension reduction.}
 
@@ -40,7 +40,7 @@ knnda(X, y,
 
 \item{object}{A fitted model, output of a call to the main function.}
 
-\item{...}{Optional arguments.}
+\item{...}{Optional arguments. Not used.}
 
 }
 

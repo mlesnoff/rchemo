@@ -54,7 +54,7 @@ lwplsr(X, Y,
 
 }
 
-\value{See the examples.}
+\value{See the examples. Not used.}
 
 \references{
 

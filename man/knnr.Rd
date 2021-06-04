@@ -40,7 +40,7 @@ knnr(X, Y,
 
 \item{object}{A fitted model, output of a call to the main function.}
 
-\item{...}{Optional arguments.}
+\item{...}{Optional arguments. Not used.}
 
 }
 

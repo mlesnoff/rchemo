@@ -23,13 +23,13 @@ lmrda(X, y, weights = NULL)
 
 \item{X}{For the main functions: Training X-data (\eqn{n, p}). --- For auxiliary functions: New X-data (\eqn{m, p}) to consider.}
 
-\item{y}{Training class membership (\eqn{n}).}
+\item{y}{Training class membership (\eqn{n}). \bold{Note:} If \code{y} is a factor, it is replaced by a character vector.}
 
 \item{weights}{Weights (\eqn{n}) to apply to the training observations for the PLS2. Internally, weights are "normalized" to sum to 1. Default to \code{NULL} (weights are set to \eqn{1 / n}).}
 
 \item{object}{A fitted model, output of a call to the main functions.}
 
-\item{...}{Optional arguments.}
+\item{...}{Optional arguments. Not used.}
 
 }
 

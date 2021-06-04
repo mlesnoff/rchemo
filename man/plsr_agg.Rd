@@ -33,7 +33,7 @@ plsr_agg(X, Y, weights = NULL, nlv)
 
 \item{object}{A fitted model, output of a call to the main functions.}
 
-\item{...}{Optional arguments.}
+\item{...}{Optional arguments. Not used.}
 
 }
 

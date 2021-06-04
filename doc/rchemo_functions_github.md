@@ -167,6 +167,7 @@
 
 #### Datasets
 
+- ***asdgap** ASD spectra with vertical gaps
 - ***cassav*** Tropical shrubs
 - ***forages*** Tropical forages
 - ***octane*** Gazoline "octane" dataset
