@@ -1,5 +1,22 @@
 ## NEWS for package **rchemo**
 
+## **Version 0.0-7**
+
+- New functions
+
+  - **plsrda_agg**, **plslda_agg**
+
+  - **lwplslda**, **lwplsqda**
+
+
+
+
+
+
+
+
+
+
 ## **Version 0.0-6**
 
 - Modification of functions
@@ -13,15 +30,6 @@
 - Modifications of functions
 
   - **plsr_agg**, **lwplsr_agg**: The syntax of argument "nlv" has been modified. See the examples in the corresponding help pages.
-
-- New functions
-
-  - **lwplslda**
-
-
-
-
-
 
 
 

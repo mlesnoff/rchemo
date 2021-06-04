@@ -3,14 +3,14 @@
 \alias{plslda}
 \alias{plsqda}
 \alias{predict.Plsrda}
-\alias{predict.Plsdaprob}
+\alias{predict.Plsprobda}
 \encoding{latin1}
 
 \title{PLSDA models}
 
 \description{
 
-Discrimination (DA) based on PLSR.
+Discrimination (DA) based on PLS.
 
 The training variable \eqn{y} (univariate class membership) is firstly transformed to a dummy table containing \eqn{nclas} columns, where \eqn{nclas} is the number of classes present in \eqn{y}. Each column is a dummy variable (0/1). Then, a PLS2 is implemented on the \eqn{X-}data and the dummy table, returning latent variables (LVs) that are used as dependent variables in a DA model.
 
@@ -30,7 +30,7 @@ plsqda(X, y, weights = NULL, nlv, prior = c("unif", "prop"))
 
 \method{predict}{Plsrda}(object, X, ..., nlv = NULL) 
 
-\method{predict}{Plsdaprob}(object, X, ..., nlv = NULL) 
+\method{predict}{Plsprobda}(object, X, ..., nlv = NULL) 
 
 }
 

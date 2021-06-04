@@ -4,27 +4,43 @@ lwplslda <- function(
     h, k,
     nlv,
     prior = c("unif", "prop"),
-    typda = c("lda", "qda"),
     verb = FALSE
     ) {
     diss <- match.arg(diss)
     prior <- match.arg(prior)
-    typda <- match.arg(typda)
     structure(
         list(X = X, y = y,
              nlvdis = nlvdis, diss = diss, 
              h = h, k = k, nlv = nlv, 
-             prior = prior, typda = typda, verb = verb),
-        class = "Lwplslda")
+             typda = "lda", prior = prior, verb = verb),
+        class = "Lwplsprobda")
     }
-    
-predict.Lwplslda <- function(object, X, ..., nlv = NULL) {
+
+lwplsqda <- function(
+    X, y,
+    nlvdis, diss = c("eucl", "mahal"),
+    h, k,
+    nlv,
+    prior = c("unif", "prop"),
+    verb = FALSE
+    ) {
+    diss <- match.arg(diss)
+    prior <- match.arg(prior)
+    structure(
+        list(X = X, y = y,
+             nlvdis = nlvdis, diss = diss, 
+             h = h, k = k, nlv = nlv, 
+             typda = "qda", prior = prior, verb = verb),
+        class = "Lwplsprobda")
+}
+
+predict.Lwplsprobda <- function(object, X, ..., nlv = NULL) {
     X <- .mat(X)
     A <- object$nlv
     if(is.null(nlv))
         nlv <- A 
     else 
-        nlv <- seq(min(nlv), min(max(nlv), A))
+        nlv <- seq(max(1, min(nlv)), min(max(nlv), A))
     le_nlv <- length(nlv)
     ## Getknn
     if (object$nlvdis == 0)

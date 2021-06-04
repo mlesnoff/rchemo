@@ -1,4 +1,4 @@
-plslda <- function(X, y, weights = NULL, nlv, prior = c("unif", "prop")) {
+.plsprobda <- function(X, y, weights = NULL, nlv, fun, prior = c("unif", "prop")) {
     prior <- match.arg(prior)
     if(is.factor(y))
         y <- as.character(y)
@@ -19,11 +19,18 @@ plslda <- function(X, y, weights = NULL, nlv, prior = c("unif", "prop")) {
     z <- fm[[1]]$T
     fm[[2]] <- vector(length = nlv, mode = "list")
     for(i in seq_len(nlv))
-      fm[[2]][[i]] <- lda(z[, seq_len(i), drop = FALSE], y, prior = prior)
-    structure(fm, class = "Plsdaprob")       
-  }
+        fm[[2]][[i]] <- fun(z[, seq_len(i), drop = FALSE], y, prior = prior)
+    structure(fm, class = "Plsprobda")       
+}
 
-predict.Plsdaprob <- function(object, X, ..., nlv = NULL) {
+plslda <- function(X, y, weights = NULL, nlv, prior = c("unif", "prop"))
+    .plsprobda(X, y, weights, nlv, fun = lda, prior = prior)
+
+plsqda <- function(X, y, weights = NULL, nlv, prior = c("unif", "prop"))
+    .plsprobda(X, y, weights, nlv, fun = qda, prior = prior)
+
+
+predict.Plsprobda <- function(object, X, ..., nlv = NULL) {
     X <- .mat(X)
     A <- length(object[[2]])
     if(is.null(nlv))
@@ -38,12 +45,11 @@ predict.Plsdaprob <- function(object, X, ..., nlv = NULL) {
         zres <- predict(object[[2]][[znlv]], z)
         pred[[i]] <- zres$pred
         posterior[[i]] <- zres$posterior
-        }
+    }
     names(posterior) <- names(pred) <- paste("lv", nlv, sep = "")
     if(le_nlv == 1) {
         pred <- pred[[1]] 
         posterior <- posterior[[1]]
-      }
+    }
     list(pred = pred, posterior = posterior)
-  }
-
+}

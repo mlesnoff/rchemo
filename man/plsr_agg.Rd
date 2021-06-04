@@ -9,7 +9,7 @@
 
 Ensemblist approach where the predictions are calculated by averaging the predictions of PLSR models (\code{\link{plskern}}) built with different numbers of latent variables (LVs). 
 
-For instance, if argument \code{nlv} is set to \code{nlv = 5:10}, the predictions are the average (without weighting) of the models with 5 LVS, 6 LVs, ... 10 LVs.
+For instance, if argument \code{nlv} is set to \code{nlv = 5:10}, the prediction for a new observation is the average (without weighting) of the predictions returned by the models with 5 LVS, 6 LVs, ... 10 LVs.
 
 }
 
@@ -79,8 +79,7 @@ res <- gridscore(
     Xtrain, Ytrain, Xtest, Ytest, 
     score = msep, 
     fun = plsr_agg, 
-    pars = pars
-    )
+    pars = pars)
 res
 
 ## Gridcv
@@ -93,8 +92,7 @@ res <- gridcv(
     segm, score = msep, 
     fun = plsr_agg, 
     pars = pars,
-    verb = TRUE
-    )
+    verb = TRUE)
 res
 
 }
