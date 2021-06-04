@@ -80,8 +80,14 @@
 
 #### <span style="color:#1589F0"> ENSEMBLIST METHODS </span>
 
-- ***plsr_agg*** PLSR with averaging predictions over LVs
-- ***lwplsr_agg*** KNN-LWPLSR with averaging predictions over LVs
+##### Averaging PLS models with different numbers of LVs
+
+- ***plsr_agg*** PLSR-AGG
+- ***lwplsr_agg*** KNN-LWPLSR-AGG
+- ***plsrda_agg*** PLSRDA-AGG
+- ***lwplsrda_agg*** KNN-LWPLSR-DA-AGG
+- ***lwplslda_agg*** KNN-LWPLS-LDA-AGG
+- ***lwplslda_agg*** KNN-LWPLS-QDA-AGG
 
 #### <span style="color:#1589F0"> TUNING MODELS </span>
 

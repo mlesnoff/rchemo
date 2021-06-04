@@ -10,7 +10,7 @@ lwplsr_agg <- function(
              nlvdis = nlvdis, diss = diss, 
              h = h, k = k, nlv = nlv, verb = verb),
         class = "Lwplsr_agg")
-    }
+}
     
 predict.Lwplsr_agg <- function(object, X, ...) {
     X <- .mat(X)
@@ -20,14 +20,15 @@ predict.Lwplsr_agg <- function(object, X, ...) {
     else {
         zfm <- plskern(object$X, object$Y, nlv = object$nlvdis)
         res <- getknn(zfm$T, transform(zfm, X), k = object$k, diss = object$diss)
-        }
+    }
     listw <- lapply(res$listd, wdist, h = object$h)    
     ## End
     pred <- locw(object$X, object$Y, X,
         listnn = res$listnn, listw = listw,
-        fun = plsr_agg, nlv = object$nlv, verb = object$verb)$pred
+        fun = plsr_agg, nlv = object$nlv, 
+        verb = object$verb)$pred
     list(pred = pred, listnn = res$listnn, listd = res$listd, listw = listw)
-    }
+}
 
 
 

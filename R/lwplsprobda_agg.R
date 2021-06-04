@@ -1,8 +1,8 @@
-lwplslda <- function(
+lwplslda_agg <- function(
     X, y,
     nlvdis, diss = c("eucl", "mahal"),
     h, k,
-    nlv,
+    nlv, 
     prior = c("unif", "prop"),
     verb = FALSE
     ) {
@@ -13,10 +13,10 @@ lwplslda <- function(
              nlvdis = nlvdis, diss = diss, 
              h = h, k = k, nlv = nlv, 
              typda = "lda", prior = prior, verb = verb),
-        class = "Lwplsprobda")
+        class = "Lwplsprobda_agg")
 }
-
-lwplsqda <- function(
+ 
+lwplsqda_agg <- function(
     X, y,
     nlvdis, diss = c("eucl", "mahal"),
     h, k,
@@ -31,32 +31,33 @@ lwplsqda <- function(
              nlvdis = nlvdis, diss = diss, 
              h = h, k = k, nlv = nlv, 
              typda = "qda", prior = prior, verb = verb),
-        class = "Lwplsprobda")
+        class = "Lwplsprobda_agg")
 }
 
-predict.Lwplsprobda <- function(object, X, ..., nlv = NULL) {
+predict.Lwplsprobda_agg <- function(object, X, ...) {
     X <- .mat(X)
-    A <- object$nlv
-    if(is.null(nlv))
-        nlv <- A 
-    else 
-        nlv <- seq(max(1, min(nlv)), min(max(nlv), A))
-    le_nlv <- length(nlv)
     ## Getknn
     if (object$nlvdis == 0)
         res <- getknn(object$X, X, k = object$k, diss = object$diss)
     else {
         object$Y <- dummy(object$y)$Y
-        fm <- plskern(object$X, object$Y, nlv = object$nlvdis)
-        res <- getknn(fm$T, transform(fm, X), k = object$k, diss = object$diss)
+        zfm <- plskern(object$X, object$Y, nlv = object$nlvdis)
+        res <- getknn(zfm$T, transform(zfm, X), k = object$k, diss = object$diss)
     }
     listw <- lapply(res$listd, wdist, h = object$h)    
     ## End
     fun <- switch(object$typda, 
-                  lda = plslda, qda = plsqda)
-    pred <- locwlv(object$X, object$y, X,
-                   listnn = res$listnn, listw = listw, 
-                   fun = fun, nlv = nlv, prior = object$prior,
-                   verb = object$verb)$pred
-    list(pred = pred, listnn = res$listnn, listd = res$listd, listw = listw)    
+                  lda = plslda_agg, qda = plsqda_agg)
+    pred <- locw(object$X, object$y, X,
+        listnn = res$listnn, listw = listw,
+        fun = fun, nlv = object$nlv, prior = object$prior, 
+        verb = object$verb)$pred
+    list(pred = pred, listnn = res$listnn, listd = res$listd, listw = listw)
 }
+
+
+
+
+
+
+

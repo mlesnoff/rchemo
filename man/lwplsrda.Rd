@@ -1,6 +1,7 @@
 \name{lwplsrda}
 \alias{lwplsrda}
 \alias{lwplslda}
+\alias{lwplsqda}
 \alias{predict.Lwplsrda}
 \alias{predict.Lwplsprobda}
 \encoding{latin1}
@@ -65,13 +66,13 @@ lwplsqda(
 
 \item{nlv}{The number(s) of LVs to calculate in the local PLSDA models.}
 
-\item{prior}{For \code{lwplslda} and \code{lwplsqda}. See the help page of \code{\link{plslda}}.}
+\item{prior}{The prior probabilities of the classes. Possible values are "unif" (default; probabilities are set equal for all the classes) or "prop" (probabilities are set equal to the observed proportions of the classes in \code{y}).}
 
 \item{verb}{Logical. If \code{TRUE}, fitting information are printed.}
 
 \item{object}{A fitted model, output of a call to the main function.}
 
-\item{...}{Optional arguments.}
+\item{...}{Optional arguments. Not used.}
 
 }
 

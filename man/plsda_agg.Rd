@@ -11,7 +11,7 @@
 
 Ensemblist approach where the predictions are calculated by "averaging" the predictions of PLSDA models built with different numbers of latent variables (LVs). 
 
-For instance, if argument \code{nlv} is set to \code{nlv = 5:10}, the prediction for a new observation is the most occurent level (vote) over the predictions returned by the models with 5 LVS, 6 LVs, ... 10 LVs.
+For instance, if argument \code{nlv} is set to \code{nlv = "5:10"}, the prediction for a new observation is the most occurent level (vote) over the predictions returned by the models with 5 LVS, 6 LVs, ... 10 LVs.
 
 - \code{plsrda_agg}: use \code{\link{plsrda}}.
 

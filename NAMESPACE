@@ -72,6 +72,8 @@ S3method(predict, Lwplsrda)
 S3method(predict, Lwplsprobda)
 
 S3method(predict, Lwplsr_agg)
+S3method(predict, Lwplsrda_agg)
+S3method(predict, Lwplsprobda_agg)
 
 S3method(predict, Knnr)
 S3method(predict, Knnda)

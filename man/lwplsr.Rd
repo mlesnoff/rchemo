@@ -86,8 +86,7 @@ fm <- lwplsr(
     Xtrain, Ytrain, 
     nlvdis = nlvdis, diss = diss,
     h = h, k = k,
-    nlv = nlv
-    )
+    nlv = nlv)
 res <- predict(fm, Xtest)
 names(res)
 res$pred

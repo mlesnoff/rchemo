@@ -4,15 +4,9 @@
 
 - New functions
 
-  - **plsrda_agg**, **plslda_agg**
+  - **plsrda_agg**, **plslda_agg**, **plsqda_agg**
 
   - **lwplslda**, **lwplsqda**
-
-
-
-
-
-
 
 
 
