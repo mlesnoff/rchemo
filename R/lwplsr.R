@@ -14,11 +14,11 @@ lwplsr <- function(
     
 predict.Lwplsr <- function(object, X, ..., nlv = NULL) {
     X <- .mat(X)
-    A <- object$nlv
+    a <- object$nlv
     if(is.null(nlv))
-        nlv <- A 
+        nlv <- a 
     else 
-        nlv <- seq(min(nlv), min(max(nlv), A))
+        nlv <- seq(min(nlv), min(max(nlv), a))
     le_nlv <- length(nlv)
     ## Getknn
     if (object$nlvdis == 0)

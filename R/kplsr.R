@@ -31,7 +31,7 @@ kplsr <- function(X, Y, weights = NULL, nlv, kern = "krbf",
         }
         else {
             u <- Y[, 1]
-            ztol <- 1
+            ztol <- .Machine$double.eps^0.5
             iter <- 1
             while(ztol > tol & iter <= maxit) {
                 t <- K %*% (weights * u)

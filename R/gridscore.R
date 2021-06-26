@@ -16,8 +16,7 @@ gridscore <- function(Xtrain, Ytrain, X, Y, score, fun, pars, verb = FALSE) {
             print(data.frame(zpars))
         fm <- do.call(
             fun, 
-            c(list(Xtrain, Ytrain), zpars)
-            )
+            c(list(Xtrain, Ytrain), zpars))
         pred <- predict(fm, X)$pred
         res[i, ] <- score(pred, Y)
     }
@@ -38,7 +37,7 @@ gridscorelv <- function(Xtrain, Ytrain, X, Y, score, fun, nlv, pars = NULL, verb
     q <- dim(Ytrain)[2]
     nlv <- seq(min(nlv), max(nlv))
     le_nlv <- length(nlv) 
-    ## Case where pars is empty
+    ## Case where pars is NULL
     if(is.null(pars)) {
         if(verb) 
             cat("-- Nb. combinations = 0 \n")
@@ -65,8 +64,7 @@ gridscorelv <- function(Xtrain, Ytrain, X, Y, score, fun, nlv, pars = NULL, verb
                 print(data.frame(zpars))
             fm <- do.call(
                 fun,
-                c(list(Xtrain, Ytrain), nlv = max(nlv), zpars)
-                )
+                c(list(Xtrain, Ytrain), nlv = max(nlv), zpars))
             zpred <- predict(fm, X, nlv = nlv)$pred
             if(le_nlv == 1)
                 zpred <- list(zpred)
