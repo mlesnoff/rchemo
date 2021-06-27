@@ -18,6 +18,7 @@ kpca <- function(X, weights = NULL, nlv, kern = "krbf", ...) {
     Kd <- sqrt(weights) * t(sqrt(weights) * t(Kc))
     fm <- svd(Kd, nu = 0)
     U <- fm$v[, seq_len(nlv)]
+
     eig <- fm$d
     eig[eig < 0] <- 0
     sv <- sqrt(eig)
@@ -56,7 +57,7 @@ transform.Kpca <- function(object, X, ..., nlv = NULL) {
     K <- do.call(object$kern, c(list(X = X, Y = object$X), object$dots))
     Kc <- t(t(K - colSums(weights * t(K))) - colSums(weights * object$Kt)) + 
         sum(weights * t(weights * object$Kt))
-    T <- Kc %*% object$P 
+    T <- Kc %*% object$P[, seq_len(nlv)] 
     T       
 }
 
