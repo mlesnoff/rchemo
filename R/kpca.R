@@ -9,10 +9,10 @@ kpca <- function(X, weights = NULL, nlv, kern = "krbf", ...) {
     dots <- list(...)
     K <- kern(X, ...)
     ## If non-symmetric Gram matrix
-    tK <- t(K)
+    Kt <- t(K)
     ## Kc = Phi * Phi', where Phi is centered
-    Kc <- t(t(K - colSums(weights * tK)) - colSums(weights * tK)) + 
-        sum(weights * t(weights * tK))
+    Kc <- t(t(K - colSums(weights * Kt)) - colSums(weights * Kt)) + 
+        sum(weights * t(weights * Kt))
     ## Kd = D^(1/2) * Kc * D^(1/2) 
     ## = U * Delta^2 * U'
     Kd <- sqrt(weights) * t(sqrt(weights) * t(Kc))
@@ -21,13 +21,13 @@ kpca <- function(X, weights = NULL, nlv, kern = "krbf", ...) {
     eig <- fm$d
     eig[eig < 0] <- 0
     sv <- sqrt(eig)
-    P <- sqrt(weights) * .scale(U, scale = sv)
+    P <- sqrt(weights) * .scale(U, scale = sv[seq_len(nlv)])
     ## T = Kc * P = D^(-1/2) * U * Delta
     T <- Kc %*% P
     ## = 1 / sqrt(weights) * .scale(U, scale = 1 / sv)
     colnames(T) <- colnames(P) <- paste("pc", seq_len(nlv), sep = "")
     structure(
-        list(X = X, tK = tK, T = T, P = P, sv = sv, eig = eig,
+        list(X = X, Kt = Kt, T = T, P = P, sv = sv, eig = eig,
             weights = weights, kern = kern, dots = dots),
         class = c("Kpca"))
 }
@@ -54,8 +54,8 @@ transform.Kpca <- function(object, X, ..., nlv = NULL) {
     weights <- object$weights
     ## Kc = Knew
     K <- do.call(object$kern, c(list(X = X, Y = object$X), object$dots))
-    Kc <- t(t(K - colSums(weights * t(K))) - colSums(weights * object$tK)) + 
-        sum(weights * t(weights * object$tK))
+    Kc <- t(t(K - colSums(weights * t(K))) - colSums(weights * object$Kt)) + 
+        sum(weights * t(weights * object$Kt))
     T <- Kc %*% object$P 
     T       
 }

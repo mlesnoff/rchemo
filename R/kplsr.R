@@ -15,12 +15,12 @@ kplsr <- function(X, Y, weights = NULL, nlv, kern = "krbf",
     dots <- list(...)
     K <- kern(X, ...)
     ## If non-symmetric Gram matrix
-    tK <- t(K)
-    Kc <- K <- t(t(K - colSums(weights * tK)) - colSums(weights * tK)) + 
-        sum(weights * t(weights * tK))
+    Kt <- t(K)
+    Kc <- K <- t(t(K - colSums(weights * Kt)) - colSums(weights * Kt)) + 
+        sum(weights * t(weights * Kt))
     nam <- paste("lv", seq_len(nlv), sep = "")
     U <- T <- matrix(nrow = n, ncol = nlv, dimnames = list(row.names(X), nam))                     
-    C <- matrix(nrow = q, ncol = nlv, dimnames = list(colnames(Y), nam))                     
+    C <- matrix(nrow = q, ncol = nlv, dimnames = list(colnames(Y), nam)) 
     for(a in seq_len(nlv)) {
         if(q == 1) {
             t <- K %*% (weights * Y)
@@ -31,7 +31,7 @@ kplsr <- function(X, Y, weights = NULL, nlv, kern = "krbf",
         }
         else {
             u <- Y[, 1]
-            ztol <- .Machine$double.eps^0.5
+            ztol <- 1
             iter <- 1
             while(ztol > tol & iter <= maxit) {
                 t <- K %*% (weights * u)
@@ -56,7 +56,7 @@ kplsr <- function(X, Y, weights = NULL, nlv, kern = "krbf",
     DU <- weights * U
     zR <- DU %*% solve(crossprod(T, weights * Kc) %*% DU)
     structure(
-        list(X = X, tK = tK, T = T, C = C, U = U, R = zR,
+        list(X = X, Kt = Kt, T = T, C = C, U = U, R = zR,
              ymeans = ymeans, weights = weights,
              kern = kern, dots = dots),
         class = c("Kplsr", "Kpls"))
@@ -71,8 +71,8 @@ transform.Kplsr <- function(object, X, ..., nlv = NULL) {
         nlv <- min(nlv, a)
     weights <- object$weights
     K <- do.call(object$kern, c(list(X = X, Y = object$X), object$dots))
-    Kc <- t(t(K - colSums(weights * t(K))) - colSums(weights * object$tK)) + 
-        sum(weights * t(weights * object$tK))
+    Kc <- t(t(K - colSums(weights * t(K))) - colSums(weights * object$Kt)) + 
+        sum(weights * t(weights * object$Kt))
     T <- Kc %*% object$R[, seq_len(nlv), drop = FALSE]
     T
     }

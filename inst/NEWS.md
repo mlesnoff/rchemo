@@ -1,5 +1,14 @@
 ## NEWS for package **rchemo**
 
+## **Version 0.0-8**
+
+- Code cleaning
+
+- A bug was fixed in function **kpca**
+
+
+
+
 ## **Version 0.0-7**
 
 - New functions
