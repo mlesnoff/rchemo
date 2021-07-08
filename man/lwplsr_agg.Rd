@@ -4,13 +4,13 @@
 
 \encoding{latin1}
 
-\title{KNN-LWPLSR with aggregation of latent variables}
+\title{Aggregation of KNN-LWPLSR models with different numbers of LVs}
 
 \description{
 
-Ensemblist approach where the predictions are calculated by averaging the predictions of KNN-LWPLSR models (\code{\link{lwplsr}}) built with different numbers of latent variables (LVs). 
+Ensemblist method where the predictions are calculated by averaging the predictions of KNN-LWPLSR models (\code{\link{lwplsr}}) built with different numbers of latent variables (LVs). 
 
-For instance, if argument \code{nlv} is set to \code{nlv = "5:10"}, the prediction for a new observation is the average (without weighting) of the predictions returned by the models with 5 LVS, 6 LVs, ... 10 LVs. 
+For instance, if argument \code{nlv} is set to \code{nlv = "5:10"}, the prediction for a new observation is the simple average of the predictions returned by the models with 5 LVS, 6 LVs, ... 10 LVs, respectively. 
 
 }
 

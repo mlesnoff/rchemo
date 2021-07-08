@@ -29,7 +29,6 @@ xfit.Plsr <- function(object, X, ..., nlv = NULL) {
     if(nlv == 0) {
         m <- dim(X)[1]
         z <- rep(object$xmeans, m)
-        print(z)
         X <- .mat(matrix(z, nrow = m, byrow = TRUE))
         } 
     else

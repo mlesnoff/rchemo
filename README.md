@@ -1,7 +1,9 @@
 ## rchemo - Dimension reduction, Regression and Discrimination for Chemometrics  
-## <span style="color:grey70"> **Version 0.0-9** </span> 
+## <span style="color:grey70"> **Version 0.0-10** </span> 
 
-**rchemo** provides elementary functions (mainly focusing on methods of dimension reduction or regularization for high dimensional data) to build ad'hoc pipelines for predictions in chemometrics or other domains. Only few examples of many possible pipelines useful in chemomtrics and machine learning are provided in the package.  
+**rchemo** provides elementary functions (mainly focusing on methods of dimension reduction or regularization for high dimensional data) to build ad'hoc pipelines for predictions in chemometrics or other domains. 
+
+Huge variety of pipelines exist in chemometrics and machine learning. Only few examples are provided in the package. The user can build some of his own pipelines with the provided elementary functions. 
 
 Generic functions such as **transform**, **predict**, **coef** and **summary** are available. The tuning of the prediction models is facilitated by functions **gridscore** (validation dataset) and **gridcv** (cross-validation), with specific fast versions for models based on latent variables (LVs) and ridge regularization.
 

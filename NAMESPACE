@@ -41,6 +41,9 @@ S3method(coef, Plsr)
 S3method(xfit, Plsr)
 S3method(predict, Plsr)
 
+S3method(coef, Cglsr)
+S3method(predict, Cglsr)
+
 S3method(predict, Plsrda)
 S3method(predict, Plsprobda)
 

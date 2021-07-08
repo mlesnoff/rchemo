@@ -1,5 +1,17 @@
 ## NEWS for package **rchemo**
 
+## **Version 0.0-10**
+
+- New functions
+
+  - cglsr: CGLSR algorithm (Björck 1996)
+  - dfplsr_cg, dfplsr_cov, dfplsr_div: Model complexity estiamtion for PLSR
+  - aicplsr: Cp and AIC for PLSR models
+  
+- Cide cleaning
+
+
+
 ## **Version 0.0-9**
 
 - A bug was fixed in function **kpca**

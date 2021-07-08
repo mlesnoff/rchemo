@@ -1,7 +1,7 @@
 Package: rchemo
 Type: Package
 Title: Dimension reduction, Regression and Discrimination for Chemometrics
-Version: 0.0-9
+Version: 0.0-10
 Author: Matthieu Lesnoff <matthieu.lesnoff@cirad.fr>
 Maintainer: Matthieu Lesnoff <matthieu.lesnoff@cirad.fr>
 Description: Dimension reduction, regression and discrimination, with special focus on chemometrics.

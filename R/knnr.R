@@ -4,7 +4,7 @@ knnr <- function(X, Y,
     ) {
     structure(
         list(X = X, Y = Y,
-             nlvdis = nlvdis, diss = diss, 
+             nlvdis = nlvdis, diss = match.arg(diss), 
              h = h, k = k),
         class = "Knnr")
     }
@@ -15,12 +15,17 @@ predict.Knnr <- function(object, X, ...) {
     object$Y <- .mat(object$Y, "y")
     q <- dim(object$Y)[2]
     ## Getknn
-    if (object$nlvdis == 0)
+    if (object$nlvdis == 0) {
         res <- getknn(object$X, X, k = object$k, diss = object$diss)
+        print(object$X)
+        print(object$diss)
+        print(res$listd)        
+        }
     else {
         fm <- plskern(object$X, object$Y, nlv = object$nlvdis)
         res <- getknn(fm$T, transform(fm, X), k = object$k, diss = object$diss)
         }
+
     ## End
     listw <- lapply(res$listd, wdist, h = object$h)  
     pred <- matrix(nrow = m, ncol = q)

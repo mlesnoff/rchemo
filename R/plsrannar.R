@@ -1,9 +1,7 @@
 plsrannar <- function(X, Y, weights = NULL, nlv) {
     X <- .mat(X)
     Y <- .mat(Y, "y")     
-    zdim <- dim(X)
-    n <- zdim[1]
-    zp <- zdim[2]
+    n <- dim(X)[1]
     q <- dim(Y)[2]
     if(is.null(weights))
         weights <- rep(1, n)

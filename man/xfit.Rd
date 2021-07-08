@@ -9,7 +9,7 @@
 
 \description{
 
-Function \code{xfit} calculates an approximate of matrix \eqn{X} (\eqn{X_fit}) from a PCA or PLS fitted on eqn{X}.
+Function \code{xfit} calculates an approximate of matrix \eqn{X} (\eqn{X_fit}) from a PCA or PLS fitted on \eqn{X}.
 
 Function \code{xresid} calculates the residual matrix \eqn{E = X - X_fit}.
 

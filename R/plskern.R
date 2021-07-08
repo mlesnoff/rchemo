@@ -3,7 +3,7 @@ plskern <- function(X, Y, weights = NULL, nlv) {
     Y <- .mat(Y, "y")     
     zdim <- dim(X)
     n <- zdim[1]
-    zp <- zdim[2]
+    p <- zdim[2]
     q <- dim(Y)[2]
     if(is.null(weights))
         weights <- rep(1, n)
@@ -14,7 +14,7 @@ plskern <- function(X, Y, weights = NULL, nlv) {
     Y <- .center(Y, ymeans)
     nam <- paste("lv", seq_len(nlv), sep = "")
     T <- matrix(nrow = n, ncol = nlv, dimnames = list(row.names(X), nam))                     
-    R <- W <- P <- matrix(nrow = zp, ncol = nlv, dimnames = list(colnames(X), nam)) 
+    R <- W <- P <- matrix(nrow = p, ncol = nlv, dimnames = list(colnames(X), nam)) 
     C <- matrix(nrow = q, ncol = nlv, dimnames = list(colnames(Y), nam))                     
     TT <- vector(length = nlv)
     Xd <- weights * X
@@ -38,10 +38,10 @@ plskern <- function(X, Y, weights = NULL, nlv) {
         t <- X %*% r 
         tt <- sum(weights * t * t)         
         c <- crossprod(tXY, r) / tt
-        p <- crossprod(Xd, t) / tt 
-        tXY <- tXY - tcrossprod(p, c) * tt    
+        zp <- crossprod(Xd, t) / tt 
+        tXY <- tXY - tcrossprod(zp, c) * tt    
         T[, a] <- t
-        P[, a] <- p
+        P[, a] <- zp
         W[, a] <- w
         R[, a] <- r
         C[, a] <- c

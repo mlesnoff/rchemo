@@ -6,13 +6,13 @@
 \alias{predict.Lwplsprobda_agg}
 \encoding{latin1}
 
-\title{KNN-LWPLSDA with aggregation of latent variables}
+\title{Aggregation of KNN-LWPLSDA models with different numbers of LVs}
 
 \description{
 
-Ensemblist approach where the predictions are calculated by "averaging" the predictions of KNN-LWPLSDA models built with different numbers of latent variables (LVs). 
+Ensemblist method where the predictions are calculated by "averaging" the predictions of KNN-LWPLSDA models built with different numbers of latent variables (LVs). 
 
-For instance, if argument \code{nlv} is set to \code{nlv = "5:10"}, the prediction for a new observation is the most occurent level (vote) over the predictions returned by the models with 5 LVS, 6 LVs, ... 10 LVs.
+For instance, if argument \code{nlv} is set to \code{nlv = "5:10"}, the prediction for a new observation is the most occurent level (vote) over the predictions returned by the models with 5 LVS, 6 LVs, ... 10 LVs, respectively.
 
 - \code{lwplsrda_agg}: use \code{\link{plsrda}}.
 

@@ -20,6 +20,8 @@ Algorithms fitting a (centered) PLS1 or PLS2 model between dependent variables \
 
 - \code{plsrannar}: Kernel algorithm proposed by Rannar et al. (1994) for "wide" matrices, i.e.  with low number of rows and very large number of columns (p >> n; e.g. p = 20000). In such a situation, this algorithm is faster than the others (but it becomes much slower in other situations). If the algorithm converges, it returns the same results as the NIPALS (Note: discrepancies can be observed if too many PLS components are requested compared to the low number of observations).
 
+For weighted versions, see for instance Schaal et al. 2002, Siccard & Sabatier 2006, Kim et al. 2011 and Lesnoff et al. 2020.
+
 \bold{Auxiliary functions}
 
 \code{transform} Calculates the LVs for any new matrix \eqn{X} from the model.
