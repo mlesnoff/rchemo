@@ -8,7 +8,7 @@
   - dfplsr_cg, dfplsr_cov, dfplsr_div: Model complexity estiamtion for PLSR
   - aicplsr: Cp and AIC for PLSR models
   
-- Cide cleaning
+- Code cleaning
 
 
 

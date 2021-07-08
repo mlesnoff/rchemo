@@ -22,6 +22,7 @@
 #### Linear
 
 - ***lmr*** Multiple linear regression
+- ***cglsr***: CGLSR algorithm for ill-conditionned systems (Björck 1996)
 
 #### Partial least squares
 
@@ -30,6 +31,11 @@
 - ***plsrannar*** Kernel version for wide matrices (Rannar et al. 1994)
 - ***kplsr*** Non linear kernel PLSR (KPLSR) (Rosipal & Trejo 2001)
 - ***dkplsr*** Direct KPLSR (Bennett & Embrechts 2003)
+
+*Auxiliary*
+
+- ***dfplsr_cg***, ***dfplsr_cov***, ***dfplsr_div***: Model complexity estiamtion for PLSR
+- ***aicplsr***: Cp and AIC for PLSR models
 
 #### Ridge
 
@@ -45,6 +51,13 @@
 
 - ***knnr*** KNN regression (KNNR)
 - ***lwplsr*** KNN Locally weighted PLSR (KNN-LWPLSR)
+
+#### Ensemblist methods
+
+*Averaging PLSR models with different numbers of LVs*
+
+- ***plsr_agg*** PLSR-AGG
+- ***lwplsr_agg*** KNN-LWPLSR-AGG  
   
 #### <span style="color:#1589F0"> DISCRIMINATION ANALYSIS </span>
   
@@ -78,12 +91,10 @@
 - ***lwplsrda*** KNN Locally weighted PLSR-DA (KNN-LWPLSR-DA)
 - ***lwplslda*** KNN Locally weighted PLS-LDA/QDA (KNN-LWPLS-LDA/QDA)
 
-#### <span style="color:#1589F0"> ENSEMBLIST METHODS </span>
+#### Ensemblist methods
 
-##### Averaging PLS models with different numbers of LVs
+*Averaging PLSR models with different numbers of LVs*
 
-- ***plsr_agg*** PLSR-AGG
-- ***lwplsr_agg*** KNN-LWPLSR-AGG
 - ***plsrda_agg*** PLSRDA-AGG
 - ***lwplsrda_agg*** KNN-LWPLSR-DA-AGG
 - ***lwplslda_agg*** KNN-LWPLS-LDA-AGG
@@ -103,7 +114,7 @@
 - ***gridcvlv*** Models with LVs (faster)
 - ***gridcvlb*** Models with ridge parameter (faster)  
 
-##### Auxiliary
+*Auxiliary*
 
 - ***segmkf*** Building segments for K-fold CV
 - ***segmts*** Building segments for test-set CV
