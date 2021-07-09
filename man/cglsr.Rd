@@ -1,6 +1,7 @@
 \name{cglsr}
 \alias{cglsr}
-\alias{dfplsr_cg}
+\alias{coef.Cglsr}
+\alias{predict.Cglsr}
 \encoding{latin1}
 
 \title{CG Least Squares Models}
@@ -19,7 +20,7 @@ Data \eqn{X} and \eqn{y} are internally centered.
 
 \usage{
 
-cglsr(X, y, nlv, reorth = true, filt = false)
+cglsr(X, y, nlv, reorth = TRUE, filt = FALSE)
 
 \method{coef}{Cglsr}(object, ..., nlv = NULL)  
 
@@ -38,6 +39,10 @@ cglsr(X, y, nlv, reorth = true, filt = false)
 \item{reorth}{Logical. If \code{TRUE}, a Gram-Schmidt reorthogonalization of the normal equation residual vectors is done.}
 
 \item{filt}{Logical. If \code{TRUE}, the filter factors are computed (output \code{F}).}
+
+\item{object}{A fitted model, output of a call to the main functions.}
+
+\item{...}{Optional arguments. Not used.}
 
 }
 

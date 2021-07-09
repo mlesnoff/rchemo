@@ -28,13 +28,11 @@ dfplsr_cg(X, y, nlv, reorth = TRUE)
 
 dfplsr_cov(
     X, y, nlv, algo = NULL,
-    maxlv = 50, B = 30, 
-    print = TRUE, ...)
+    maxlv = 50, B = 30, print = FALSE, ...)
 
 dfplsr_div(
     X, y, nlv, algo = NULL,
-    eps = 1e-2, B = 30, 
-    print = TRUE, ...) 
+    eps = 1e-2, B = 30, print = FALSE, ...) 
 
 }
 
@@ -124,6 +122,7 @@ Xs <- scale(X)    ## Scaling only for consistency with plsdof
 
 ###### CGLS estimations
 
+nlv <- 12
 res <- dfplsr_cg(Xs, y, nlv = nlv)
 
 #library(plsdof)
