@@ -4,7 +4,7 @@
 
 - New functions
 
-  - **rpd**, **rpq** : Ratios performance to deviation (Bellon-Maurel et al. TrAC 2010)
+  - **rpd**, **rpdr** : Ratios performance to deviation 
 
 
 - Modifications of functions
