@@ -1,12 +1,24 @@
 ## NEWS for package **rchemo**
 
+## **Version 0.0-11**
+
+- New functions
+
+  - **rpd**, **rpq** : Ratios performance to deviation (Bellon-Maurel et al. TrAC 2010)
+
+
+- Modifications of functions
+
+  - **mse**
+
+
 ## **Version 0.0-10**
 
 - New functions
 
-  - cglsr: CGLSR algorithm (Björck 1996)
-  - dfplsr_cg, dfplsr_cov, dfplsr_div: Model complexity estiamtion for PLSR
-  - aicplsr: Cp and AIC for PLSR models
+  - **cglsr**: CGLSR algorithm (Björck 1996)
+  - **dfplsr_cg**, **dfplsr_cov**, **dfplsr_div**: Model complexity estiamtion for PLSR
+  - **aicplsr**: Cp and AIC for PLSR models
   
 - Code cleaning
 
