@@ -23,9 +23,9 @@ The rate \eqn{R2} is calculated by \eqn{R2 = 1 - MSEP(current model) / MSEP(null
 
 Function \code{sep} computes the SEP, referred to as "corrected SEP" (SEP_c) in Bellon et al. 2010. SEP is the standard deviation of the residuals. There is the relation: \eqn{MSEP = BIAS^2 + SEP^2}.
 
-Function \code{rpd} computes the ratio of the "deviation" (sqrt of the mean of the squared residuals for the null model when it is defined by the simple average) to the "perforamnce" (sqrt of the mean of the squared residuals for the current model, i.e. RMSEP), i.e. \eqn{RPD = SD / RMSEP} (see eg. Bellon et al. 2010).
+Function \code{rpd} computes the ratio of the "deviation" (sqrt of the mean of the squared residuals for the null model when it is defined by the simple average) to the "perforamnce" (sqrt of the mean of the squared residuals for the current model, i.e. RMSEP), i.e. \eqn{RPD = SD / RMSEP = RMSEP(null model) / RMSEP} (see eg. Bellon et al. 2010).
 
-Function \code{rpdr} computes a robust version of RPD. 
+Function \code{rpdr} computes a robust RPD. 
 
 }
 

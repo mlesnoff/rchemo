@@ -10,23 +10,23 @@ residcla <- function(pred, y) {
     .mat(r,  "y")
 }
 
-# Mean of the squared residuals
+# Mean of the squared prediction errors
 msep <- function(pred, Y) {
     r <- residreg(pred, Y)
     colMeans(r^2)
 }
 
-# Square root of the mean of the squared residuals
+# Square root of the mean of the squared prediction errors
 rmsep <- function(pred, Y)
     sqrt(msep(pred, Y))
 
-# Mean of the residuals
+# Prediction bias, i.e. opposite of the mean of the prediction errors
 bias <- function(pred, Y) {
     r <- residreg(pred, Y)
     -colMeans(r)
 }
 
-# SEP = SEP_c = Variance of the residuals
+# SEP = SEP_c = Standard deviation of the prediction errors
 sep <- function(pred, Y)
     sqrt(msep(pred, Y) - bias(pred, Y)^2)
 
@@ -46,9 +46,10 @@ r2 <- function(pred, Y) {
     1 - msep(pred, Y) / msep(z, Y)
 }
 
-# RPD = SD(Y) / RMSEP
-# Ratio between the deviation: sqrt of the mean of the squared residuals of the null model (simple average)
-# and the performance : sqrt of the mean of the squared residuals of the model
+# RPD = SD(Y) / RMSEP 
+#     = RMSEP(null model) / RMSEP
+# Ratio between the deviation: sqrt of the mean of the squared prediction errors of the null model (simple average)
+# and the performance : sqrt of the mean of the squared prediction errors of the model
 rpd <- function(pred, Y) {
     Y <- .mat(Y)
     n <- dim(Y)[1]
@@ -56,8 +57,8 @@ rpd <- function(pred, Y) {
         MARGIN = 2) / rmsep(pred, Y) 
 }
 
-# Robust RPD = MAD(Y) / Median(Abs(Residuals))
-# MAD = Median(Abs(Residuals)) where the median is the null model
+# Robust RPD = MAD(Y) / Median(Abs(prediction errors))
+# MAD = Median(Abs(prediction errors)) where the median is the null model
 rpdr <- function(pred, Y) {
     u <- apply(.mat(Y), FUN = mad, MARGIN = 2) / 1.4826
     r <- residreg(pred, Y)
