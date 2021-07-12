@@ -41,7 +41,7 @@ bias(pred, Y)
 cor2(pred, Y)
 r2(pred, Y)
 rpd(pred, Y)
-rpq(pred, Y)
+rpdr(pred, Y)
 
 mse(pred, Y, digits = 3)
 
