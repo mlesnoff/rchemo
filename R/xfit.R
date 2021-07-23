@@ -1,7 +1,7 @@
 xfit <- function(object, X, ...) UseMethod("xfit")
 
-xfit.Pca <- function(object, X, ..., nlv = NULL) {
-    A <- dim(object$P)[2]
+xfit.Pca <- xfit.Plsr <- function(object, X, ..., nlv = NULL) {
+    A <- dim(object$T)[2]
     if(is.null(nlv))
         nlv <- A
     else 
@@ -17,25 +17,6 @@ xfit.Pca <- function(object, X, ..., nlv = NULL) {
             -object$xmeans
             )  
         }
-    X
-    }
-    
-xfit.Plsr <- function(object, X, ..., nlv = NULL) {
-    A <- dim(object$R)[2]
-    if(is.null(nlv))
-        nlv <- A
-    else 
-        nlv <- min(nlv, A)
-    if(nlv == 0) {
-        m <- dim(X)[1]
-        z <- rep(object$xmeans, m)
-        X <- .mat(matrix(z, nrow = m, byrow = TRUE))
-        } 
-    else
-        X <- .center(
-            tcrossprod(transform(object, X, nlv = nlv), object$R[, 1:nlv, drop = FALSE]),
-            -object$xmeans
-            )    
     X
     }
 

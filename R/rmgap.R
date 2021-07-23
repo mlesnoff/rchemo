@@ -1,4 +1,4 @@
-gaprm <- function(X, indexcol, k = 5) {
+rmgap <- function(X, indexcol, k = 5) {
     if(is.vector(X))
         X <- matrix(X, nrow = 1)
     X <- .mat(X)

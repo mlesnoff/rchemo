@@ -1,5 +1,5 @@
-\name{gaprm}
-\alias{gaprm}
+\name{rmgap}
+\alias{rmgap}
 \encoding{latin1}
 
 \title{Removing vertical gaps in spectra}
@@ -10,7 +10,7 @@ Remove the vertical gaps in spectra (rows of matrix \eqn{X}), e.g. for ASD. This
 
 }
 
-\usage{gaprm(X, indexcol, k = 5)}
+\usage{rmgap(X, indexcol, k = 5)}
 
 \arguments{
 
@@ -36,7 +36,7 @@ indexcol
 plotsp(X, lwd = 1.5)
 abline(v = as.numeric(colnames(X)[1]) + indexcol - 1, col = "lightgrey", lty = 3)
 
-zX <- gaprm(X, indexcol = indexcol)
+zX <- rmgap(X, indexcol = indexcol)
 plotsp(zX, lwd = 1.5)
 abline(v = as.numeric(colnames(zX)[1]) + indexcol - 1, col = "lightgrey", lty = 3)
 

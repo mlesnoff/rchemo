@@ -1,5 +1,5 @@
 ## rchemo - Dimension reduction, Regression and Discrimination for Chemometrics  
-## <span style="color:grey70"> **Version 0.0-11** </span> 
+## <span style="color:grey70"> **Version 0.0-12** </span> 
 
 **rchemo** provides elementary functions (mainly focusing on methods of dimension reduction or regularization for high dimensional data) to build ad'hoc pipelines for predictions in chemometrics or other domains. 
 
