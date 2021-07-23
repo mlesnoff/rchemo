@@ -2,11 +2,14 @@
 
 ## **Version 0.0-12**
 
-- Function **gaprm** renamed to **rmgap**
+- Function **gaprm** has been renamed to **rmgap**.
 
 - Bug correction:
 
   - **xfit** returned non-correct values for PLS models, which had impact on function **odis**. The bug is fixed now. It was created during the transfer from rnirs to rchemo (**odis** in rnirs returns correct values).
+
+
+
 
 
 
