@@ -175,8 +175,8 @@ Ytest <- Ytrain[1:m, ] ; ytest <- Ytest[, 1]
 
 ## Using gridscore
 lb <- c(.1, 1)
-sigma <- 10^(-1:1)
-pars <- mpars(lb = lb, sigma = sigma)
+gamma <- 10^(-1:1)
+pars <- mpars(lb = lb, gamma = gamma)
 pars
 gridscore(
     Xtrain, Ytrain, Xtest, Ytest, 
@@ -186,7 +186,7 @@ gridscore(
     )
 
 ## Using gridscorelb (much faster) 
-pars <- mpars(sigma = sigma)
+pars <- mpars(gamma = gamma)
 gridscorelb(
     Xtrain, Ytrain, Xtest, Ytest, 
     score = msep, 

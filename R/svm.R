@@ -1,21 +1,19 @@
-svmr <- function(X, y, C = 1, epsilon = .1, sigma = 1, scale = FALSE) {
+svmr <- function(X, y, cost = 1, epsilon = .1, gamma = 1, scale = FALSE) {
     fm <- e1071::svm(
         X, y,
-        cost = C, epsilon = epsilon,
-        kernel = "radial", 
-        gamma = 1 / (2 * sigma^2),
+        cost = cost, epsilon = epsilon,
+        kernel = "radial", gamma = gamma,
         scale = scale,
         type = "eps-regression", shrinking = TRUE)
     fm$isnum <- FALSE
     structure(list(fm = fm), class = "Svm")
 }
 
-svmda <- function(X, y, C = 1, epsilon = .1, sigma = 1, scale = FALSE) {
+svmda <- function(X, y, cost = 1, epsilon = .1, gamma = 1, scale = FALSE) {
     fm <- e1071::svm(
         X, as.factor(y),
-        cost = C, epsilon = epsilon,
-        kernel = "radial", 
-        gamma = 1 / (2 * sigma^2),
+        cost = cost, epsilon = epsilon,
+        kernel = "radial", gamma = gamma,
         scale = scale,
         type = "C-classification", shrinking = TRUE)
     fm$isnum <- FALSE

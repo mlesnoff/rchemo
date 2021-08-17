@@ -3,7 +3,6 @@ gridcv <- function(X, Y, segm, score, fun, pars, verb = TRUE) {
     Y <- .mat(Y, "y")
     nrep <- length(segm)
     res_rep <- vector("list", length = nrep)
-    npar <- length(pars)
     nco <- length(pars[[1]])
     for(i in seq_len(nrep)) {
         if(verb)
@@ -35,8 +34,7 @@ gridcv <- function(X, Y, segm, score, fun, pars, verb = TRUE) {
 }
 
 gridcvlv <- function(X, Y, segm, score, fun, nlv, pars = NULL, verb = TRUE) {
-    ## pars = List of named vectors (arguments) involved in the calculation of the score
-    ## Must not contains nlv
+    ## pars must not contains nlv
     Y <- .mat(Y, "y")
     nrep <- length(segm)
     res_rep <- vector("list", length = nrep)
@@ -65,7 +63,6 @@ gridcvlv <- function(X, Y, segm, score, fun, nlv, pars = NULL, verb = TRUE) {
         }
         ## End
         else {
-            npar <- length(pars)
             nco <- length(pars[[1]])
             res_rep[[i]] <- cbind(rep = rep(i, nsegm * le_nlv * nco),
                                   segm = sort(rep(1:nsegm, le_nlv * nco)), zres)
@@ -112,7 +109,6 @@ gridcvlb <- function(X, Y, segm, score, fun, lb, pars = NULL, verb = TRUE) {
         }
         ## End
         else {
-            npar <- length(pars)
             nco <- length(pars[[1]])
             res_rep[[i]] <- cbind(rep = rep(i, nsegm * le_lb * nco),
                                   segm = sort(rep(1:nsegm, le_lb * nco)), zres)

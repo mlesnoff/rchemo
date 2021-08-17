@@ -38,7 +38,7 @@ krr(X, Y, weights = NULL, lb = 1e-2, kern = "krbf", ...)
 
 \item{object}{A fitted model, output of a call to the main function.}
 
-\item{...}{Optional arguments to pass in the kernel function defined in \code{kern} (e.g. \code{sigma} for \code{\link{krbf}}).}
+\item{...}{Optional arguments to pass in the kernel function defined in \code{kern} (e.g. \code{gamma} for \code{\link{krbf}}).}
 
 }
 
@@ -71,7 +71,7 @@ Xtest <- Xtrain[1:m, , drop = FALSE]
 Ytest <- Ytrain[1:m, , drop = FALSE] ; ytest <- Ytest[1:m, 1]
 
 lb <- 2
-fm <- krr(Xtrain, Ytrain, lb = lb, kern = "krbf", sigma = .8)
+fm <- krr(Xtrain, Ytrain, lb = lb, kern = "krbf", gamma = .8)
 coef(fm)
 coef(fm, lb = .6)
 predict(fm, Xtest)
@@ -81,7 +81,7 @@ pred <- predict(fm, Xtest)$pred
 msep(pred, Ytest)
 
 lb <- 2
-fm <- krr(Xtrain, Ytrain, lb = lb, kern = "kpol", degree = 2, offset = 10)
+fm <- krr(Xtrain, Ytrain, lb = lb, kern = "kpol", degree = 2, coef0 = 10)
 predict(fm, Xtest)
 
 ####### Example of fitting the function sinc(x)
@@ -96,7 +96,7 @@ plot(x, y, type = "p")
 lines(x, zy, lty = 2)
 X <- matrix(x, ncol = 1)
 
-fm <- krr(X, y, lb = .1, sigma = 3)
+fm <- krr(X, y, lb = .1, gamma = .5)
 pred <- predict(fm, X)$pred
 plot(X, y, type = "p")
 lines(X, zy, lty = 2)

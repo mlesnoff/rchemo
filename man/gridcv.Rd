@@ -162,8 +162,8 @@ segm
 
 ## Using gridcv
 lb <- c(.1, 1)
-sigma <- 10^(-1:1)
-pars <- mpars(lb = lb, sigma = sigma)
+gamma <- 10^(-1:1)
+pars <- mpars(lb = lb, gamma = gamma)
 pars
 gridcv(
     X, Y, segm, 
@@ -172,7 +172,7 @@ gridcv(
     pars = pars, verb = TRUE)
 
 ## Using gridcvlb (much faster) 
-pars <- mpars(sigma = sigma)
+pars <- mpars(gamma = gamma)
 gridcvlb(
     X, Y, segm, 
     score = msep, 

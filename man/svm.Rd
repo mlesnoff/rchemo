@@ -19,23 +19,23 @@ The functions uses function \code{\link{svm}} of package \code{e1071} (Meyer et 
 
 The SVM models are fitted with parameterization \eqn{'C'}, not the \eqn{'nu'} parameterization. 
 
-The Gaussian kernel is defined by: \eqn{exp(-.5 * euclsq(X, Y) / sigma^2)}.
+The RBF kernel is defined by: exp(-gamma * |x - y|^2).
 
 For tuning the model, usual preliminary ranges are for instance:
 
-- C = 10^(-5:15)
+- cost = 10^(-5:15)
 
 - epsilon = seq(.1, .3, by = .1)
 
-- sigma = 10^(-6:3)
+- gamma = 10^(-6:3)
 
 }
 
 \usage{
 
-svmr(X, y, C = 1, epsilon = .1, sigma = 1, scale = FALSE)
+svmr(X, y, cost = 1, epsilon = .1, gamma = 1, scale = FALSE)
 
-svmda(X, y, C = 1, epsilon = .1, sigma = 1, scale = FALSE)
+svmda(X, y, cost = 1, epsilon = .1, gamma = 1, scale = FALSE)
 
 \method{predict}{Svm}(object, X, ...)  
 
@@ -49,11 +49,11 @@ svmda(X, y, C = 1, epsilon = .1, sigma = 1, scale = FALSE)
 
 \item{y}{Training Y-data (\eqn{n}).}
 
-\item{C}{The cost of constraints violation \eqn{C} parameter. See \code{\link{svm}}.}
+\item{cost}{The cost of constraints violation \eqn{cost} parameter. See \code{\link{svm}}.}
 
 \item{epsilon}{The \eqn{epsilon} parameter in the insensitive-loss function. See \code{\link{svm}}.}
 
-\item{sigma}{The \eqn{sigma} parameter in the RBF kernel. In \code{\link{svm}}, parameter \code{gamma = 1 / (2 * sigma^2)}.}
+\item{gamma}{The \eqn{gamma} parameter in the RBF kernel.}
 
 \item{scale}{Logical. If \code{TRUE}, \code{X} and \code{Y} are scaled internally.}
 
@@ -69,7 +69,7 @@ svmda(X, y, C = 1, epsilon = .1, sigma = 1, scale = FALSE)
 
 Meyer, M. 2021 Support Vector Machines - The Interface to libsvm in package e1071. FH Technikum Wien, Austria, David.Meyer@R-Project.org. https://cran.r-project.org/web/packages/e1071/vignettes/svmdoc.pdf
 
-Chang, C.-C. & Lin, C.-J. (2001). LIBSVM: a library for support vector machines. Software available at http://www.csie.ntu.edu.tw/~cjlin/libsvm. Detailed documentation (algorithms, formulae, . . . ) can be found in http://www.csie.ntu.edu.tw/~cjlin/papers/libsvm.ps.gz
+Chang, cost.-cost. & Lin, cost.-J. (2001). LIBSVM: a library for support vector machines. Software available at http://www.csie.ntu.edu.tw/~cjlin/libsvm. Detailed documentation (algorithms, formulae, . . . ) can be found in http://www.csie.ntu.edu.tw/~cjlin/papers/libsvm.ps.gz
 
 }
 
@@ -104,7 +104,7 @@ plot(x, y, type = "p")
 lines(x, zy, lty = 2)
 X <- matrix(x, ncol = 1)
 
-fm <- svmr(X, y, sigma = 3)
+fm <- svmr(X, y, gamma = .5)
 pred <- predict(fm, X)$pred
 plot(X, y, type = "p")
 lines(X, zy, lty = 2)
@@ -121,9 +121,9 @@ ytrain <- sample(c(1, 4, 10), size = n, replace = TRUE)
 m <- 5
 Xtest <- Xtrain[1:m, ] ; ytest <- ytrain[1:m]
 
-C <- 100 ; epsilon <- .1 ; sigma <- 1 
+cost <- 100 ; epsilon <- .1 ; gamma <- 1 
 fm <- svmda(Xtrain, ytrain,
-    C = C, epsilon = epsilon, sigma = sigma)
+    cost = cost, epsilon = epsilon, gamma = gamma)
 predict(fm, Xtest)
 
 pred <- predict(fm, Xtest)$pred

@@ -1,5 +1,15 @@
 ## NEWS for package **rchemo**
 
+## **Version 0.0-13**
+
+- Functions using RBF, polynomial and sigmoid kernels
+
+    - parameter "sigma" has been replaced by parameter "gamma" (= .5 * 1 / sigma^2)
+    - parameter "scale" has been renamed "gamma"
+    - parameter "offset" has been renamed "coef0"
+
+
+
 ## **Version 0.0-12**
 
 - Function **gaprm** has been renamed to **rmgap**.

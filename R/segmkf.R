@@ -38,7 +38,6 @@ segmkf <- function(n, y = NULL, K = 5,
         }
     
     if(!is.null(y)) {
-        vecn <- seq_len(n)
         zsegm <- segm
         for(i in seq_len(nrep)) {
             for(j in seq_len(K)){

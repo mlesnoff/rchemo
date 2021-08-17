@@ -32,7 +32,7 @@ kpca(X, weights = NULL, nlv, kern = "krbf", ...)
 
 \item{object}{A fitted model, output of a call to the main functions.}
 
-\item{...}{Optional arguments to pass in the kernel function defined in \code{kern} (e.g. \code{sigma} for \code{\link{krbf}}).}
+\item{...}{Optional arguments to pass in the kernel function defined in \code{kern} (e.g. \code{gamma} for \code{\link{krbf}}).}
 
 }
 
@@ -56,7 +56,7 @@ X <- matrix(rnorm(n * p), ncol = p)
 nlv <- 3
 kpca(X, nlv = nlv, kern = "krbf")
 
-fm <- kpca(X, nlv = nlv, kern = "krbf", sigma = .6)
+fm <- kpca(X, nlv = nlv, kern = "krbf", gamma = .6)
 fm$T
 transform(fm, X[1:2, ])
 transform(fm, X[1:2, ], nlv = 1)

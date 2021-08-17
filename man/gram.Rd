@@ -10,15 +10,21 @@
 
 Building Gram matrices for different kernels (e.g. Scholkopf & Smola 2002).
 
+- radial basis:    exp(-gamma * |x - y|^2)
+
+- polynomial:      (gamma * x' * y + coef0)^degree
+
+- sigmoid:        tanh(gamma * x' * y + coef0)
+
 }
 
 \usage{
 
-krbf(X, Y = NULL, sigma = 1)
+krbf(X, Y = NULL, gamma = 1)
 
-kpol(X, Y = NULL, degree = 1, scale = 1, offset = 0)
+kpol(X, Y = NULL, degree = 1, gamma = 1, coef0 = 0)
 
-ktanh(X, Y = NULL, scale = 1, offset = 0)
+ktanh(X, Y = NULL, gamma = 1, coef0 = 0)
 
 }
 
@@ -28,13 +34,11 @@ ktanh(X, Y = NULL, scale = 1, offset = 0)
 
 \item{Y}{Dataset (\eqn{m, p}). The resulting Gram matrix \eqn{K(X, Y)} has dimensionnality (\eqn{n, m}). If \code{NULL} (default), \code{Y} is set equal to \code{X}.}
 
-\item{sigma}{The RBF kernel is defined by \eqn{exp(-.5 * (x - y)^2 / sigma^2)}.}
+\item{gamma}{See the code.}
 
 \item{degree}{See the code.}
 
-\item{scale}{See the code.}
-
-\item{offset}{See the code.}
+\item{coef0}{See the code.}
 
 }
 
@@ -54,13 +58,13 @@ n <- 5 ; p <- 3
 Xtrain <- matrix(rnorm(n * p), ncol = p)
 Xtest <- Xtrain[1:2, , drop = FALSE] 
 
-sigma <- .8
-krbf(Xtrain, sigma = sigma)
+gamma <- .8
+krbf(Xtrain, gamma = gamma)
 
-krbf(Xtest, Xtrain, sigma = sigma)
-exp(-.5 * euclsq(Xtest, Xtrain) / sigma^2)
+krbf(Xtest, Xtrain, gamma = gamma)
+exp(-.5 * euclsq(Xtest, Xtrain) / gamma^2)
 
-kpol(Xtrain, degree = 2, scale = 1, offset = 1)
+kpol(Xtrain, degree = 2, gamma = .5, coef0 = 1)
 
 }
 

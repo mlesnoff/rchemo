@@ -14,7 +14,6 @@ segmts <- function(n, y = NULL, m, nrep = 1) {
         }
     
     for(i in seq_len(nrep)) {
-        
         z <- sample(seq_len(zn), size = m, replace = FALSE)
         z <- list(z)
         names(z) <- "segm1"
@@ -22,7 +21,6 @@ segmts <- function(n, y = NULL, m, nrep = 1) {
         }
     
     if(!is.null(y)) {
-        vecn <- seq_len(n)
         zsegm <- segm
         for(i in seq_len(nrep)) {
             u <- segm[[i]][[1]]

@@ -33,7 +33,7 @@ krrda(X, y, weights = NULL, lb = 1e-5, kern = "krbf", ...)
 
 \item{object}{A fitted model, output of a call to the main functions.}
 
-\item{...}{Optional arguments to pass in the kernel function defined in \code{kern} (e.g. \code{sigma} for \code{\link{krbf}}).}
+\item{...}{Optional arguments to pass in the kernel function defined in \code{kern} (e.g. \code{gamma} for \code{\link{krbf}}).}
 
 }
 

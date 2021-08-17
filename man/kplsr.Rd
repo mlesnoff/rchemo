@@ -45,7 +45,7 @@ kplsr(X, Y, weights = NULL, nlv, kern = "krbf",
 
 \item{maxit}{Maximum number of NIPALS iterations.}
 
-\item{...}{Optional arguments to pass in the kernel function defined in \code{kern} (e.g. \code{sigma} for \code{\link{krbf}}).}
+\item{...}{Optional arguments to pass in the kernel function defined in \code{kern} (e.g. \code{gamma} for \code{\link{krbf}}).}
 
 }
 
@@ -69,7 +69,7 @@ Xtest <- Xtrain[1:m, , drop = FALSE]
 Ytest <- Ytrain[1:m, , drop = FALSE] ; ytest <- Ytest[1:m, 1]
 
 nlv <- 2
-fm <- kplsr(Xtrain, Ytrain, nlv = nlv, kern = "krbf", sigma = .8)
+fm <- kplsr(Xtrain, Ytrain, nlv = nlv, kern = "krbf", gamma = .8)
 transform(fm, Xtest)
 transform(fm, Xtest, nlv = 1)
 coef(fm)
@@ -82,7 +82,7 @@ pred <- predict(fm, Xtest)$pred
 msep(pred, Ytest)
 
 nlv <- 2
-fm <- kplsr(Xtrain, Ytrain, nlv = nlv, kern = "kpol", degree = 2, offset = 10)
+fm <- kplsr(Xtrain, Ytrain, nlv = nlv, kern = "kpol", degree = 2, coef0 = 10)
 predict(fm, Xtest, nlv = nlv)
 
 ####### Example of fitting the function sinc(x)
