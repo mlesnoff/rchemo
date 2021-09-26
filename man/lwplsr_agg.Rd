@@ -20,7 +20,8 @@ lwplsr_agg(
     X, Y,
     nlvdis, diss = c("eucl", "mahal"),
     h, k,
-    nlv, 
+    nlv,
+    cri = 4,
     verb = FALSE
     )
 
@@ -43,6 +44,8 @@ lwplsr_agg(
 \item{k}{The number of nearest neighbors to select for each observation to predict.}
 
 \item{nlv}{A character string such as "5:20" defining the range of the numbers of LVs to consider (here: the models with nb LVS = 5, 6, ..., 20 are averaged). Syntax such as "10" is also allowed (here: correponds to the single model with 10 LVs).}
+
+\item{cri}{Argument \code{cri} in function \code{\link{wdist}}.}
 
 \item{verb}{Logical. If \code{TRUE}, fitting information are printed.}
 

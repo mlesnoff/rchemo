@@ -16,7 +16,7 @@ getknn <- function(
     if(k > n) 
         k <- n
     if(diss == "mahal") {
-        sigma <- cov(Xtrain)
+        sigma <- cov(Xtrain) * (n - 1) / n
         U <- tryCatch(chol(sigma), error = function(e) e)
         if(inherits(U, "error")) {
             lb <- 1e-5

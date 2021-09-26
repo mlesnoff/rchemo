@@ -4,6 +4,7 @@ lwplslda_agg <- function(
     h, k,
     nlv, 
     prior = c("unif", "prop"),
+    cri = 4,
     verb = FALSE
     ) {
     diss <- match.arg(diss)
@@ -12,7 +13,7 @@ lwplslda_agg <- function(
         list(X = X, y = y,
              nlvdis = nlvdis, diss = diss, 
              h = h, k = k, nlv = nlv, 
-             typda = "lda", prior = prior, verb = verb),
+             typda = "lda", prior = prior, cri = cri, verb = verb),
         class = "Lwplsprobda_agg")
 }
  
@@ -22,6 +23,7 @@ lwplsqda_agg <- function(
     h, k,
     nlv,
     prior = c("unif", "prop"),
+    cri = 4,
     verb = FALSE
     ) {
     diss <- match.arg(diss)
@@ -30,7 +32,7 @@ lwplsqda_agg <- function(
         list(X = X, y = y,
              nlvdis = nlvdis, diss = diss, 
              h = h, k = k, nlv = nlv, 
-             typda = "qda", prior = prior, verb = verb),
+             typda = "qda", prior = prior, cri = cri, verb = verb),
         class = "Lwplsprobda_agg")
 }
 
@@ -44,7 +46,7 @@ predict.Lwplsprobda_agg <- function(object, X, ...) {
         zfm <- plskern(object$X, object$Y, nlv = object$nlvdis)
         res <- getknn(zfm$T, transform(zfm, X), k = object$k, diss = object$diss)
     }
-    listw <- lapply(res$listd, wdist, h = object$h)    
+    listw <- lapply(res$listd, wdist, h = object$h, cri = object$cri)    
     ## End
     fun <- switch(object$typda, 
                   lda = plslda_agg, qda = plsqda_agg)

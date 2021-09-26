@@ -23,6 +23,7 @@ lwplsrda(
     nlvdis, diss = c("eucl", "mahal"),
     h, k,
     nlv,
+    cri = 4,
     verb = FALSE
     )
 
@@ -32,6 +33,7 @@ lwplslda(
     h, k,
     nlv,
     prior = c("unif", "prop"),
+    cri = 4,
     verb = FALSE
     ) 
 
@@ -41,6 +43,7 @@ lwplsqda(
     h, k,
     nlv,
     prior = c("unif", "prop"),
+    cri = 4,
     verb = FALSE
     ) 
 
@@ -67,6 +70,8 @@ lwplsqda(
 \item{nlv}{The number(s) of LVs to calculate in the local PLSDA models.}
 
 \item{prior}{The prior probabilities of the classes. Possible values are "unif" (default; probabilities are set equal for all the classes) or "prop" (probabilities are set equal to the observed proportions of the classes in \code{y}).}
+
+\item{cri}{Argument \code{cri} in function \code{\link{wdist}}.}
 
 \item{verb}{Logical. If \code{TRUE}, fitting information are printed.}
 

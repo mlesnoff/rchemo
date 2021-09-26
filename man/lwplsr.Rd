@@ -24,6 +24,7 @@ lwplsr(X, Y,
     nlvdis, diss = c("eucl", "mahal"),
     h, k,
     nlv,
+    cri = 4,
     verb = FALSE)
 
 \method{predict}{Lwplsr}(object, X, ..., nlv = NULL)  
@@ -45,6 +46,8 @@ lwplsr(X, Y,
 \item{k}{The number of nearest neighbors to select for each observation to predict.}
 
 \item{nlv}{The number(s) of LVs to calculate in the local PLSR models.}
+
+\item{cri}{Argument \code{cri} in function \code{\link{wdist}}.}
 
 \item{verb}{Logical. If \code{TRUE}, fitting information are printed.}
 

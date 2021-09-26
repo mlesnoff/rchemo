@@ -2,13 +2,14 @@ lwplsrda_agg <- function(
     X, y,
     nlvdis, diss = c("eucl", "mahal"),
     h, k,
-    nlv, 
+    nlv,
+    cri = 4,
     verb = FALSE) {
     diss <- match.arg(diss)
     structure(
         list(X = X, y = y,
              nlvdis = nlvdis, diss = diss, 
-             h = h, k = k, nlv = nlv, verb = verb),
+             h = h, k = k, nlv = nlv, cri = cri, verb = verb),
         class = "Lwplsrda_agg")
 }
     
@@ -22,7 +23,7 @@ predict.Lwplsrda_agg <- function(object, X, ...) {
         zfm <- plskern(object$X, object$Y, nlv = object$nlvdis)
         res <- getknn(zfm$T, transform(zfm, X), k = object$k, diss = object$diss)
     }
-    listw <- lapply(res$listd, wdist, h = object$h)    
+    listw <- lapply(res$listd, wdist, h = object$h, cri = object$cri)    
     ## End
     pred <- locw(object$X, object$y, X,
         listnn = res$listnn, listw = listw,

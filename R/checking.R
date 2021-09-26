@@ -8,28 +8,28 @@ checkna <- function(X) {
     }
   
 checkdupl <- function(X, Y = NULL, digits = NULL) {
-    X <- as.data.frame(.mat(X))
+    zX <- as.data.frame(.mat(X))
     if(is.null(Y))
-        zY <- X
+        zY <- zX
     else
         zY <- as.data.frame(.mat(Y))
-    n <- dim(X)[1]
+    n <- dim(zX)[1]
     m <- dim(zY)[1]
-    nam <- colnames(X)
-    X$rownum1 <- seq_len(n)
+    nam <- colnames(zX)
+    zX$rownum1 <- seq_len(n)
     zY$rownum2 <- seq_len(m)
     if(!is.null(digits)) {
-        X <- round(X, digits = digits)
+        zX <- round(zX, digits = digits)
         zY <- round(zY, digits = digits)
-        }
-    z <- merge(X, zY, by = nam, all = FALSE, allow.cartesian = TRUE)
-    nam <- c("rownum1", "rownum2", nam)
-    z <- z[, nam]
+    }
+    z <- merge(zX, zY, by = nam, all = FALSE, allow.cartesian = TRUE)
+    znam <- c("rownum1", "rownum2", nam)
+    z <- z[, znam]
     if(is.null(Y)) {
         z <- z[z$rownum1 != z$rownum2, ]
         v <- z[, c("rownum1", "rownum2")]
         for(i in seq_len(dim(v)[1])) 
-          v[i, ] <- sort(v[i, ])
+          v[i, ] <- sort(unlist(v[i, ]))
         z <- merge(unique(v), z, all = FALSE)
         }
     z <- z[order(z$rownum1), ]

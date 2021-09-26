@@ -3,12 +3,13 @@ lwplsr <- function(
     nlvdis, diss = c("eucl", "mahal"),
     h, k,
     nlv,
+    cri = 4,
     verb = FALSE) {
     diss <- match.arg(diss)
     structure(
         list(X = X, Y = Y,
              nlvdis = nlvdis, diss = diss, 
-             h = h, k = k, nlv = nlv, verb = verb),
+             h = h, k = k, nlv = nlv, cri = cri, verb = verb),
         class = "Lwplsr")
     }
     
@@ -27,7 +28,7 @@ predict.Lwplsr <- function(object, X, ..., nlv = NULL) {
         fm <- plskern(object$X, object$Y, nlv = object$nlvdis)
         res <- getknn(fm$T, transform(fm, X), k = object$k, diss = object$diss)
         }
-    listw <- lapply(res$listd, wdist, h = object$h)    
+    listw <- lapply(res$listd, wdist, h = object$h, cri = object$cri)    
     ## End
     pred <- locwlv(object$X, object$Y, X,
         listnn = res$listnn, listw = listw, 

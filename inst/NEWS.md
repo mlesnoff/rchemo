@@ -1,5 +1,13 @@
 ## NEWS for package **rchemo**
 
+## **Version 0.0-14**
+
+- Correction of a small bug in checkdupl
+
+- Argument **cri** has been added in all the LWPLS functions.
+
+
+
 ## **Version 0.0-13**
 
 - Functions using RBF, polynomial and sigmoid kernels
