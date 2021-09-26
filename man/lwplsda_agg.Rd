@@ -28,7 +28,8 @@ lwplsrda_agg(
     X, y,
     nlvdis, diss = c("eucl", "mahal"),
     h, k,
-    nlv, 
+    nlv,
+    cri = 4,
     verb = FALSE
     ) 
 
@@ -38,6 +39,7 @@ lwplslda_agg(
     h, k,
     nlv, 
     prior = c("unif", "prop"),
+    cri = 4,
     verb = FALSE
     ) 
 
@@ -47,6 +49,7 @@ lwplsqda_agg(
     h, k,
     nlv, 
     prior = c("unif", "prop"),
+    cri = 4,
     verb = FALSE
     ) 
 
@@ -73,6 +76,8 @@ lwplsqda_agg(
 \item{nlv}{A character string such as "5:20" defining the range of the numbers of LVs to consider (here: the models with nb LVS = 5, 6, ..., 20 are averaged). Syntax such as "10" is also allowed (here: correponds to the single model with 10 LVs).}
 
 \item{prior}{The prior probabilities of the classes. Possible values are "unif" (default; probabilities are set equal for all the classes) or "prop" (probabilities are set equal to the observed proportions of the classes in \code{y}).}
+
+\item{cri}{Argument \code{cri} in function \code{\link{wdist}}.}
 
 \item{verb}{Logical. If \code{TRUE}, fitting information are printed.}
 
