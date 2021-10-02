@@ -23,6 +23,10 @@ predict.Lwplsr_agg <- function(object, X, ...) {
         res <- getknn(zfm$T, transform(zfm, X), k = object$k, diss = object$diss)
     }
     listw <- lapply(res$listd, wdist, h = object$h, cri = object$cri)    
+    # for stabilization
+    tol <- 1e-5
+    foo <- function(x) {x[x < tol] <- tol ; x}
+    listw <- lapply(listw, foo) 
     ## End
     pred <- locw(object$X, object$Y, X,
         listnn = res$listnn, listw = listw,

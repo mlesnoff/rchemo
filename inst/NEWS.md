@@ -1,5 +1,11 @@
 ## NEWS for package **rchemo**
 
+## **Version 0.0-15**
+
+- Internal modification in all the LWPLS functions: add a stabilization in computed weights
+
+
+
 ## **Version 0.0-14**
 
 - Correction of a small bug in checkdupl

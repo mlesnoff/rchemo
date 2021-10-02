@@ -57,7 +57,6 @@ fdasvd <- function(X, y, nlv = NULL) {
     W <- z$W * n / (n - nlev)
     ni <- z$ni
     z <- matB(X, y)
-    B <- z$B
     ct <- z$ct
     if(is.null(nlv)) 
         nlv <- nlev - 1
