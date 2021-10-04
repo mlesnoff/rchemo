@@ -19,7 +19,7 @@ The Winisi "GH" is also provided (usually considered as extreme if GH > 3).
 scordis(
     object, X = NULL, 
     nlv = NULL,
-    rob = FALSE, alpha = .01
+    rob = TRUE, alpha = .01
     )
 
 }
@@ -32,7 +32,7 @@ scordis(
 
 \item{nlv}{Number of components (PCs or LVs) to consider.}
 
-\item{rob}{Logical. If \code{TRUE}, the moment estimation of the distance cutoff is robustified. This can be recommended after robust PCA or PLS on small data sets containing extreme values. Default to \code{FALSE}.}
+\item{rob}{Logical. If \code{TRUE}, the moment estimation of the distance cutoff is robustified. This can be recommended after robust PCA or PLS on small data sets containing extreme values.}
 
 \item{alpha}{Risk-\eqn{I} level for defining the cutoff detecting extreme values.}
 

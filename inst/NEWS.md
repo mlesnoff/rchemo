@@ -1,5 +1,11 @@
 ## NEWS for package **rchemo**
 
+## **Version 0.0-16**
+
+- Argument **rob** in functions **scordis** and **odis** has been set to **TRUE**.
+
+
+
 ## **Version 0.0-15**
 
 - Internal modification in all the LWPLS functions: add a stabilization in computed weights

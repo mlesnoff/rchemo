@@ -1,7 +1,7 @@
 odis <- function(
     object, Xtrain, X = NULL, 
     nlv = NULL,
-    rob = FALSE, alpha = .01
+    rob = TRUE, alpha = .01
     ) {
     
     Xtrain <- .mat(Xtrain)

@@ -1,7 +1,7 @@
 scordis <- function(
     object, X = NULL, 
     nlv = NULL,
-    rob = FALSE, alpha = .01
+    rob = TRUE, alpha = .01
     ) {
     
     A <- dim(object$T)[2]
