@@ -10,9 +10,9 @@
     if(is.null(weights))
         weights <- rep(1, n)
     weights <- .mweights(weights)
-    Y <- dummy(y)$Y
+    zd <- dummy(y)
     fm <- list()
-    fm[[1]] <- plskern(X, Y, weights = weights, nlv = nlv)
+    fm[[1]] <- plskern(X, zd$Y, weights = weights, nlv = nlv)
     ## Should be:
     ## z <- transform(fm[[1]], X)
     ## But same as:
@@ -20,7 +20,8 @@
     fm[[2]] <- vector(length = nlv, mode = "list")
     for(i in seq_len(nlv))
         fm[[2]][[i]] <- fun(z[, seq_len(i), drop = FALSE], y, prior = prior)
-    structure(fm, class = "Plsprobda")       
+    structure(list(fm = fm, lev = zd$lev, ni = zd$ni), 
+              class = "Plsprobda")       
 }
 
 plslda <- function(X, y, weights = NULL, nlv, prior = c("unif", "prop"))
@@ -32,7 +33,7 @@ plsqda <- function(X, y, weights = NULL, nlv, prior = c("unif", "prop"))
 
 predict.Plsprobda <- function(object, X, ..., nlv = NULL) {
     X <- .mat(X)
-    A <- length(object[[2]])
+    A <- length(object$fm[[2]])
     if(is.null(nlv))
         nlv <- A
     else 
@@ -41,8 +42,8 @@ predict.Plsprobda <- function(object, X, ..., nlv = NULL) {
     posterior <- pred <- vector(mode = "list", length = le_nlv)
     for(i in seq_len(le_nlv)) {
         znlv <- nlv[i]
-        z <- transform(object[[1]], X, nlv = znlv)
-        zres <- predict(object[[2]][[znlv]], z)
+        z <- transform(object$fm[[1]], X, nlv = znlv)
+        zres <- predict(object$fm[[2]][[znlv]], z)
         pred[[i]] <- zres$pred
         posterior[[i]] <- zres$posterior
     }

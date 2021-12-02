@@ -156,7 +156,7 @@
 
 - ***sampks*** Kennard-Stone sampling 
 - ***sampdp*** Duplex sampling 
-- ***sampclas*** Within-class (stratified) sampling
+- ***sampcla*** Within-class stratified sampling
 
 #### Checking
 

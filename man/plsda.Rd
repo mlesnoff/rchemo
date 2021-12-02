@@ -90,7 +90,7 @@ predict(fm, Xtest)
 predict(fm, Xtest, nlv = 1:2)$pred
 
 ## The PLS2 model
-zfm <- fm[[1]]
+zfm <- fm[[1]][[1]]
 class(zfm)
 names(zfm)
 summary(zfm, Xtrain)

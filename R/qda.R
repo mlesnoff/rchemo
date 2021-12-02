@@ -11,8 +11,7 @@ qda <- function(X, y, prior = c("unif", "prop")) {
     ni <- res$ni
     wprior <- switch(prior,
         "unif" = rep(1 / nlev, nlev),
-        "prop" = ni / sum(ni)
-        )
+        "prop" = ni / sum(ni))
     res <- matW(X, y)
     Wi <- res$Wi
     structure(
@@ -29,10 +28,13 @@ predict.Qda <- function(object, X, ...) {
     ni <- object$ni
     ds <- matrix(nrow = m, ncol = nlev)
     for(i in seq_len(nlev)) {
-        zWi <- object$Wi[[i]]  * ni[i] / (ni[i] - 1)
+        if(ni[i] == 1)
+            zWi <- object$Wi[[i]]
+        else
+            zWi <- object$Wi[[i]] * ni[i] / (ni[i] - 1)
         zfm <- dmnorm(X, mu = object$ct[i, ], sigma = zWi) 
         ds[, i] <- predict(zfm, X)$pred
-        }    
+    }    
     z <- t(object$wprior * t(ds))
     posterior <- z / rowSums(z)
     z <- apply(posterior, FUN = .findmax, MARGIN = 1)

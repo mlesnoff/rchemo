@@ -1,5 +1,12 @@
 ## NEWS for package **rchemo**
 
+## **Version 0.0-17**
+
+- Function **sampclas** has been renamed to **sampcla** and modified.
+
+- Correction of help page of **plslda**
+
+
 ## **Version 0.0-16**
 
 - Argument **rob** in functions **scordis** and **odis** has been set to **TRUE**.

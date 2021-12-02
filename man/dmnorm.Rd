@@ -25,7 +25,7 @@ dmnorm(X = NULL, mu = NULL, sigma = NULL)
 
 \item{mu}{The mean (\eqn{p, 1}) of the normal distribution. If \code{NULL} (default), \eqn{mu} is estimated by the column-wise mean of the training data.}
 
-\item{sigma}{The covariance matrix (\eqn{p x p}) of the normal distribution. If \code{NULL} (default), \eqn{sigma} is estimated by the empirical covariance matrix (denominator \eqn{n}) of the training data.}
+\item{sigma}{The covariance matrix (\eqn{p x p}) of the normal distribution. If \code{NULL} (default), \eqn{sigma} is estimated by the empirical covariance matrix (denominator \eqn{n - 1}) of the training data.}
 
 \item{object}{A result of a call to \code{dmnorm}.}
 

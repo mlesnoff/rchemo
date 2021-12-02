@@ -11,16 +11,14 @@ lda <- function(X, y, prior = c("unif", "prop")) {
     ni <- res$ni
     wprior <- switch(prior,
         "unif" = rep(1 / nlev, nlev),
-        "prop" = ni / sum(ni)
-        )
+        "prop" = ni / sum(ni))
     res <- matW(X, y)
     W <- res$W * n / (n - nlev)
     structure(
         list(ct = ct, W = W, wprior = wprior, 
              lev = lev, ni = ni),
-        class = c("Lda")
-        )       
-    }
+        class = c("Lda"))       
+}
 
 predict.Lda <- function(object, X, ...) {
     X <- .mat(X)
@@ -31,7 +29,7 @@ predict.Lda <- function(object, X, ...) {
     for(i in seq_len(nlev)) {
         fm <- dmnorm(X, mu = object$ct[i, ], sigma = object$W) 
         ds[, i] <- predict(fm, X)$pred
-        }    
+    }    
     z <- t(object$wprior * t(ds))
     posterior <- z / rowSums(z)
     z <- apply(posterior, FUN = .findmax, MARGIN = 1)
@@ -40,5 +38,5 @@ predict.Lda <- function(object, X, ...) {
     dimnames(pred) <- list(rownam, "y1")
     dimnames(posterior) <- dimnames(ds) <- list(rownam, lev)
     list(pred = pred, ds = ds, posterior = posterior)
-    }    
+}    
     
