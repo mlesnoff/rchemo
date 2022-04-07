@@ -1,11 +1,14 @@
 ## rchemo - Dimension reduction, Regression and Discrimination for Chemometrics  
 ## <span style="color:grey70"> **Version 0.0-17** </span> 
 
-**rchemo** provides elementary functions (mainly focusing on methods of dimension reduction or regularization for high dimensional data) to build ad'hoc pipelines for predictions in chemometrics or other domains. 
+**rchemo** provides elementary functions to build pipelines for predictions in chemometrics or other domains. It mainly focuses on methods for high dimensional data. 
 
-Huge variety of pipelines exist in chemometrics and machine learning. Only few examples are provided in the package. The user can build some of his own pipelines with the provided elementary functions. 
+Only few examples of pipelines are provided in the package. The user can build some of his own pipelines with the provided elementary functions. 
 
-Generic functions such as **transform**, **predict**, **coef** and **summary** are available. The tuning of the prediction models is facilitated by functions **gridscore** (validation dataset) and **gridcv** (cross-validation), with specific fast versions for models based on latent variables (LVs) and ridge regularization.
+Generic functions such as **transform**, **predict**, **coef** and **summary** are available. Tuning the models is facilitated by functions **gridscore** (validation dataset) and **gridcv** (cross-validation), with faster versions for models based on latent variables (LVs) (**gridscorelv** and **gridcvlv**) and ridge regularization (**gridscorelb** and **gridcvlb**).
+
+This package is only maintained. 
+The new current package is "Jchemo" in Julia language.
 
 ## <span style="color:green"> **Available functions** </span> 
 
