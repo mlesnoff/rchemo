@@ -7,8 +7,8 @@ Only few examples of pipelines are provided in the package. The user can build s
 
 Generic functions such as **transform**, **predict**, **coef** and **summary** are available. Tuning the models is facilitated by functions **gridscore** (validation dataset) and **gridcv** (cross-validation), with faster versions for models based on latent variables (LVs) (**gridscorelv** and **gridcvlv**) and ridge regularization (**gridscorelb** and **gridcvlb**).
 
-This R package is only maintained. 
-The new current and more expanded package is "Jchemo" in Julia language.
+This R package **rchemo** is currently only maintained. 
+The new current and more expanded package is **Jchemo** in Julia language.
 
 ## <span style="color:green"> **Available functions** </span> 
 
