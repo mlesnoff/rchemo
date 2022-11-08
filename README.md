@@ -1,14 +1,14 @@
 ## rchemo - Dimension reduction, Regression and Discrimination for Chemometrics  
 ## <span style="color:grey70"> **Version 0.0-17** </span> 
 
-**rchemo** provides elementary functions to build pipelines for predictions in chemometrics or other domains. It mainly focuses on methods for high dimensional data. 
+Jchemo provides functions and pipelines for predictions in chemometrics or other domains, with focus on high dimensional data.
 
-Only few examples of pipelines are provided in the package. The user can build some of his own pipelines with the provided elementary functions. 
+The package was initially about k-nearest neighbors locally weighted partial least squares regression and discrimination models (kNN-LWPLSR an kNN-LWPLSDA; e.g. Lesnoff et al 2021 https://doi.org/10.1002/cem.3209). It has now been expanded to other methods.
 
 Generic functions such as **transform**, **predict**, **coef** and **summary** are available. Tuning the models is facilitated by functions **gridscore** (validation dataset) and **gridcv** (cross-validation), with faster versions for models based on latent variables (LVs) (**gridscorelv** and **gridcvlv**) and ridge regularization (**gridscorelb** and **gridcvlb**).
 
-This R package **rchemo** is currently only maintained. 
-**The new current and more expanded package is  [**Jchemo**](https://github.com/mlesnoff/Jchemo.jl) in Julia language**.
+**NOTE:** This R package **rchemo** is currently only maintained. 
+**The new current and more expanded package is [**Jchemo**](https://github.com/mlesnoff/Jchemo.jl) in Julia language**.
 
 ## <span style="color:green"> **Available functions** </span> 
 
