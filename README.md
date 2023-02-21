@@ -1,5 +1,5 @@
 ## rchemo - Dimension reduction, Regression and Discrimination for Chemometrics  
-## <span style="color:grey70"> **Version 0.0-17** </span> 
+## <span style="color:grey70"> **Version 0.0-18** </span> 
 
 Jchemo provides functions and pipelines for predictions in chemometrics or other domains, with focus on high dimensional data.
 

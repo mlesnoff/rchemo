@@ -1,5 +1,10 @@
 ## NEWS for package **rchemo**
 
+## **Version 0.0-18**
+
+- Bug fixed in **Pca.summary** (the bug appeared between 0.0-16 and 0.0-17).
+
+
 ## **Version 0.0-17**
 
 - Function **sampclas** has been renamed to **sampcla** and modified.
