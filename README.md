@@ -1,5 +1,5 @@
 
-**This repository is archived.** Package **rchemo** has been moved to [**this new repository**](https://github.com/ChemHouse-group/rchemo).
+## **This repository is archived.** Package **rchemo** has been moved to [**this new repository**](https://github.com/ChemHouse-group/rchemo).
 
 ## rchemo - Dimension reduction, Regression and Discrimination for Chemometrics  
 ## <span style="color:grey70"> **Version 0.0-18** </span> 
